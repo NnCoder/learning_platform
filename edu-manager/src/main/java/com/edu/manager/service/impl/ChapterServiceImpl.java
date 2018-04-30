@@ -89,6 +89,9 @@ public class ChapterServiceImpl implements ChapterService{
 		for(KnowledgePoint kp:kps) {
 			kpService.deleteKpEx(kp.getKpId());
 		}
+		ChapterExample example = new ChapterExample();
+		example.createCriteria().andChapterIdEqualTo(id);
+		chapterMapper.deleteByExample(example);
 		return HttpResult.ok();
 	}
 

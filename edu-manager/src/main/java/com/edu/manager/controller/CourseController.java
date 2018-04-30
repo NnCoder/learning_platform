@@ -98,7 +98,7 @@ public class CourseController {
 	@RequestMapping(value="/manager/course", method=RequestMethod.DELETE)
 	@ResponseBody
 	public HttpResult deleteCourse(Integer id) {
-		HttpResult result = courseService.deleteCourse(id);
+		HttpResult result = courseService.deleteCourseEx(id);
 		return result;
 	}
 	

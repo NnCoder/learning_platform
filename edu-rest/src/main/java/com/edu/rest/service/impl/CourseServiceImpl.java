@@ -51,6 +51,8 @@ public class CourseServiceImpl implements CourseService {
 	public PageResult list(int page, int rows) {
 		PageHelper.startPage(page, rows);
 		CourseExample example = new CourseExample();
+		CourseExample.Criteria criteria = example.createCriteria();
+		criteria.andStateEqualTo((byte)1);
 		List<Course> list = courseMapper.selectByExample(example);
 		PageInfo<Course> pageInfo = new PageInfo<>(list);
 		PageResult result = new PageResult();

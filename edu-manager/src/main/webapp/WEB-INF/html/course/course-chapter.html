@@ -117,6 +117,7 @@
 						},
 						success: function(msg) {
 							tree.tree("remove", _node.target);
+							$("#contentList${courseDetail.course.courseId}").datagrid("reload");
 						},
 						error: function() {
 							$.messager.alert('提示', '删除失败!');

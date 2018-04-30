@@ -34,7 +34,7 @@ public class ChapterController {
 	@RequestMapping(value="/manager/chapter", method=RequestMethod.DELETE)
 	@ResponseBody
 	public HttpResult deleteChapter(Integer id) {
-		HttpResult result = chapterService.deleteChapterById(id);
+		HttpResult result = chapterService.deleteChapterByIdEx(id);
 		return result;
 	}
 	

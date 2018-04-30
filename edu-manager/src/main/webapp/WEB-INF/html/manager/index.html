@@ -135,7 +135,6 @@
 				
 				onClick : function(node) {
 					if ($('#menu').tree("isLeaf", node.target)) { //判断点击的节点是否为叶子节点
-						console.log(node.text)
 						var tabs = $("#tabs");
 						var tab = tabs.tabs("getTab", node.text);
 						if (tab) {
@@ -247,6 +246,8 @@
 														//$.messager.alert('提示','新增商品成功!');
 														$.messager.alert('提示',
 																'已删除!');
+														var tabs = $("#tabs");
+														tabs.tabs("close", _node.text);
 														tree.tree("remove",
 																_node.target);
 													},
