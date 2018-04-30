@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<#include '../header/common.html'>
+	<meta charset="UTF-8">
+	<title>课程首页</title>
+	<link rel="shortcut icon" href="${contextPath}/images/logo(1).ico" />
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/lessionHomePage.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/js/layui/css/layui.css">
+
+</head>
+<body>
+	<#include '../header/header.html'>
+	<section class="pagination">
+		<section class="common-width">	
+			<li><a href="${contextPath}/">课程中心</a></li>
+			<li><a href="#">${course.courseName}</a></li>
+			<li><a href="#">课程首页</a></li>
+		</section>
+	</section>
+	<div class="container">
+		<section class="common-width">
+			<nav class="lession-nav">
+				<li ><a href="#" class="active">课程首页</a></li>
+				<li><a href="${contextPath}/courses/${course.courseId}/chaptersWithKp.html">知识点学习</a></li>
+				<#if Session.user?exists && Session.user.role == 'teacher'>
+				<li><a href="http://localhost:8080/edu-manager/token?token=${Session.user.token}&redirectUrl=/manager/course/${course.courseId}/token" target="_blank">课程教案</a></li>
+				</#if>
+				
+				<li><a href="#">实例教学</a></li>
+				<li><a href="#">测试中心</a></li>
+				<li><a href="#">高级应用</a></li>
+			</nav>
+			<section class="lession-intro">
+				<div class="lession-image-box fl">
+					<img src="${course.courseImgsrc}">
+					<p>${course.tchAccount}</p>
+					<p>${course.courseName}</p>
+				</div>
+				<div class="lession-info-box fr">
+					<li class=""><span>学习流程</span>
+						<div class="learning-process">
+						<p>${course.courseProcess}</p>
+						<button class="more-info-btn" id="more-learning-process">余下全文</button>
+					</div>
+					</li>
+					<li class="active"><span>绪论</span>
+					<div class="learning-intro">
+						<p>${course.courseIntro}</p>
+						<button class="more-info-btn " id="more-learning-intro">余下全文</button>
+					</div></li>
+					
+					
+				</div>
+			</section>
+			<section>
+					<div class="layui-tab layui-tab-brief" style="margin-top: 25px;">
+					<ul class="layui-tab-title" style="margin-left: auto;margin-right: auto;">
+						<li class="layui-this">学习信息统计</li>
+						<li>课程大纲</li>
+						<li>章节资源</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-tab-item layui-show"><section class="learning-data">
+						<header class="learning-data-header">
+							<h3><mark class="dot"></mark>课程学习信息统计<mark class="dot"></mark></h3>
+						</header>
+					<section>
+						<ul class="learning-data-list">
+						<div class="list-row row-header">
+							<li><span class="badge-title">学习排行</span></li>
+						</div>
+						<#list stuCourseList as stuCourse>
+						<div class="list-row">
+							<li><span class="badge">${stuCourse.order}</span></li>
+							<li>${stuCourse.stuAccount}</li>
+							<li>${stuCourse.stuName}</li>
+							<li>${stuCourse.score}</li>
+						</div>
+						</#list>
+						<div class="list-row">
+							<li><a class="badge-more" href="${contextPath}/courses/${course.courseId}/students/score.html">more</a></li>
+						
+						</div>
+					</ul>
+					</section>
+				</section></div>
+						<div class="layui-tab-item">
+							
+							<header class="learning-data-header">
+							<h3><mark class="dot"></mark>课程大纲<mark class="dot"></mark></h3>
+						</header>
+							<div style="margin-top: 30px;" id="courseDesc">
+								
+							</div>
+						</div>
+						<div class="layui-tab-item">
+							<header class="learning-data-header">
+							<h3><mark class="dot"></mark>章节资源<mark class="dot"></mark></h3>
+						</header>
+						<div style="margin-top: 30px;" >
+							<div class="chapter-resource" id="chapter-resource">
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				
+
+			</section>
+
+
+		</section>
+	</div>
+	<footer class='footer'>
+		<p>@copyRight 2017NCTechnology All Right reserved</p>
+	</footer>
+	<!-- <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script> -->
+	<!-- <script type="text/javascript" src="../script/jquery-1.8.3.min.js"></script> -->
+	<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${contextPath}/plugin/layer-v3.1.1/layer/layer.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/lessionHomePage.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/layui/layui.js"></script>
+	<script>
+			$(document).ready(function() {
+				layui.use('element', function() {
+					var element = layui.element;
+				});
+				$.ajax({
+					url:'${contextPath}/courses/desc/${course.courseId}.html',
+					type:'get',
+					success:function(res){
+						$("#courseDesc").html(res);
+					}
+				});
+				$.ajax({
+					url:'${contextPath}/courses/${course.courseId}/chapters.html',
+					type:'get',
+					success:function(res){
+						$("#chapter-resource").html(res);
+					}
+				});
+			});
+			function listDatas(id){
+				$.ajax({
+					url:'${contextPath}/chapters/'+id+'/datas.html',
+					type:'get',
+					success:function(res){
+						$("#resourcelist").html(res);
+					}
+				});
+			}
+		</script>
+</body>
+</html>

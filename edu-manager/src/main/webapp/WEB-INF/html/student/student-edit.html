@@ -1,0 +1,56 @@
+<div style="padding:10px 10px 10px 10px">
+	<form id="stuEditForm" class="itemForm" method="post">
+		<table cellpadding="5">
+			<tr>
+				<td>学号:</td>
+				<td>
+					<input name="_method" value="PUT" type="hidden"/>
+					<input class="easyui-textbox" value="${student.stuAccount}" type="text" readonly="readonly" name="stuAccount" data-options="required:true" style="width: 280px;"/>
+				</td>
+			
+			</tr>
+			<tr>
+				<td>姓名:</td>
+				<td>
+					<input class="easyui-textbox" value="${student.stuName}"  type="text" name="stuName" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>专业:</td>
+				<td>
+					<input class="easyui-combobox" data-options="valueField:'id',textField:'text',url:'manager/majors/list'" value="${student.majorName!}"  type="text" name="majorName" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>班级:</td>
+				<td>
+					<input class="easyui-textbox" value="${student.classIndex}"  type="number" name="classIndex" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			
+		</table>
+	</form>
+	
+	<div style="padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddStuForm()">提交</a>
+	</div>
+</div>
+<script type="text/javascript">
+    
+	
+	function submitAddStuForm() {
+		if(!$('#stuEditForm').form('validate')) {
+			alert('表单还未填写完成!');
+			return;
+		}
+		
+		$.post("manager/student",$("#stuEditForm").serialize(),function(){
+			$.messager.alert("提示","修改成功");
+			//回调更新表单
+			//callback();
+			$("#stuList").datagrid("reload");
+		});
+		
+	}
+
+</script>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.common.mapper.KnowledgePointMapper">
+  <resultMap id="BaseResultMap" type="com.edu.common.pojo.KnowledgePoint">
+    <id column="kp_id" jdbcType="INTEGER" property="kpId" />
+    <result column="kp_name" jdbcType="VARCHAR" property="kpName" />
+    <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.edu.common.pojo.KnowledgePointWithBLOBs">
+    <result column="kp_detail" jdbcType="LONGVARCHAR" property="kpDetail" />
+    <result column="kp_advice" jdbcType="LONGVARCHAR" property="kpAdvice" />
+    <result column="kp_read" jdbcType="LONGVARCHAR" property="kpRead" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    kp_id, kp_name, chapter_id, state
+  </sql>
+  <sql id="Blob_Column_List">
+    kp_detail, kp_advice, kp_read
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.edu.common.pojo.KnowledgePointExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from knowledge_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.edu.common.pojo.KnowledgePointExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from knowledge_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from knowledge_point
+    where kp_id = #{kpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from knowledge_point
+    where kp_id = #{kpId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.common.pojo.KnowledgePointExample">
+    delete from knowledge_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyProperty="kpId" useGeneratedKeys="true" parameterType="com.edu.common.pojo.KnowledgePointWithBLOBs">
+    insert into knowledge_point (kp_id, kp_name, chapter_id, 
+      state, kp_detail, kp_advice, 
+      kp_read)
+    values (#{kpId,jdbcType=INTEGER}, #{kpName,jdbcType=VARCHAR}, #{chapterId,jdbcType=INTEGER}, 
+      #{state,jdbcType=TINYINT}, #{kpDetail,jdbcType=LONGVARCHAR}, #{kpAdvice,jdbcType=LONGVARCHAR}, 
+      #{kpRead,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="kpId" useGeneratedKeys="true" parameterType="com.edu.common.pojo.KnowledgePointWithBLOBs">
+    insert into knowledge_point
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kpId != null">
+        kp_id,
+      </if>
+      <if test="kpName != null">
+        kp_name,
+      </if>
+      <if test="chapterId != null">
+        chapter_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="kpDetail != null">
+        kp_detail,
+      </if>
+      <if test="kpAdvice != null">
+        kp_advice,
+      </if>
+      <if test="kpRead != null">
+        kp_read,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kpId != null">
+        #{kpId,jdbcType=INTEGER},
+      </if>
+      <if test="kpName != null">
+        #{kpName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterId != null">
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="kpDetail != null">
+        #{kpDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="kpAdvice != null">
+        #{kpAdvice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="kpRead != null">
+        #{kpRead,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.common.pojo.KnowledgePointExample" resultType="java.lang.Long">
+    select count(*) from knowledge_point
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update knowledge_point
+    <set>
+      <if test="record.kpId != null">
+        kp_id = #{record.kpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.kpName != null">
+        kp_name = #{record.kpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapterId != null">
+        chapter_id = #{record.chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.kpDetail != null">
+        kp_detail = #{record.kpDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.kpAdvice != null">
+        kp_advice = #{record.kpAdvice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.kpRead != null">
+        kp_read = #{record.kpRead,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update knowledge_point
+    set kp_id = #{record.kpId,jdbcType=INTEGER},
+      kp_name = #{record.kpName,jdbcType=VARCHAR},
+      chapter_id = #{record.chapterId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=TINYINT},
+      kp_detail = #{record.kpDetail,jdbcType=LONGVARCHAR},
+      kp_advice = #{record.kpAdvice,jdbcType=LONGVARCHAR},
+      kp_read = #{record.kpRead,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update knowledge_point
+    set kp_id = #{record.kpId,jdbcType=INTEGER},
+      kp_name = #{record.kpName,jdbcType=VARCHAR},
+      chapter_id = #{record.chapterId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.common.pojo.KnowledgePointWithBLOBs">
+    update knowledge_point
+    <set>
+      <if test="kpName != null">
+        kp_name = #{kpName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterId != null">
+        chapter_id = #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="kpDetail != null">
+        kp_detail = #{kpDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="kpAdvice != null">
+        kp_advice = #{kpAdvice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="kpRead != null">
+        kp_read = #{kpRead,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where kp_id = #{kpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.edu.common.pojo.KnowledgePointWithBLOBs">
+    update knowledge_point
+    set kp_name = #{kpName,jdbcType=VARCHAR},
+      chapter_id = #{chapterId,jdbcType=INTEGER},
+      state = #{state,jdbcType=TINYINT},
+      kp_detail = #{kpDetail,jdbcType=LONGVARCHAR},
+      kp_advice = #{kpAdvice,jdbcType=LONGVARCHAR},
+      kp_read = #{kpRead,jdbcType=LONGVARCHAR}
+    where kp_id = #{kpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.common.pojo.KnowledgePoint">
+    update knowledge_point
+    set kp_name = #{kpName,jdbcType=VARCHAR},
+      chapter_id = #{chapterId,jdbcType=INTEGER},
+      state = #{state,jdbcType=TINYINT}
+    where kp_id = #{kpId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,49 @@
+
+<link rel="stylesheet" href="js/uploadify/uploadify.css" />
+
+<script type="text/javascript" src="js/uploadify/jquery.uploadify.js"></script>
+
+<div>
+	<div id="uploadify"></div>
+	<div id="fileQueue"></div>
+	<h3>上传示例:</h3>
+	<img src="${exImgSrc}" />
+</div>
+
+<script>
+	$("#uploadify").uploadify({
+		//'buttonClass': 'easyui-linkbutton',
+		'debug' : false, //开启调试 
+		'auto' : true, //是否自动上传 
+		'swf' : 'js/uploadify/uploadify.swf', //引入uploadify.swf 
+		'uploader' : '${excelUrl}', //请求路径 
+		'queueID' : 'fileQueue', //队列id,用来展示上传进度的 
+		//'width': '40', //按钮宽度 
+		//'height': '10', //按钮高度 
+		'queueSizeLimit' : 1, //同时上传文件的个数 
+		'fileTypeDesc' : 'excel文件', //可选择文件类型说明 
+		'fileTypeExts' : '*.xlsx;*.xls', //控制可上传文件的扩展名 
+		'multi' : false, //允许多文件上传 
+		'buttonText' : "<i>&nbsp;</i>从excel导入", //按钮上的文字 
+		'fileSizeLimit' : '10MB', //设置单个文件大小限制 
+		'fileObjName' : 'file', //<input type="file"/>的name 
+		'method' : 'post',
+		'removeCompleted' : true, //上传完成后自动删除队列 
+		'onFallback' : function() {
+			alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+		},
+
+		'onUploadSuccess' : function(file, data, response) {
+			//转换为json数据
+			var result = eval('(' + data + ')');
+			if(result.status==500){
+				$.messager.alert("提示","导入失败: <br/> 这些账号已存在: <br/>"+result.msg);
+			}else{
+				$.messager.alert("提示","导入成功");
+			}
+			$("#${gridId}").datagrid("reload");
+			
+		}
+	});
+</script>
+

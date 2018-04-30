@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<#include '../header/common.html'>
+	<title>学习排行榜</title>
+	<link rel="shortcut icon" href="${contextPath}/images/logo(1).ico" />
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/lessionHomePage.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/rank.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/pagination.css">
+	
+
+</head>
+<body>
+	<#include '../header/header.html'>
+	<section class="pagination">
+		<section class="common-width">	
+			<li><a href="${contextPath}/">课程中心</a></li>
+			<li><a href="${contextPath}/courses/${courseId}.html">当前课程</a>
+			<li><a href="#" disabled="disabled">学习排行榜</a></li>
+		</section>
+	</section>
+	<section class="container">
+		<section class="common-width">
+			<header class="rank-header">学生成绩排行榜
+				<div class="search-bar fr">
+					<form action="${contextPath}/courses/${courseId}/students/score.html">
+						<input type="text" id="searchInput" style="border-radius: 3px;" value="${key!}" name="key" placeholder="模糊搜索..学号/专业">
+						<button type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+			</header>
+			<ul class="rank-title">
+				<li>排名</li>
+				<li>姓名</li>
+				<li>学号</li>
+				<li>专业</li>
+				<li>班级</li>
+				<li>成绩</li>
+			</ul>
+			<#if result.list??>
+			<ul class="rank-list" id="rank-list">
+			
+				<#list result.list as stuCourse>
+				<li>
+					<span>${stuCourse.order}</span>
+					<span>${stuCourse.stuName}</span>
+					<span>${stuCourse.stuAccount}</span>
+					<span>${stuCourse.majorName}</span>
+					<span>${stuCourse.classIndex}</span>
+					<span>${stuCourse.score}</span>
+				</li>
+				</#list>
+			
+			</ul>
+			<#assign n = result.pages />
+			
+			<ul class="rank-pagination" id="rank-pagination">
+				第
+				<#if n==0>
+				<li page="1" class="active">1</li>
+				<#else>
+				<#list 1..n as i>
+				<li key="${key!}" page="${i}" class="<#if i==1>active</#if>">${i}</li>
+				</#list>
+				</#if>
+				
+				页
+			</ul>
+			
+			</#if>
+		</section>
+	</section>
+	<footer class='footer'>
+		<p>@copyRight 2017NCTechnology All Right reserved</p>
+	</footer>
+	<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${contextPath}/plugin/layer-v3.1.1/layer/layer.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/lessionHomePage.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/rank.js"></script>
+
+	<script>
+		 $(document).ready(function(){
+			$("#rank-pagination").find("li").on('click',function(){
+				var $this = $(this);
+				var data = {
+						key:$this.attr("key"),
+						page:$this.attr("page")
+				}
+				var i = $("#rank-pagination").find(".active").removeClass("active");
+				$this.addClass("active");
+				$("#rank-list").html("");
+				$.ajax({
+					url:'${contextPath}/courses/${courseId}/students/score/ul.html',
+					type:'get',
+					data:data,
+					success:function(res){
+						$("#rank-list").html(res);
+					}
+				});
+			})
+		 });
+		
+	</script>
+</body>
+</html>

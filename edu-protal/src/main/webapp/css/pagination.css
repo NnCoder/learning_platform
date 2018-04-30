@@ -1,0 +1,20 @@
+.rank-pagination {
+    font-size: 14px;
+    width: 70%;
+    line-height: 50px;
+    margin: 0 auto;
+    text-align: center;
+}
+.rank-pagination li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    margin: 0 10px;
+    line-height: 30px;
+}
+.rank-pagination li.active {
+    border: 2px solid #3A5CF6;
+    border-radius: 3px;
+}

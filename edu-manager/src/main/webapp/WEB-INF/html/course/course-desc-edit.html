@@ -1,0 +1,43 @@
+<script type="text/javascript" charset="utf-8"
+	src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<div style="padding: 10px 10px 10px 10px">
+	<form id="descForm${desc.courseId}">
+		<table cellpadding="5">
+			<tr>
+			<td>编辑课程大纲:</td>
+				<td><input type="hidden" name="courseId" value="${desc.courseId}">
+				<input name="_method" value="PUT" type="hidden"/>
+					<textarea id="course_desc${desc.courseId}" name="courseDesc"
+						style="width: 800px; height: 640px;">
+			${desc.courseDesc}
+		</textarea></td>
+			</tr>
+		</table>
+	</form>
+	<div style="padding:5px">
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitDescForm${desc.courseId}()">提交</a>
+	</div>
+</div>
+<script>
+    var descEditEditor;
+	$(document).ready(function(){
+		descEditEditor = KindEditor.create('#course_desc${desc.courseId}', {
+			filePostName : "file", //表单提交中file组件的名称
+			uploadJson : 'http://120.79.10.20:8080/quinFS/upload/file',
+			allowPreviewEmoticons : true,
+			allowImageUpload : true
+		});
+	});
+	
+	function submitDescForm${desc.courseId}(){
+		descEditEditor.sync();
+		
+		$.post("manager/course/desc",$("#descForm${desc.courseId}").serialize(),function(data){
+			if(data.status==200){
+				$.messager.alert('提示','提交成功!');
+			}
+		});
+	}
+</script>

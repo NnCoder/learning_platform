@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<#assign contextPath = '${request.contextPath}'/>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>${courseDetail.course.courseName}--课程教案</title>
+  <link rel="stylesheet" type="text/css"
+	href="${contextPath}/js/jquery-easyui-1.4.1/themes/default/easyui.css" />
+	<link rel="stylesheet" type="text/css"
+	href="${contextPath}/js/jquery-easyui-1.4.1/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/edu.css" />
+  <link rel="stylesheet" href="${contextPath}/script/layui/css/layui.css"/>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">${courseDetail.course.courseName}</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">章节列表</a>
+          <dl class="layui-nav-child">
+          	<#list courseDetail.chapters as chapter>
+          
+            <dd><a href="javascript:reload(${chapter.chapterId});">${chapter.chapterName}</a></dd>
+            </#list>
+          </dl>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+    	<table id="kpTable" lay-filter="kpTable"></table>
+    	
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    © nc科技 - 2018
+  </div>
+</div>
+<script type="text/html" id="bar">
+  <a class="layui-btn layui-btn-xs" lay-event="video-edit">添加视频</a>
+  <a class="layui-btn layui-btn-xs" lay-event="data-edit">添加资料</a>
+  <a class="layui-btn layui-btn-xs" lay-event="tdata-edit">添加练习资料</a>
+  
+</script>
+<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript"
+	src="${contextPath}/js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/common.js"></script>
+<script src="${contextPath}/script/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+
+var reload; //定义reload方法变量
+layui.use('element', function(){
+  var element = layui.element;
+});
+layui.use(['table','layer'], function(){
+  var table = layui.table;
+  var layer = layui.layer;
+  //第一个实例
+  table.render({
+    elem: '#kpTable'
+    ,height: 315
+    ,id:'kpTable'
+    ,url:'${contextPath}/manager/kp/list'
+    ,where:{chapterId:-1}
+    ,response:{
+    	statusName: 'status' //数据状态的字段名称，默认：code
+        ,statusCode: 200 //成功的状态码，默认：0
+    	,countName: 'total' //数据总数的字段名称，默认：count
+        ,dataName: 'rows' //数据列表的字段名称，默认：data
+    } 
+    ,even: true //开启隔行背景
+    ,cols: [[ //表头
+      {field: 'kpId', title: 'ID', width:80, sort: true, fixed: 'left'}
+      ,{field: 'kpName', title: '知识点名', width:177}
+      ,{field: 'kpDetail', title: '知识点精讲', width:219}
+      ,{field: 'kpAdvice', title: '学习建议', width:219} 
+      ,{field: 'kpRead', title: '阅读资料', width: 219}
+      ,{title:'编辑',width:300,toolbar:'#bar'}
+    ]]
+  });
+  //定义reload方法
+  reload = function(chapterId){
+	  table.reload("kpTable", { //此处是上文提到的 初始化标识id
+			where: {
+				chapterId:chapterId,
+			}
+		});
+  }
+  //监听工具条
+	table.on('tool(kpTable)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  //var tr = obj.tr; //获得当前行 tr 的DOM对象
+	 
+	  if(layEvent === 'video-edit'){ 
+		  /* TT.createWindow({
+				width:867,
+				height:541,
+				url: "${contextPath}/page/video-edit/" + data.kpId
+		}); */
+		  layer.open({
+		      type: 2,
+		      title: '视频添加',
+		      shadeClose: true,
+		      shade: false,
+		      maxmin: true, //开启最大化最小化按钮
+		      area: ['893px', '600px'],
+		      content: "${contextPath}/page/video-edit/" + data.kpId
+		  });
+	  } else if(layEvent === 'data-edit'){
+		  layer.open({
+		      type: 2,
+		      title: '资料添加',
+		      shadeClose: true,
+		      shade: false,
+		      maxmin: true, //开启最大化最小化按钮
+		      area: ['893px', '600px'],
+		      content: "${contextPath}/page/data-edit/" + data.kpId+"/1"
+		 });
+	  } else if(layEvent === 'tdata-edit'){ 
+		  layer.open({
+		      type: 2,
+		      title: '资料添加',
+		      shadeClose: true,
+		      shade: false,
+		      maxmin: true, //开启最大化最小化按钮
+		      area: ['893px', '600px'],
+		      content: "${contextPath}/page/data-edit/" + data.kpId+"/2"
+		 });
+	  }
+	});
+});
+
+</script>
+</body>
+</html>

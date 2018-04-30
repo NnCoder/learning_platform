@@ -1,0 +1,154 @@
+<link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script src="js/wangEditor-3.0.15/release/wangEditor.js"></script>
+<div style="padding:10px 10px 10px 10px">
+	<form id="courseEditForm" class="itemForm" method="post">
+	    <table cellpadding="5">
+	    	<tr>
+	    		<td>原课程图片:</td>
+	    		<td><a href="${course.courseImgsrc}" target="_blank"><img src="${course.courseImgsrc}" width="80px" height="80px"></a></td>
+	    	</tr>
+	    	<tr>
+	            <td>新课程图片:</td>
+	            <td>
+	            	 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">修改图片</a>
+	                 <input type="hidden" name="courseImgsrc" value="${course.courseImgsrc}"/>
+	                 <!-- restful -->
+	      			<input type="hidden" name="_method" value="PUT"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>课程名:</td>
+	            
+	           <td>
+	           <input type="hidden" value="${course.courseId}" name="courseId"/>
+	           <input disabled="disabled" class="easyui-textbox" value="${course.courseName}" type="text" name="courseName" data-options="required:true" style="width: 280px;"></input></td>
+	            
+	        </tr>
+	        <#if Request.user.role=='admin'>
+	        <tr>
+	        	<td>修改指定课程负责人: </td>
+	        	<td>
+	        		<font color=blue size=1>原负责人ID:${course.tchAccount}</font>
+	        		<input id="ccTchAccount" class="easyui-combobox" value="${course.tchAccount}">
+	        		
+	        		<div style="margin-left: 5px;" id="EpreTchAccount"></div> 
+	        		
+	        	</td>
+	        </tr>
+	        </#if>
+	        <tr>
+	            <td>学习流程:</td>
+	            <td><div name="courseProcessEditor" style="width: 800px;">
+	            	<p>${course.courseProcess}</p>
+	            </div>
+	           	<textarea name="courseProcess" style="visibility: hidden;"></textarea>
+	            </td>
+	        </tr>
+	        
+	        <tr>
+	            <td>绪论:</td>
+	            <td><div name="courseIntroEditor" style="width: 800px;">
+	           			<p>${course.courseIntro}</p>
+	            </div>
+	              <textarea name="courseIntro" style="visibility: hidden;"/></textarea>
+	            </td>
+	        </tr>
+	        
+	    </table>
+	</form>
+	<div style="padding:5px">
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="ceditSubmitForm()">修改</a>
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+	</div>
+</div>
+<script type="text/javascript">
+	var processAddEditor;
+	var introAddEditor;
+	$(document).ready(function(){
+	
+		//初始化单文件上传组件
+		TT.initPicUpload();
+		var E = window.wangEditor;
+        processAddEditor = new E('#courseEditForm [name=courseProcessEditor]');
+        introAddEditor = new E("#courseEditForm [name=courseIntroEditor]");
+        processAddEditor.create();
+        introAddEditor.create();
+        $('#ccTchAccount').combobox({
+          	valueField:'id',
+            textField:'text',
+            url:'manager/teacher/combobox',
+            onSelect:function(rec){
+            	console.log(rec);
+            	$("#EpreTchAccount").html("新负责人id:"+rec.id);
+        		$.ajax({
+        			   type: "POST",
+        			   url: "manager/course",
+        			   data: {
+        				   '_method':'PUT',
+        				   'courseId':${course.courseId},
+        				   'tchAccount':rec.id
+        			   },
+        			   success:function(data){
+        				   if(data.status==200){
+        					   $.messager.alert('提示','修改负责人成功!');
+        				   }
+        			   }
+        		});
+            }
+        });
+	});
+	
+	
+	function ceditSubmitForm(){
+		if(!$('#courseEditForm').form('validate')){
+			alert('表单还未填写完成!');
+			return ;
+		}
+		
+		//将编辑器中的内容同步到隐藏多行文本中
+		$("#courseEditForm textarea[name=courseProcess]").val(processAddEditor.txt.text());
+		$("#courseEditForm textarea[name=courseIntro]").val(introAddEditor.txt.text());
+		/* $.post("/rest/item",$("#courseEditForm").serialize(), function(data){
+			if(data.status == 200){
+				$.messager.alert('提示','新增商品成功!');
+			}
+		}); */
+		
+		
+		//提交到后台的RESTful
+		$.ajax({
+		   type: "POST",
+		   url: "manager/course",
+		   data: $("#courseEditForm").serialize(),
+		   
+		   statusCode :{
+			   200 : function(data){
+				   $.messager.alert('提示','修改课程成功!')
+/* 				   var tree = $("#menu");
+				   var node = tree.tree('find', ${course.courseId});
+				   alert(node.text);
+				   tree.tree("update", {
+						target: node.target,
+						text: data.data.courseName //更新节点名
+					});
+ */			
+				   
+			   },
+			   400 : function(){
+				   $.messager.alert('提示','提交的参数不合法!');
+			   },
+			   500 : function(){
+				   $.messager.alert('提示','新增课程失败!');
+			   }
+		   }
+		});
+	}
+	
+	function clearForm(){
+		$('#courseEditForm').form('reset');
+		processAddEditor.txt.clear();
+		introAddEditor.txt.clear();
+	}
+</script>

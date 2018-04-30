@@ -1,0 +1,93 @@
+<script src="js/wangEditor-3.0.15/release/wangEditor.js"></script>
+<div style="padding:10px 10px 10px 10px">
+	<form id="kpEditForm" class="itemForm" method="post" onsubmit="return false">
+		<table cellpadding="5">
+			<tr>
+				<td>知识点名:</td>
+				<td>
+				<!-- Restful标准 -->
+				<input type="hidden" name="_method" value="PUT"/> 
+				<input type="hidden" name="kpId">
+				<input class="easyui-textbox" type="text" name="kpName" data-options="required:true" style="width: 280px;"></input>
+				</td>
+
+			</tr>
+			<tr>
+				<td>知识点精讲:</td>
+				<td>
+					<div name="detailEditor" style="width: 681px;">
+					
+					</div>
+					<input id="kpDetail" name="kpDetail" style="visibility: hidden;"></input>
+				</td>
+			</tr>
+
+			<tr>
+				<td>学习建议:</td>
+				<td>
+					<div name="adviceEditor" style="width: 681px;">
+					</div>
+					<input id="kpAdvice" name="kpAdvice" style="visibility: hidden;" /></input>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>阅读资料:</td>
+				<td>
+					<div name="readEditor" style="width: 681px;">
+					</div>
+					<input id="kpRead" name="kpRead" style="visibility: hidden;" /></input>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	<div style="padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="kpSubmitForm()">提交</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="kpClearForm()">重置</a>
+	</div>
+</div>
+<script type="text/javascript">
+	var callback; //回调刷新知识点列表
+	var detailEditor;
+	var adviceEditor;
+	var readEditor;
+	$(function() {
+		TAOTAO.initPicUpload();
+		var E = window.wangEditor
+		detailEditor = new E('#kpEditForm [name=detailEditor]');
+		adviceEditor = new E("#kpEditForm [name=adviceEditor]");
+		readEditor = new E("#kpEditForm [name=readEditor]");
+		detailEditor.create();
+		adviceEditor.create();
+		readEditor.create();
+		/*detailEditor = TAOTAO.createEditor("#kpEditForm [name=courseProcess]");
+		adviceEditor = TAOTAO.createEditor("#kpEditForm [name=courseIntro]");*/
+
+	});
+
+	function kpSubmitForm() {
+		if(!$('#kpEditForm').form('validate')) {
+			alert('表单还未填写完成!');
+			return;
+		}
+
+		//将编辑器中的内容同步到隐藏多行文本中
+		$("#kpDetail").val(detailEditor.txt.text());
+		$("#kpAdvice").val(adviceEditor.txt.text());
+		$("#kpRead").val(readEditor.txt.text());
+		$.post("manager/kp",$("#kpEditForm").serialize(), function(data){
+			if(data.status == 200){
+				$.messager.alert('提示','修改知识点信息成功!');
+				callback();
+			}
+		});
+
+	}
+
+	function kpClearForm() {
+		detailEditor.txt.clear();
+		adviceEditor.txt.clear();
+		readEditor.txt.clear();
+	}
+</script>

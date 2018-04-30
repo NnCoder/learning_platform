@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>自主学习登录</title>
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/login.css">
+<link rel="stylesheet" href="js/layui/css/modules/layer/default/layer.css" />
+</head>
+
+<body>
+	<div class="container ">
+		<article class="form-wraper clearfix">
+			<header class="form-title">
+				<h1>自主学习平台</h1>
+			</header>
+			<form class="form" id="formlogin" method="post" onsubmit="return false">
+				<label> <input type="text" name="username" placeholder="账号"
+					required class="account" title="请输入账号">
+				</label> <label> <input type="password" name="password" placeholder="密码"
+					required class="password" title="请输入密码">
+				</label>
+				<button id="loginsubmit" type="submit" class='login-btn'>登录</button>
+			</form>
+		</article>
+		<footer class='footer'>
+			<p>@copyRight 2017NCTechnology All Right reserved</p>
+		</footer>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/layui/lay/modules/layer.js"></script>
+<script type="text/javascript">
+	var redirectUrl = "http://120.79.10.20:8080/edu-manager/index";
+	//var redirectUrl = "http://localhost:8080/edu-manager/index";
+	var LOGIN = {
+		checkInput : function() {
+			if ($(".account").val() == "") {
+				alert("用户名不能为空");
+				$(".account").focus();
+				return false;
+			}
+			if ($(".password").val() == "") {
+				alert("密码不能为空");
+				$(".password").focus();
+				return false;
+			}
+			return true;
+		},
+		doLogin : function() {
+			layer.msg('登录中……', {icon: 16});
+			$.post("user/login", $("#formlogin").serialize(), function(data) {
+				if (data.status == 200) {
+					layer.msg('登录成功,首页加载中……', {icon: 16});
+					window.location.href=redirectUrl;
+				} else {
+					layer.msg('账号或密码错误', {icon: 5});
+					$(".account").select();
+				}
+			});
+		},
+		login : function() {
+			if (this.checkInput()) {
+				this.doLogin();
+			}
+		}
+
+	};
+	$(function() {
+		$("#loginsubmit").click(function() {
+			LOGIN.login();
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,12 @@
+<#if result.list??>
+<#list result.list as stuCourse>
+	<li>
+		<span>${stuCourse.order}</span>
+		<span>${stuCourse.stuName}</span>
+		<span>${stuCourse.stuAccount}</span>
+		<span>${stuCourse.majorName}</span>
+		<span>${stuCourse.classIndex}</span>
+		<span>${stuCourse.score}</span>
+	</li>
+</#list>
+</#if>

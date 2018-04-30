@@ -1,0 +1,74 @@
+<#include '../header/common.html'>
+<section class="learning-text" id="learning-text">
+	<div class="my-tab">
+		<ul class="my-tab-title">
+			<li>学习tips</li>
+			<li>答疑</li>
+			<#if Session.user?exists && Session.user.role=='teacher'> 
+			<li>查看问题</li>
+			 </#if>
+		</ul>
+		<div class="my-tab-content clearfix" id="my-tab-content">
+			<div class="my-tab-item">
+				<div class="learning-sideBar">
+					<div class="learning-source-bar-wraper">
+						<h5 class="learning-source-header">学习资源</h5>
+						<ul class="learning-source-bar ">
+							<#if (normalDatas?size==0)>
+							<li><p>暂无资料</p></li>
+							</#if>
+							<#list normalDatas as data>
+							<li><span>${data_index+1}</span>
+							<p title="${data.dataName}">${data.dataName}</p>
+								<a href="${data.dataSrc}" target="_blank"><i
+									class="fa fa-download"></i></a></li>
+							</#list>
+						</ul>
+					</div>
+					<div class="learning-source-bar-wraper">
+						<h5 class="learning-source-header">练习资料</h5>
+						<ul class="learning-source-bar ">
+							<#if (testDatas?size==0)>
+							<li><p>暂无资料</p></li>
+							</#if>
+							<#list testDatas as data>
+							<li><span>${data_index+1}</span>
+							<p title="${data.dataName}">${data.dataName}</p>
+								<a href="${data.dataSrc}" target="_blank"><i
+									class="fa fa-download"></i></a></li>
+							</#list>
+						</ul>
+					</div>
+				</div>
+				<div class="learning-details">
+					<div class="details-tab-wraper">
+						<ul class="details-tab" id="details-tab">
+							<li>精讲
+								<div class="content">${kp.kpDetail}</div>
+							</li>
+							<li class="active">学习建议
+								<div class="content">${kp.kpAdvice}</div>
+							</li>
+							<li>阅读资料
+								<div class="content">${kp.kpRead}</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			
+			
+	</div>
+</section>
+<script type="text/javascript" src="${contextPath}/script/learning.js"></script>
+<script type="text/javascript" src="${contextPath}/script/lessionHomePage.js"></script>
+<script>
+	$.ajax({
+		url:'${contextPath}/kp/${kp.kpId}/comments.html',
+		type:'get',
+		success:function(res){
+			$("#my-tab-content").append(res);
+		}
+	});
+</script>

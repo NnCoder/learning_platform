@@ -1,0 +1,12 @@
+<#include '../header/common.html'>
+<#list courses.list as course> 
+	<a href="${contextPath}/courses/${course.courseId}.html">
+	<div class="lession-item fl">
+
+		<img src="${course.courseImgsrc}">
+		<div class="description">
+			<span class="lession-name">${course.courseName}</span> <br> <span>${course.tchAccount}</span>
+		</div>
+	</div>
+	
+</#list>

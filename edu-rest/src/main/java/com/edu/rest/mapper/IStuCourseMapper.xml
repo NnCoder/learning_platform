@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.rest.mapper.IStuCourseMapper">
+
+  <resultMap id="VoResultMap" type="com.edu.rest.pojo.StuCourseVo">
+    <id column="stu_account" jdbcType="VARCHAR" property="stuAccount" />
+    <result column="order" jdbcType="INTEGER" property="order"/>
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName"/>
+    <result column="major_name" jdbcType="VARCHAR" property="majorName"/>
+    <result column="class_index" javaType="INTEGER" property="classIndex"/>
+  </resultMap>
+  
+
+  
+  <select id="getStuCourseVoByCourseId" resultMap="VoResultMap">
+  	select @i := @i + 1 as `order`,
+ 	stu_course.*,student.stu_name,student.major_name,student.class_index 
+ 	from(SELECT @i := #{initOrder}) o,
+ 	 stu_course 
+ 	 left join student on stu_course.stu_account = student.stu_account
+ 	  where course_id=#{courseId}
+ 	  <if test="tchAccount!=null">
+ 	  	and stu_course.stu_account 
+ 	  	in (select stu_account from tch_stu where tch_account=#{tchAccount})
+ 	  </if>
+ 	  <if test="searchKey!=null">
+ 	  	and (stu_course.stu_account like '%${searchKey}%' or student.major_name like '%${searchKey}%')
+ 	  </if>
+ 	   order by score desc
+  </select>
+</mapper>

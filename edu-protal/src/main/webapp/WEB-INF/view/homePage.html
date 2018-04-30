@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<#include 'header/common.html'>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	 <link rel="shortcut icon" href="${contextPath}/images/logo(1).ico" />
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/homePage.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<#include 'header/header.html'>
+	<div class="main">
+		<section class="common-width">
+				<header>
+					<h2 class="news-title"><mark class="dot"></mark>课程中心<mark class="dot"></mark></h2>
+				</header>
+			<section class="lession-list">
+			<div id="courses">
+			<#list courses.list as course>
+				<a href="${contextPath}/courses/${course.courseId}.html">
+					<div class="lession-item fl">
+
+						<img src="${course.courseImgsrc}">
+						<div class="description">
+							<span class="lession-name">${course.courseName}</span>
+							<br>
+							<span>${course.tchAccount}</span>
+						</div>
+					</div>
+				</a>
+			</#list>
+			</div> 
+				<ul class="pagination">
+				</ul>
+				<script type="text/javascript">
+					for(var i=1;i<=${courses.pages};i++){
+						$(".pagination").append("<li>"+i+"</li>");
+					}
+					$(".pagination").children().each(function(i,e){
+						var _ele = $(e);
+						_ele.on('click',function(){
+							$.get('${contextPath}/courses.html',{page:_ele.html(),rows:8},function(res){
+								$("#courses").html(res);
+							});
+						});
+					});
+				</script>
+			</section>
+			<section class="newsBar clearfix">
+				<header>
+					<h2 class="news-title"><mark class="dot"></mark>平台消息<mark class="dot"></mark></h2>
+				</header>
+				<section class="news-list">
+				<#list notices as notice>
+					<div class="news-item">
+						<div class="date-wraper fl">
+							<span class="year">${notice.noticeTime?string("yyyy")}</span>
+							<span class="month-day">${notice.noticeTime?string("MM-dd")}</span>
+						</div>
+						<div class="new-desc fl">
+						<h3 class="news-desc-title">${notice.noticeTitle}</h3>
+						<button class="details-btn"><a href="${contextPath}/notices/${notice.noticeId}.html">阅读全文</a></button>
+						</div>
+					</div>
+				</#list>
+					
+					
+				</section>
+			</section>	
+
+			<section class="resource-download-bar">
+				<div class="bgc-left"></div>
+				<div class="bgc-right"></div>
+				<header>
+					<h3 class="resource-download-bar-title"><mark class="pink-dot"></mark>最新资源下载<mark class="pink-dot"></mark></h3>
+				</header>
+				<section>
+					<div class="download-list">
+					
+					<#list datas as data>
+						<li>${data.dataName}<a href="${data.dataSrc}" style="float: right;" target="_blank"><i class="fa fa-download"></i></a></li>
+					</#list>
+					</div>
+					
+				</section>
+			</section>					
+		</section>
+	</div>
+	<footer class='footer'>
+		<p>@copyRight 2017NCTechnology All Right reserved</p>
+	</footer>
+	<!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> -->
+	<!-- <script type="text/javascript" src="../script/jquery-1.8.3.min.js"></script> -->
+	
+	<script type="text/javascript" src="${contextPath}/script/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/js.cookie.js"></script>
+	<script type="text/javascript" src="${contextPath}/script/index.js"></script>
+</body>
+</html>

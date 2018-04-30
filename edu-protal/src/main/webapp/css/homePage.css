@@ -1,0 +1,443 @@
+
+/*common-css*/
+.common-width
+{
+    width: 1080px;
+    margin: 0 auto;
+}
+body
+{
+    font-family: '微软雅黑','Georgia',Serif;
+    font-size: 16px;
+
+    color: #777;
+    background-color: #fff;
+}
+button
+{
+    font-weight: bold;
+
+    color: #333;
+}
+
+
+.lession-list
+{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #e8f0f2;
+}
+.lession-item
+{
+    width: 220px;
+    height: 120px;
+    margin:60px 15px 0 15px;
+
+    -webkit-transition: all linear .2s;
+       -moz-transition: all linear .2s;
+         -o-transition: all linear .2s;
+            transition: all linear .2s;
+
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #eef3f6;
+    -webkit-box-shadow: 2px 2px 10px #909090;/*兼容safari或chrome*/
+       -moz-box-shadow: 2px 2px 10px #909090;/*兼容firefox*/
+            box-shadow: 2px 2px 10px #909090;/*兼容opera或ie9*/
+
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*兼容ie*/
+}
+.lession-item img
+{
+    width: 100%;
+    height: 100%;
+    display: block;
+    -webkit-transition: all linear .3s;
+       -moz-transition: all linear .3s;
+         -o-transition: all linear .3s;
+            transition: all linear .3s;
+
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+}
+.description
+{
+    line-height: 20px;
+    overflow: hidden;
+        color: #000;
+        text-align: center;
+        margin-top: 10px;
+}
+.lession-item img:hover
+{
+    -webkit-transform: scale(1.1,1.1); /* Safari 和 Chrome */
+       -moz-transform: scale(1.1,1.1); 	/* Firefox */
+        -ms-transform: scale(1.1,1.1); 	/* IE 9 */
+         -o-transform: scale(1.1,1.1); 	/* Opera */
+            transform: scale(1.1,1.1);
+}
+.lession-name
+{
+    font-size: 15px;
+
+}
+.pagination
+{
+    position: absolute;
+    bottom: 10px;
+    width: 1080px;
+
+    text-align: center;
+}
+.pagination li
+{
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+
+    -webkit-transition: all ease-in-out .3s;
+       -moz-transition: all ease-in-out .3s;
+         -o-transition: all ease-in-out .3s;
+            transition: all ease-in-out .3s;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #fff;
+}
+.pagination li:hover,
+.pagination li:active,
+.pagination li:focus
+{
+    -webkit-transform: scale(1.5,1.5); /* Safari 和 Chrome */
+       -moz-transform: scale(1.5,1.5);	/* Firefox */
+        -ms-transform: scale(1.5,1.5); 	/* IE 9 */
+         -o-transform: scale(1.5,1.5); 	/* Opera */
+            transform: scale(1.5,1.5);
+
+    color: #fff;
+    background-color: #333;
+}
+
+
+.news-title
+{
+    font-size: 25px;
+    line-height: 30px;
+
+    margin: 50px 10px;
+
+    text-align: center;
+}
+.dot
+{
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #b9dde9;
+}
+.pink-dot
+{
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #b9dde9;
+}
+
+.pink-dot
+{
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #f4d0d0;
+}
+
+.news-list
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.news-item
+{
+    width: 250px;
+    height: 160px;
+    margin: 5px;
+    margin-bottom: 50px;
+
+    -webkit-transition: all linear .2s;
+       -moz-transition: all linear .2s;
+         -o-transition: all linear .2s;
+            transition: all linear .2s;
+    text-align: center;
+
+    border: 5px solid #b9dde9;
+}
+.news-item:hover
+{
+    -webkit-transform: scale(1.1,1.1); /* Safari 和 Chrome */
+       -moz-transform: scale(1.1,1.1); 	/* Firefox */
+        -ms-transform: scale(1.1,1.1); 	/* IE 9 */
+         -o-transform: scale(1.1,1.1); 	/* Opera */
+            transform: scale(1.1,1.1);
+}
+
+.news-item:nth-child(even)
+{
+    border: 5px solid #f4d0d4;
+}
+.news-item .date-wraper {
+    width: 60px;
+    height: 100px;
+    margin: 20px;
+    border: 2px solid #EC9A9A;
+}
+.news-item .year,.news-item .month-day {
+    width: 60px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    background-color: #EC9A9A;
+    color: #fff;
+    font-size: 18px;
+}
+.news-item .month-day {
+    background-color: #fff;
+    color: #777;
+}
+.new-desc {
+    margin-top: 20px;
+}
+.news-desc-title {
+    font-size: 18px;
+    width: 120px;
+    line-height: 30px;
+    height: 60px;
+    overflow: hidden;
+}
+.new-desc {
+
+}
+.news-item-title
+{
+    margin-top: 20px;
+}
+.news-item-content p
+{
+    font-size: 14px;
+    line-height: 16px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    height: 64px;
+    padding: 0 10px;
+
+    text-align: left;
+    text-indent: 10px;
+    word-wrap: break-word;
+}
+
+.details-btn
+{
+    font-size: 12px;
+
+    display: inline-block;
+    float: right;
+
+    width: 70px;
+    height: 30px;
+    margin: 8px 8px 0 0 ;
+
+    border: none;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #e7eff1;
+
+    
+}
+.details-btn a {
+    color: #2A93BA;
+}
+.details-btn:hover
+{
+    color: #bfcfff;
+    background-color: #eef3f6;
+}
+.resource-download-bar
+{
+    position: relative;
+
+    width: 100%;
+    height: 500px;
+
+    border-top: 1px solid transparent;
+    background-image: url(../images/bgcbottom.jpg);
+    background-repeat: repeat;
+}
+
+.resource-download-bar-title
+{
+    font-size: 25px;
+    line-height: 30px;
+
+    margin: 50px 10px;
+
+    text-align: center;
+}
+.bgc-left
+{
+    position: absolute;
+    left: 0;
+
+    width: 390px;
+    height: 560px;
+
+    background-image: url(../images/bgcleft.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+.bgc-right
+{
+    position: absolute;
+    top: -60px;
+    right: 0;
+
+    width: 390px;
+    height: 560px;
+
+    background-image: url(../images/bgcright.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.download-list
+{
+    width: 435px;
+    height: 300px;
+    /*margin: 0 auto;*/
+    position: absolute;
+    left: 50%;
+    z-index: 100000;
+    margin-left: -217px;
+    padding-top: 30px;
+
+    border: 5px solid #eaf5f9;
+}
+.download-list li
+{
+    font-size: 20px;
+    line-height: 30px;
+
+    margin: 10px 30px;
+
+    list-style: none;
+}
+.download-list li a:link,
+.download-list li a:visited,
+.download-list li a:hover,
+.download-list li a:focus,
+.download-list li a:active
+{
+    text-decoration: none;
+
+    color: #777;
+}
+.download-list li:hover a
+{
+    color: #005061;
+}
+.download-details-btn
+{
+    font-size: 12px;
+
+    position: relative;
+
+    display: inline-block;
+    float: right;
+
+    width: 90px;
+    height: 30px;
+    margin: 10px 40px 0 0 ;
+
+    border: none;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #e7eff1;
+}
+.download-details-btn .arrow
+{
+    position: absolute;
+    right: 0;
+
+    -webkit-transition: all linear .3s;
+       -moz-transition: all linear .3s;
+         -o-transition: all linear .3s;
+            transition: all linear .3s;
+
+    opacity: 0;
+}
+.download-details-btn .btn-text
+{
+    position: relative;
+    right: 0;
+
+    -webkit-transition: all linear .3s;
+       -moz-transition: all linear .3s;
+         -o-transition: all linear .3s;
+            transition: all linear .3s;
+}
+.download-details-btn:hover .btn-text
+{
+    right: 10px;
+}
+.download-details-btn:hover .arrow
+{
+    right: 10px;
+
+    opacity: 1;
+}
+
+.footer
+{
+    margin: 100px 0;
+
+    text-align: center;
+}

@@ -1,0 +1,597 @@
+/*common-css****************************start*/
+body
+{
+    font-family: '微软雅黑','Georgia',Serif;
+    font-size: 14px;
+
+    color: #777;
+    background-color: #fff;
+}
+.common-width
+{
+    width: 1080px;
+    margin: 0 auto;
+}
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active
+{
+    text-decoration: none;
+    color: #777;
+}
+.dot
+{
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #b9dde9;
+}
+
+
+/*分页*/
+.pagination
+{
+    line-height: 45px;
+
+    width: 100%;
+    height: 45px;
+
+    background-color: #e1ecf0;
+}
+
+.pagination li
+{
+    display: inline-block;
+}
+.pagination li:after
+{
+    font-weight: bold;
+
+    margin-left: 10px;
+
+    content: '>';
+}
+.pagination li:last-child:after
+{
+    content: '';
+}
+.pagination li:last-child a
+{
+    color: #8aa8b3;
+}
+.header
+{
+    height: 130px;
+
+    background-image: url(../images/3.png), url(../images/headerBgc.jpg);
+    background-repeat: repeat-x,repeat;
+    background-position: left bottom, left center;
+}
+
+.header .common-width
+{
+    position: relative;
+}
+.logout
+{
+    display: inline-block;
+
+    width: 80px;
+    height: 30px;
+
+    color: #fff;
+    border: 2px solid #046381;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #046381;
+}
+
+.logout:active
+{
+    color: #046381;
+    border: 2px solid #046381;
+    background-color: #fff;
+}.website-title
+{
+    font-size: 50px;
+
+    padding-top: 30px;
+
+    text-align: center;
+
+    color: #616161;
+}
+.header-sideBar
+{
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    padding-right: 50px;
+}
+.lession-nav
+{
+    display: block;
+
+    padding-top: 20px;
+
+    text-align: center;
+
+    background-color: #046381;
+}
+.lession-nav li
+{
+    display: inline-block;
+
+    padding: 0 30px;
+
+    text-align: center;
+
+    border-right: 1px solid #bbb;
+
+    flex-grow: 1;
+}
+.lession-nav li:last-child
+{
+    border-right: none;
+}
+.lession-nav a
+{
+    font-size: 18px;
+    line-height: 18px;
+
+    width: 80%;
+    height: 45px;
+
+    color: #bbb;
+}
+.lession-nav a:hover,
+.lession-nav a.active
+{
+    font-weight: bold;
+
+    color: #fff;
+}
+
+.footer
+{
+    margin: 200px 0;
+
+    text-align: center;
+}
+
+/*common-css****************************end*/
+
+
+
+
+.lession-intro
+{
+    height: 350px;
+    border-radius: 0 0 10px 10px;
+    background-color: #046381;
+}
+
+.lession-image-box
+{
+    width: 250px;
+    margin-top: 80px;
+    margin-left: 150px;
+
+    text-align: center;
+
+    color: #fff;
+}
+.lession-image-box img
+{
+    width: 250px;
+    height: 150px;
+
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 2px 2px 30px #044257;/*兼容safari或chrome*/
+       -moz-box-shadow: 2px 2px 30px #044257;/*兼容firefox*/
+            box-shadow: 2px 2px 30px #044257;/*兼容opera或ie9*/
+
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#044257,direction=120,strength=4);/*兼容ie*/
+}
+
+.lession-info-box
+{
+    position: relative;
+
+    width: 425px;
+    height: 230px;
+    margin-top: 40px;
+    margin-right: 120px;
+
+    list-style: none;
+}
+.lession-info-box li
+{
+    line-height: 26px;
+
+    display: inline-block;
+
+    width: 80px;
+    height: 26px;
+
+    text-align: center;
+
+    color: #bbb;
+    border: 2px solid #bbb;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}
+.lession-info-box li.active
+{
+    color: #fff;
+    border: 2px solid #fff;
+}
+.learning-process,
+.learning-intro
+{
+    position: absolute;
+    top: 50px;
+    left: 0;
+
+    width: 395px;
+    height: 160px;
+    padding: 15px;
+
+    -webkit-transition: all ease-in-out .4s;
+       -moz-transition: all ease-in-out .4s;
+         -o-transition: all ease-in-out .4s;
+            transition: all ease-in-out .4s;
+    -webkit-transform: scale(0); /* Safari 和 Chrome */
+       -moz-transform: scale(0);	/* Firefox */
+        -ms-transform: scale(0);	/* IE 9 */
+         -o-transform: scale(0);	/* Opera */
+            transform: scale(0);
+    text-indent: 15px;
+
+    color: #fff;
+    border: 2px solid #fff;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}
+.lession-info-box span
+{
+    display: inline-block;
+
+    width: 100%;
+    height: 100%;
+}
+.lession-info-box li.active div
+{
+    -webkit-transform: scale(1,1); /* Safari 和 Chrome */
+       -moz-transform: scale(1,1);	/* Firefox */
+        -ms-transform: scale(1,1);	/* IE 9 */
+         -o-transform: scale(1,1);	/* Opera */
+            transform: scale(1,1);
+    -webkit-transform-origin: right top; /* Safari 和 Chrome */
+       -moz-transform-origin: right top;	/* Firefox */
+        -ms-transform-origin: right top;	/* IE 9 */
+         -o-transform-origin: right top;	/* Opera */
+            transform-origin: right top;
+}
+.learning-process p,
+.learning-intro p
+{
+    line-height: 20px;
+
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    height: 140px;
+}
+.learning-process p:after,
+.learning-intro p:after
+{
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 15px;
+    padding-right: 12px;
+
+    content: '...';
+
+    background-color: #046381;
+}
+
+
+
+.more-info-btn
+{
+    font-weight: bold;
+
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+
+    color: #fff;
+    border: none;
+    background-color: transparent;
+}
+
+.learning-data-list
+{
+    margin-top: 60px;
+    margin-left: 30px;
+}
+.learning-data-header
+{
+    font-size: 20px;
+    line-height: 30px;
+
+    position: relative;
+
+    height: 30px;
+    margin-top: 100px;
+
+    text-align: center;
+}
+
+
+.list-row
+{
+    height: 40px;
+    margin: 0;
+}
+.list-row li
+{
+    line-height: 40px;
+
+    display: inline-block;
+
+    width: 110px;
+    height: 40px;
+    margin: 0;
+
+    text-align: center;
+}
+.list-row li:first-child
+{
+    position: relative;
+
+    width: 290px;
+    margin-right: 50px;
+    padding-right: 50px;
+
+    text-align: right;
+
+    border-right: 4px solid #04637f;
+}
+.badge
+{
+    line-height: 20px;
+
+    position: absolute;
+    z-index: 10000;
+    top: 50%;
+    right: -12px;
+
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+
+    text-align: center;
+
+    color: #fff;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #04637f;
+}
+.row-header .badge-title
+{
+    line-height: 20px;
+
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    right: -100px;
+
+    width: 200px;
+    height: 20px;
+
+    text-align: center;
+
+    color: #fff;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #04637f;
+}
+.list-row .badge-more
+{
+    line-height: 20px;
+
+    position: absolute;
+    z-index: 10000;
+    right: -40px;
+    bottom: 0;
+
+    width: 80px;
+    height: 20px;
+
+    text-align: center;
+
+    color: #fff;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #04637f;
+}
+.row-header span
+{
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 30px;
+
+    position: relative;
+    top: -15px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 30px;
+
+    text-align: center;
+
+    color: #04637f;
+    border: 2px solid #04637f;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #fff;
+    background-color: #b9dde9;
+}
+
+.class-resource {
+    width: 100%;
+    height: 600px;
+    margin-top: 50px;
+    border: 1px solid #E7E7E7;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px #E7E7E7;
+}
+
+.my-tab {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+.my-tab-title {
+    width: 100%;
+    height: 50px;
+    flex: 0;
+    background-color: #F2F2F2;
+}
+
+.my-tab-title li {
+    display: inline-block;
+    width: 100px;
+    height: 48px;
+    background-color: #F2F2F2;
+    border: 1px solid #E6E6E6;
+    border-bottom: none;
+    border-left: none;
+    line-height: 48px;
+    font-size: 20px;
+    text-align: center;
+}
+.my-tab-title li:active,.my-tab-title li.active {
+    background-color: #FFFFFF;
+    color: #000;
+}
+.my-tab-content {
+    flex: 1;
+    background-color: #fff;
+    height: 100%;
+}
+.my-tab-item {
+    width: 100%;
+    height: 100%;
+    display:none;
+}
+.my-tab-item.active {
+    display: block;
+}
+
+.chapter-resource {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.chapter-resource ul {
+    flex: 1;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.chapter-resource ul.resource-list {
+    flex: 2;
+}
+.chapter-resource ul li:before {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    background-color: #7DD2F9;
+    border-radius: 50%;
+}
+.chapter-resource ul li:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 5px;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 16px solid #9F9F9F;
+    border-bottom: 8px solid transparent;
+    /*border-radius: 50%;*/
+}
+
+.chapter-resource li:active:after,
+.chapter-resource li:hover:after, 
+.chapter-resource li.active:after, 
+.chapter-resource li:focus:after 
+{
+   border-left: 16px solid #fff;
+}
+.chapter-resource li a
+{
+    color: #777;
+}
+.chapter-resource li:hover a
+{
+    color: #fff;
+    transform: scale(1.2);
+}
+.chapter-resource ul:last-child li:after {
+    display: none;
+}
+.chapter-resource ul li {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    text-indent: 50px;
+
+}
+.chapter-resource li.active,
+.chapter-resource li:hover,
+.chapter-resource li:active,
+.chapter-resource li:focus
+{
+    background-color: #116CD5;
+    color: #fff;
+}

@@ -1,0 +1,170 @@
+
+
+<table class="easyui-datagrid" id="teacherList" title="教师列表" 
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'manager/teacher/list',method:'get',pageSize:30,toolbar:toolbar">
+    <thead>
+        <tr>
+        	<th data-options="field:'ck',checkbox:true"></th>
+        	<th data-options="field:'tchAccount',width:200">教师账号</th>
+            <th data-options="field:'tchName',width:200">教师姓名</th>
+            <th data-options="field:'tchPassword',width:200">教师密码</th>
+            <th data-options="field:'role',width:200">教师角色</th>
+        </tr>
+    </thead>
+</table>
+
+
+<script>
+	
+	
+    function tchGetSelectionIds(){
+    	var teacherList = $("#teacherList");
+    	var sels = teacherList.datagrid("getSelections");
+    	var ids = [];
+    	for(var i in sels){
+    		ids.push(sels[i].tchAccount);
+    	}
+    	ids = ids.join(",");
+    	return ids;
+    }
+    
+    var toolbar = [
+    {
+        text:'导入excel',
+        iconCls:'icon-save',
+        handler:function(){
+        	TT.createWindow({
+        		url:'page/excelImport?exImgSrc=img/tch_up_example.jpg&excelUrl=manager/teacher/excel&gridId=teacherList',
+        		width:700,
+        		height:340
+        	});
+        }
+        
+    },{
+        text:'新增',
+        iconCls:'icon-add',
+        handler:function(){
+        	TT.createWindow({
+        		url:'page/teacher-add',
+        		width:500,
+        		height:340,
+        		onLoad: function() {
+        			callback = function(){
+        				$("#teacherList").datagrid("reload");
+        			}
+        		}
+        	});
+        }
+    },{
+        text:'编辑',
+        iconCls:'icon-edit',
+        handler:function(){
+        	var ids = tchGetSelectionIds();
+        	if(ids.length == 0){
+        		$.messager.alert('提示','必须选择一个教师才能编辑!');
+        		return ;
+        	}
+        	if(ids.indexOf(',') > 0){
+        		$.messager.alert('提示','只能选择一个教师!');
+        		return ;
+        	}
+        	TT.createWindow({
+        		url:'page/teacher-edit/'+ids,
+        		width:500,
+        		height:340
+        	});
+        }
+    },{
+        text:'编辑所负责学生',
+        iconCls:'icon-edit',
+        handler:function(){
+        	var ids = tchGetSelectionIds();
+        	if(ids.length == 0){
+        		$.messager.alert('提示','必须选择一个教师才能编辑!');
+        		return ;
+        	}
+        	if(ids.indexOf(',') > 0){
+        		$.messager.alert('提示','只能选择一个教师!');
+        		return ;
+        	}
+        	TT.createWindow({
+        		url:'page/teacher-student/'+ids,
+        		width:800,
+        		height:640
+        	});
+        }
+    },{
+        text:'删除',
+        iconCls:'icon-cancel',
+        handler:function(){
+        	var ids = tchGetSelectionIds();
+        	if(ids.length == 0){
+        		$.messager.alert('提示','未选中教师!');
+        		return ;
+        	}
+        	$.messager.confirm('确认','确定删除账号为 '+ids+' 的教师吗？',function(r){
+        	    if (r){
+        	    	$.messager.confirm('确认','该操作将删除账号为'+ids+' 的教师下所有课程,请再次确认!',function(r){
+        	    		if (r){
+        	    			var params = {"tchAccounts":ids,"_method":"DELETE"};
+                        	$.post("manager/teacher",params, function(data){
+                    			if(data.status == 200){
+                    				$.messager.alert('提示','删除教师成功!',undefined,function(){
+                    					$("#teacherList").datagrid("reload");
+                    				});
+                    			}
+                    		});
+        	    		}
+        	    	});
+        	    	
+        	    }
+        	});
+        }
+    },'-',{
+        text:'设置为管理者',
+        iconCls:'icon-remove',
+        handler:function(){
+        	var ids = tchGetSelectionIds();
+        	if(ids.length == 0){
+        		$.messager.alert('提示','未选中教师!');
+        		return ;
+        	}
+        	$.messager.confirm('确认','确定设置账号为 '+ids+' 的教师为管理者吗？',function(r){
+        	    if (r){
+        	    	var params = {"tchAccounts":ids,"_method":"PUT"};
+                	$.post("manager/teacher/manager",params, function(data){
+            			if(data.status == 200){
+            				$.messager.alert('提示','设置管理者成功!',undefined,function(){
+            					$("#teacherList").datagrid("reload");
+            				});
+            			}
+            		});
+        	    }
+        	});
+        }
+    },{
+        text:'设置为普通教师',
+        iconCls:'icon-remove',
+        handler:function(){
+        	var ids = tchGetSelectionIds();
+        	if(ids.length == 0){
+        		$.messager.alert('提示','未选中教师!');
+        		return ;
+        	}
+        	$.messager.confirm('确认','确定设置账号为 '+ids+' 的教师为普通教师吗？',function(r){
+        	    if (r){
+        	    	var params = {"tchAccounts":ids,"_method":"PUT"};
+                	$.post("manager/teacher/teacher",params, function(data){
+            			if(data.status == 200){
+            				$.messager.alert('提示','设置普通教师成功!',undefined,function(){
+            					$("#teacherList").datagrid("reload");
+            				});
+            			}
+            		});
+        	    }
+        	});
+        }
+    }];
+    
+  
+</script>

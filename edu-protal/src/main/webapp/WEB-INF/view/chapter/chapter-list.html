@@ -1,0 +1,13 @@
+
+
+	<ul class="chapter-list">
+	<#if chapters??>
+	<#list chapters as chapter>
+		<li onclick="listDatas(${chapter.chapterId})">${chapter.chapterName}</li>
+	</#list>
+	</#if> 
+'
+	</ul>
+	<ul class="resource-list" id="resourcelist">
+		
+	</ul>

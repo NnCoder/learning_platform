@@ -1,0 +1,560 @@
+/*common-css****************************start*/
+body
+{
+    font-family: '微软雅黑','Georgia',Serif;
+    font-size: 16px;
+
+    color: #777;
+    background-color: #fff;
+}
+.common-width
+{
+    width: 1480px;
+    margin: 0 auto;
+}
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active
+
+{
+    text-decoration: none;
+
+    color: #777;
+}
+.dot
+{
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #b9dde9;
+}
+
+/*分页*/
+.pagination
+{
+    line-height: 45px;
+
+    width: 100%;
+    height: 45px;
+
+    background-color: #e1ecf0;
+}
+.pagination li
+{
+    display: inline-block;
+}
+.pagination li:after
+{
+    font-weight: bold;
+
+    margin-left: 10px;
+
+    content: '>';
+}
+.pagination li:last-child:after
+{
+    content: '';
+}
+.pagination li:last-child a
+{
+    color: #8aa8b3;
+}
+.logout
+{
+    display: inline-block;
+
+    width: 80px;
+    height: 30px;
+
+    color: #fff;
+    border: 2px solid #046381;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #046381;
+}
+.logout:active
+{
+    color: #046381;
+    border: 2px solid #046381;
+    background-color: #fff;
+}
+.lession-nav
+{
+    display: block;
+
+    padding-top: 20px;
+
+    text-align: center;
+
+    background-color: #046381;
+}
+.lession-nav li
+{
+    display: inline-block;
+
+    padding: 0 30px;
+
+    text-align: center;
+
+    border-right: 1px solid #bbb;
+
+    flex-grow: 1;
+}
+.lession-nav li:last-child
+{
+    border-right: none;
+}
+.lession-nav a
+{
+    font-size: 18px;
+    line-height: 18px;
+
+    width: 80%;
+    height: 45px;
+
+    color: #bbb;
+}
+.lession-nav a:hover,
+.lession-nav a.active
+{
+    font-weight: bold;
+
+    color: #fff;
+}
+
+.footer
+{
+    margin: 200px 0;
+
+    text-align: center;
+}
+
+/*common-css****************************end*/
+
+
+.knowledge-point-wraper
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 600px;
+
+    background-color: #056281;
+}
+.knowledge-point-header
+{
+    padding-top: 45px;
+
+    text-align: center;
+}
+.knowledge-point-header h3
+{
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 30px;
+
+    color: #fff;
+    border: 1px solid #fff;
+    -webkit-border-radius: .3em;
+       -moz-border-radius: .3em;
+            border-radius: .3em;
+}
+.list-wraper
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 900px;
+    height: 460px;
+    margin: 0 auto;
+}
+.knowledge-point-list-wraper
+{
+    overflow: hidden;
+
+    width: 1000px;
+    height: 350px;
+    padding: 30px 0;
+}
+#knowledge-point-list
+{
+    position: relative;
+    /*width: auto;*/
+
+    width: 3000px;
+    /*display: -webkit-flex;*/ /*在webkit内核的浏览器上使用要加前缀*/
+    /*display: flex;*/ /*将对象作为弹性伸缩盒显示*/
+    /*flex-wrap: nowrap;*/
+    height: 350px;
+    /*	-webkit-transition: all ease-in-out .4s;
+    -moz-transition: all ease-in-out .4s;
+    -o-transition: all ease-in-out .4s;
+    transition: all ease-in-out .4s;*/
+}
+.knowledge-point-item
+{
+    float: left;
+    overflow-y: scroll;
+
+    width: 145px;
+    height: 280px;
+    margin: 0 20px;
+    margin-bottom: 100px;
+    padding: 20px;
+
+    -webkit-transition: all ease-in-out .4s;
+       -moz-transition: all ease-in-out .4s;
+         -o-transition: all ease-in-out .4s;
+            transition: all ease-in-out .4s;
+
+    color: #fff;
+    border: 2px solid #fff;
+    -webkit-border-radius: .3em;
+       -moz-border-radius: .3em;
+            border-radius: .3em;
+}
+.knowledge-point-item:hover
+{
+    -webkit-transform: scaleY(1.1) scaleX(1.2); /* Safari 和 Chrome */
+       -moz-transform: scaleY(1.1) scaleX(1.2);	/* Firefox */
+        -ms-transform: scaleY(1.1) scaleX(1.2);	/* IE 9 */
+         -o-transform: scaleY(1.1) scaleX(1.2);	/* Opera */
+            transform: scaleY(1.1) scaleX(1.2);
+
+    -webkit-box-shadow: 5px 5px  10px #111;/*兼容safari或chrome*/
+       -moz-box-shadow: 5px 5px 10px #111;/*兼容firefox*/
+            box-shadow: 5px 5px 10px #111;/*兼容opera或ie9*/
+
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*兼容ie*/
+}
+.knowledge-point-item h3
+{
+    font-size: 18px;
+}
+.knowledge-point-item .order
+{
+    line-height: 22px;
+
+    display: inline-block;
+
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+
+    text-align: center;
+
+    color: #056281;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #fff;
+}
+.knowledge-point-item > li
+{
+    line-height: 25px;
+
+    width: 90%;
+
+    text-indent: 10px;
+}
+.knowledge-point-item > li:hover
+{
+    background-color: #82b1c1;
+}
+.knowledge-point-item li li:hover,
+.knowledge-point-item li li.active
+{
+    background-color: #bfdfff;
+}
+.hidden-list
+{
+    overflow: hidden;
+
+    width: 100%;
+    max-height: 0;
+
+    -webkit-transition: all ease-in-out .4s;
+       -moz-transition: all ease-in-out .4s;
+         -o-transition: all ease-in-out .4s;
+            transition: all ease-in-out .4s;
+    text-indent: 20px;
+}
+.show-list .hidden-list
+{
+    max-height: 200px;
+}
+
+.arrow-left,
+.arrow-right
+{
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 40px;
+
+    position: absolute;
+    top: 40%;
+    left: 15%;
+
+    display: inline-block;
+
+    width: 40px;
+    height: 40px;
+
+    -webkit-transition: all ease-in-out .4s;
+       -moz-transition: all ease-in-out .4s;
+         -o-transition: all ease-in-out .4s;
+            transition: all ease-in-out .4s;
+    text-align: center;
+
+    color: #056281;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #fff;
+}
+.arrow-right
+{
+    left: 85%;
+}
+.arrow-left:hover,
+.arrow-right:hover
+{
+    -webkit-transform: scale(1.15,1.2); /* Safari 和 Chrome */
+       -moz-transform: scale(1.15,1.2); 	/* Firefox */
+        -ms-transform: scale(1.15,1.2); 	/* IE 9 */
+         -o-transform: scale(1.15,1.2); 	/* Opera */
+            transform: scale(1.15,1.2);
+
+    color: #fff;
+    background-color: #000;
+}
+
+.learning-sideBar
+{
+    width: 600px;
+    display: flex;
+}
+
+.test-bar h3,
+.learning-source-header
+{
+    font-weight: 900;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 80px;
+    height: 30px;
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    color: #056281;
+    border: 2px solid #056281;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #fff;
+}
+.learning-source-header
+{
+    margin-bottom: 0;
+}
+.test-bar span
+{
+    margin: 0 10px;
+}
+.learning-source-bar-wraper {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 50px;
+    border: 5px solid #056281;
+    padding: 20px;
+    border-radius: 10px;
+}
+.learning-source-bar
+{
+    overflow-y: auto;
+    width: 300px;
+    height: 400px;
+    padding-right: 20px;
+}
+.learning-source-bar li
+{
+    width: 60%;
+    line-height: 60px;
+    position: relative;
+    height: 60px;
+    margin-left: 10px;
+    padding:0 20px;
+
+    border-left: 4px solid #056281;
+}
+.learning-source-bar li p {
+    display: inline-block;
+    width: 80%;
+    height: 100%;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+.learning-source-bar li span
+{
+    line-height: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: inline-block;
+
+    width: 16px;
+    height: 16px;
+    margin-left: -10px;
+
+    text-align: center;
+
+    color: #fff;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    background-color: #056281;
+}
+.learning-source-bar li a {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+.video-list {
+    width: 480px;
+    height: 566px;
+    margin-top: 3px;
+    background-color: #32ACC2;
+}
+.video-items {
+    width: 100%;
+    height: 530px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.video-items li {
+    overflow: hidden;
+    width: 400px;
+    margin: 10px auto;
+    height: 40px;
+    line-height: 40px;
+    padding: 10px 0;
+    font-size: 20px;
+    text-indent: 20px;
+    background-color: #E1F2F9;
+    transition: .3s all ease-in-out;
+    border-radius:5px;
+}
+.video-items li:hover {
+    transform: scale(1.1);
+}
+.video-items li.active {
+    background-color: #6DA09B;
+    color: #fff;
+
+}
+.video-items li i {
+    margin-right: 10px;
+}
+.video-list-title {
+    font-size: 30px;
+    line-height: 40px;
+    color: #fff;
+}
+.video-list-title i {
+    margin-right: 10px;
+}
+.learning-text
+{
+    height: 350px;
+    display: flex;
+    margin-top: 100px;
+}
+
+.learning-details {
+    flex: 1;
+    margin-top: 50px;
+}
+.details-tab {
+    width: 650px;
+    height: 50px;
+    background-color: #F7F7F7;
+    margin-left: 200px;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid #708793;
+    box-shadow: 0 0 8px #708793;
+    font-size: 0;
+    position: relative;
+}
+.details-tab li {
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: bold;
+    background-color: #FCFCFC;
+    border-right: 2px solid #CDCDCD;
+    border-top: 2px solid #CDCDCD;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    margin-top: 8px;
+}
+.details-tab li:hover,
+.details-tab li:active,
+.details-tab li.active {
+    background-color: #fff;
+    color: #4BBFEA;
+}
+.details-tab li div {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    font-weight: normal;
+    font-size: 15px;
+    width: 650px;
+    height: 300px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 0 8px #708793;
+    border-radius: 0 0 10px 10px;
+    color: rgb(119, 119, 119);
+    text-align: left;
+    text-indent: 20px;
+    line-height: 25px;
+    padding: 10px 10px;
+    display: none;
+}
+.details-tab li.active div {
+    display: block;
+}
+
+.footer
+{
+    margin: 200px 0;
+
+    text-align: center;
+}

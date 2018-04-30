@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.common.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.edu.common.pojo.Course">
+    <id column="Course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="Course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="Course_imgSrc" jdbcType="VARCHAR" property="courseImgsrc" />
+    <result column="Tch_account" jdbcType="VARCHAR" property="tchAccount" />
+    <result column="Visit_time" jdbcType="INTEGER" property="visitTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.edu.common.pojo.CourseWithBLOBs">
+    <result column="Course_process" jdbcType="LONGVARCHAR" property="courseProcess" />
+    <result column="Course_intro" jdbcType="LONGVARCHAR" property="courseIntro" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Course_id, Course_name, Course_imgSrc, Tch_account, Visit_time, create_time, update_time, 
+    state
+  </sql>
+  <sql id="Blob_Column_List">
+    Course_process, Course_intro
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.edu.common.pojo.CourseExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.edu.common.pojo.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    where Course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where Course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.common.pojo.CourseExample">
+    delete from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyProperty="courseId" useGeneratedKeys="true" parameterType="com.edu.common.pojo.CourseWithBLOBs">
+    insert into course (Course_id, Course_name, Course_imgSrc, 
+      Tch_account, Visit_time, create_time, 
+      update_time, state, Course_process, 
+      Course_intro)
+    values (#{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{courseImgsrc,jdbcType=VARCHAR}, 
+      #{tchAccount,jdbcType=VARCHAR}, #{visitTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=TINYINT}, #{courseProcess,jdbcType=LONGVARCHAR}, 
+      #{courseIntro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="courseId" useGeneratedKeys="true"  parameterType="com.edu.common.pojo.CourseWithBLOBs">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        Course_id,
+      </if>
+      <if test="courseName != null">
+        Course_name,
+      </if>
+      <if test="courseImgsrc != null">
+        Course_imgSrc,
+      </if>
+      <if test="tchAccount != null">
+        Tch_account,
+      </if>
+      <if test="visitTime != null">
+        Visit_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="courseProcess != null">
+        Course_process,
+      </if>
+      <if test="courseIntro != null">
+        Course_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImgsrc != null">
+        #{courseImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tchAccount != null">
+        #{tchAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="courseProcess != null">
+        #{courseProcess,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseIntro != null">
+        #{courseIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.common.pojo.CourseExample" resultType="java.lang.Long">
+    select count(*) from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update course
+    <set>
+      <if test="record.courseId != null">
+        Course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseName != null">
+        Course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseImgsrc != null">
+        Course_imgSrc = #{record.courseImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tchAccount != null">
+        Tch_account = #{record.tchAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitTime != null">
+        Visit_time = #{record.visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.courseProcess != null">
+        Course_process = #{record.courseProcess,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.courseIntro != null">
+        Course_intro = #{record.courseIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update course
+    set Course_id = #{record.courseId,jdbcType=INTEGER},
+      Course_name = #{record.courseName,jdbcType=VARCHAR},
+      Course_imgSrc = #{record.courseImgsrc,jdbcType=VARCHAR},
+      Tch_account = #{record.tchAccount,jdbcType=VARCHAR},
+      Visit_time = #{record.visitTime,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=TINYINT},
+      Course_process = #{record.courseProcess,jdbcType=LONGVARCHAR},
+      Course_intro = #{record.courseIntro,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update course
+    set Course_id = #{record.courseId,jdbcType=INTEGER},
+      Course_name = #{record.courseName,jdbcType=VARCHAR},
+      Course_imgSrc = #{record.courseImgsrc,jdbcType=VARCHAR},
+      Tch_account = #{record.tchAccount,jdbcType=VARCHAR},
+      Visit_time = #{record.visitTime,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.common.pojo.CourseWithBLOBs">
+    update course
+    <set>
+      <if test="courseName != null">
+        Course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImgsrc != null">
+        Course_imgSrc = #{courseImgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tchAccount != null">
+        Tch_account = #{tchAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        Visit_time = #{visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="courseProcess != null">
+        Course_process = #{courseProcess,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseIntro != null">
+        Course_intro = #{courseIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.edu.common.pojo.CourseWithBLOBs">
+    update course
+    set Course_name = #{courseName,jdbcType=VARCHAR},
+      Course_imgSrc = #{courseImgsrc,jdbcType=VARCHAR},
+      Tch_account = #{tchAccount,jdbcType=VARCHAR},
+      Visit_time = #{visitTime,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=TINYINT},
+      Course_process = #{courseProcess,jdbcType=LONGVARCHAR},
+      Course_intro = #{courseIntro,jdbcType=LONGVARCHAR}
+    where Course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.common.pojo.Course">
+    update course
+    set Course_name = #{courseName,jdbcType=VARCHAR},
+      Course_imgSrc = #{courseImgsrc,jdbcType=VARCHAR},
+      Tch_account = #{tchAccount,jdbcType=VARCHAR},
+      Visit_time = #{visitTime,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=TINYINT}
+    where Course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 插件配置 -->
+	<plugins>
+		<!-- 配置PageHelper实现分页 -->
+		<!-- 在查询SQL语句执行之前，添加一个PageHelper.startPage(page,row) -->
+		<!-- 取分页结果，创建一个PageInfo对象获取信息 -->
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<!-- 指定使用的数据库是什么 -->
+			<property name="dialect" value="mysql"/>
+		</plugin>
+	</plugins>
+</configuration>

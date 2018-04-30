@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.common.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.edu.common.pojo.Video">
+    <id column="Vedio_id" jdbcType="INTEGER" property="vedioId" />
+    <result column="Vedio_name" jdbcType="VARCHAR" property="vedioName" />
+    <result column="Vedio_src" jdbcType="VARCHAR" property="vedioSrc" />
+    <result column="Vedio_grade" jdbcType="TINYINT" property="vedioGrade" />
+    <result column="Visit_time" jdbcType="INTEGER" property="visitTime" />
+    <result column="kp_id" jdbcType="INTEGER" property="kpId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="create_account" jdbcType="VARCHAR" property="createAccount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Vedio_id, Vedio_name, Vedio_src, Vedio_grade, Visit_time, kp_id, create_time, update_time, 
+    state, create_account
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.common.pojo.VideoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from video
+    where Vedio_id = #{vedioId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from video
+    where Vedio_id = #{vedioId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.common.pojo.VideoExample">
+    delete from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyProperty="vedioId" useGeneratedKeys="true" parameterType="com.edu.common.pojo.Video">
+    insert into video (Vedio_id, Vedio_name, Vedio_src, 
+      Vedio_grade, Visit_time, kp_id, 
+      create_time, update_time, state, 
+      create_account)
+    values (#{vedioId,jdbcType=INTEGER}, #{vedioName,jdbcType=VARCHAR}, #{vedioSrc,jdbcType=VARCHAR}, 
+      #{vedioGrade,jdbcType=TINYINT}, #{visitTime,jdbcType=INTEGER}, #{kpId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=TINYINT}, 
+      #{createAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="vedioId" useGeneratedKeys="true" parameterType="com.edu.common.pojo.Video">
+    insert into video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vedioId != null">
+        Vedio_id,
+      </if>
+      <if test="vedioName != null">
+        Vedio_name,
+      </if>
+      <if test="vedioSrc != null">
+        Vedio_src,
+      </if>
+      <if test="vedioGrade != null">
+        Vedio_grade,
+      </if>
+      <if test="visitTime != null">
+        Visit_time,
+      </if>
+      <if test="kpId != null">
+        kp_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="createAccount != null">
+        create_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vedioId != null">
+        #{vedioId,jdbcType=INTEGER},
+      </if>
+      <if test="vedioName != null">
+        #{vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioSrc != null">
+        #{vedioSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioGrade != null">
+        #{vedioGrade,jdbcType=TINYINT},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="kpId != null">
+        #{kpId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createAccount != null">
+        #{createAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.common.pojo.VideoExample" resultType="java.lang.Long">
+    select count(*) from video
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update video
+    <set>
+      <if test="record.vedioId != null">
+        Vedio_id = #{record.vedioId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vedioName != null">
+        Vedio_name = #{record.vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vedioSrc != null">
+        Vedio_src = #{record.vedioSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vedioGrade != null">
+        Vedio_grade = #{record.vedioGrade,jdbcType=TINYINT},
+      </if>
+      <if test="record.visitTime != null">
+        Visit_time = #{record.visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.kpId != null">
+        kp_id = #{record.kpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.createAccount != null">
+        create_account = #{record.createAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update video
+    set Vedio_id = #{record.vedioId,jdbcType=INTEGER},
+      Vedio_name = #{record.vedioName,jdbcType=VARCHAR},
+      Vedio_src = #{record.vedioSrc,jdbcType=VARCHAR},
+      Vedio_grade = #{record.vedioGrade,jdbcType=TINYINT},
+      Visit_time = #{record.visitTime,jdbcType=INTEGER},
+      kp_id = #{record.kpId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=TINYINT},
+      create_account = #{record.createAccount,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.common.pojo.Video">
+    update video
+    <set>
+      <if test="vedioName != null">
+        Vedio_name = #{vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioSrc != null">
+        Vedio_src = #{vedioSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioGrade != null">
+        Vedio_grade = #{vedioGrade,jdbcType=TINYINT},
+      </if>
+      <if test="visitTime != null">
+        Visit_time = #{visitTime,jdbcType=INTEGER},
+      </if>
+      <if test="kpId != null">
+        kp_id = #{kpId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createAccount != null">
+        create_account = #{createAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Vedio_id = #{vedioId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.common.pojo.Video">
+    update video
+    set Vedio_name = #{vedioName,jdbcType=VARCHAR},
+      Vedio_src = #{vedioSrc,jdbcType=VARCHAR},
+      Vedio_grade = #{vedioGrade,jdbcType=TINYINT},
+      Visit_time = #{visitTime,jdbcType=INTEGER},
+      kp_id = #{kpId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=TINYINT},
+      create_account = #{createAccount,jdbcType=VARCHAR}
+    where Vedio_id = #{vedioId,jdbcType=INTEGER}
+  </update>
+</mapper>

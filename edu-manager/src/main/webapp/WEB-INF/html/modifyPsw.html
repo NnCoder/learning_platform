@@ -1,0 +1,57 @@
+<div style="padding:10px 10px 10px 10px">
+	<form id="modifyPswForm" class="itemForm" method="post">
+		<table cellpadding="5">
+			<tr>
+				<td>原密码:</td>
+				<td>
+					<input type="hidden" value="${Request.user.tchAccount}" name="tchAccount">
+					<input type="password" class="easyui-textbox" name="psw" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+
+			<tr>
+				<td>新密码:</td>
+				<td>
+					<input type="password" class="easyui-textbox" name="newpsw" id="newpsw" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>确认密码:</td>
+				<td>
+					<input type="password" class="easyui-textbox" id="confirmpsw" data-options="required:true" style="width: 280px;"/>
+					<!-- restful -->
+					<input type="hidden" name="_method" value="PUT"/>
+				</td>
+				
+			</tr>
+
+		</table>
+	</form>
+	<div style="padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitPswForm()">修改</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearPswForm()">重置</a>
+	</div>
+</div>
+<script>
+	function submitPswForm(){
+		if(!$('#modifyPswForm').form('validate')) {
+			$.messager.alert('提示', '表单还未填写完成!');
+			return;
+		}
+		var $newpsw = $("#newpsw").val();
+		var $confirmpsw = $("#confirmpsw").val();
+		if($newpsw != $confirmpsw){
+			$.messager.alert('提示', '两次输入的密码不一致!');
+			return;
+		}
+		$.post("manager/teacher/psw",$("#modifyPswForm").serialize(),function(data){
+			if (data.status==200){
+				$.messager.alert('提示', '密码修改成功!');
+			}else {
+				$.messager.alert('提示', data.msg);
+			}
+		});
+	}
+	
+</script>

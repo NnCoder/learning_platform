@@ -1,0 +1,17 @@
+<header class="header">
+		<section class="common-width">
+			<h1 class="website-title">自主学习平台</h1>
+			<div class="header-sideBar user-info">
+			<#if Session.user?exists>  
+				<span class="user-name">${Session.user.userName}</span>	
+				<span class="user-account">${Session.user.userAccount}</span>
+				<#if Session.user.role == 'teacher'>
+				<a href="http://localhost:8080/edu-manager/token?redirectUrl=index&token=${Session.user.token}" target="_blank">后台管理</a>
+				</#if>
+				<a href="http://localhost:81/user/logout.html">退出登录</a>
+				<#else>
+				<a href="http://localhost:81/login.html">欢迎您来到学习平台,请登录</a>
+			</#if>	
+			</div>
+		</section>
+	</header>

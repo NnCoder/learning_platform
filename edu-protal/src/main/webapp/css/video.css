@@ -1,0 +1,200 @@
+		mark
+{
+    background-color: transparent;
+}
+.player-wraper
+{
+    position: relative;
+
+    width: 500px;
+    margin: 50px auto;
+
+    border: 1px solid #056281;
+}
+#video-player
+{
+    width: 100%;
+}
+.movie-name
+{
+    font-size: 20px;
+
+    color: #fff;
+    background-color: transparent;
+}
+.player-header
+{
+    line-height: 50px;
+
+    width: 100%;
+    height: 50px;
+
+    text-align: center;
+
+    color: #fff;
+    background-color: #056281;
+}
+.pause-logo
+{
+    display: none;
+}
+.pause-logo img
+{
+    position: absolute;
+    top: 45%;
+    left: 45%;
+
+    width: 10%;
+}
+.controller
+{
+    width: 100%;
+    height: 50px;
+
+    background-color: #056281;
+}
+.controller-btn
+{
+    display: inline-block;
+
+    width: 40px;
+    height: 48px;
+
+    background: url(../images/asacacsacasa_r2_c2.png) left center no-repeat;
+}
+.controller span
+{
+    line-height: 50px;
+
+    display: block;
+    float: left;
+
+    margin-right: 20px;
+    margin-left: 10px;
+
+    color: #fff;
+}
+
+.controller progress
+{
+    float: left;
+
+    width: 40%;
+    margin-top: 18px;
+
+    color: #fff; /*IE10*/
+    border: 1px solid #0064b4;
+    border-radius: 2px;
+    background-color: #e6e6e6;
+}
+.controller .current-time
+{
+    width: 40px;
+}
+.controller progress::-moz-progress-bar
+{
+    background: #0064b4;
+}
+.controller progress::-webkit-progress-bar
+{
+    background: #e6e6e6;
+}
+.controller progress::-webkit-progress-value
+{
+    background: #0064b4;
+}
+.controller .video-progress
+{
+    position: relative;
+}
+.controller
+{
+    position: relative;
+}
+.controller .full-screen,
+.controller .volume
+{
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    margin-top: -10px;
+
+    -webkit-transition: linear .2s;
+       -moz-transition: linear .2s;
+         -o-transition: linear .2s;
+            transition: linear .2s;
+}
+
+.controller .full-screen:hover,
+.controller .volume:hover
+{
+    -webkit-transform: scale(1.2,1.2); /* Safari 和 Chrome */
+       -moz-transform: scale(1.2,1.2); 	/* Firefox */
+        -ms-transform: scale(1.2,1.2); 	/* IE 9 */
+         -o-transform: scale(1.2,1.2); 	/* Opera */
+            transform: scale(1.2,1.2);
+}
+
+.controller .volume
+{
+    position: absolute;
+    right: 40px;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+}
+.volume img
+{
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+}
+.full-screen
+{
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+
+    background: url(../images/full-screen.png)left center no-repeat;
+}
+.volume:hover .volume-controller
+{
+    display: block;
+}
+.controller .volume-controller
+{
+    position: absolute;
+    top: -65px;
+    left: -40px;
+
+    display: none;
+
+    width: 100px;
+
+    -webkit-transform: rotate(-90deg); /* Safari 和 Chrome */
+       -moz-transform: rotate(-90deg); /* Firefox */
+        -ms-transform: rotate(-90deg); /* Internet Explorer */
+         -o-transform: rotate(-90deg); /* Opera */
+            transform: rotate(-90deg);
+
+    color: #fff;
+    border: 1px solid #0064b4;
+    border-radius: 2px;
+    background-color: #e6e6e6;
+}
+.controller .volume-controller::-moz-progress-bar
+{
+    background: #0064b4;
+}
+.controller .volume-controller::-webkit-progress-bar
+{
+    background: #e6e6e6;
+}
+.controller .volume-controller::-webkit-progress-value
+{
+    background: #0064b4;
+}

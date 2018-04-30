@@ -1,0 +1,63 @@
+<#if kpDetail?exists>
+<section class="learning-part clearfix">
+	<div class="learning-sideBar fl">
+		<div class="test-bar">
+			<h3>检测项</h3>
+			<p>
+				学习次数<span>0</span> 测试次数<span>1</span> 成绩<span>92</span>
+			</p>
+		</div>
+		<ul class="learning-source-bar">
+			<h5 class="learning-source-header">学习资源</h5>
+			<#list kpDetail.normalDatas as data>
+			<li><span>${data_index?if_exists+1}</span><a
+				href="${data.dataSrc}">${data.dataName}</a></li>
+			</#list>
+		</ul>
+	</div>
+	<div class="fr player-container">
+	<#if kpDetail.videos??>
+		<section class="player-wraper">
+			<header class="player-header">
+				<mark class="movie-name">${kpDetail.videos[0].vedioName}</mark>
+			</header>
+			<div class='pause-logo'>
+				<img src="../../images/c161481664841f0e5247c95387534478.png">
+			</div>
+			<video id="video-player">
+				<source src="${kpDetail.videos[0].vedioSrc}">
+			</video>
+			<footer class="controller">
+				<span class="controller-btn" id="controller-btn"></span> <span
+					class="current-time">0:0</span>
+				<progress class="video-progress" value="0" max="100"></progress>
+				<span class="duration">0</span> <span class="full-screen"></span> <span
+					class="volume"><img
+					src="../../images/46b71ce8861d3a8083996d77b2f48b88.png"> <input
+					type="range" step="10" class="volume-controller" name="" max="100">
+				</span>
+			</footer>
+		</section>
+	<#else>
+		<section class="player-wraper"><h1>暂无视频</h1></section>
+	</#if>
+	</div>
+</section>
+<section class="learning-text">
+	<article class="learning-content">
+		<li class=" learning-option show-details">精讲
+			<div class="learning-details learning-option">
+				${kpDetail.knowledgePoint.kpDetail}</div>
+		</li>
+		<li class="learning-option">学习建议
+			<div class="learning-details">
+				${kpDetail.knowledgePoint.kpAdvice}</div>
+		</li>
+		<li class="learning-option">阅读资料
+			<div class="learning-details">
+				${kpDetail.knowledgePoint.kpRead}</div>
+		</li>
+	</article>
+	<p class="footer">@copyRight 2017NCTechnology All Right reserved</p>
+</section>
+</#if>

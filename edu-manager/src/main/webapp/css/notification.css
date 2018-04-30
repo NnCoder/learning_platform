@@ -1,0 +1,32 @@
+.notification-title {
+	text-align: center;
+	line-height: 40px;
+	font-size: 24px;
+	margin: 50px auto;
+}
+.notification-date {
+	float: right;
+	margin-top: 30px;
+}
+.notification-content {
+	text-indent: 30px; 
+	line-height: 30px;
+}
+
+.notification-pagination li {
+	margin-top: 20px;
+	display: inline-block;
+	color: #ADA6A6;
+}
+.notification-pagination li:after {
+	content: '/';
+}
+.notification-pagination li:last-child a{
+	color: #B63535;
+}
+.notification-pagination li:last-child:after{
+	content: '';
+}
+.notification-pagination li a {
+	color: #ADA6A6;
+}

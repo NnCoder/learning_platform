@@ -1,0 +1,35 @@
+.rank-header {
+    width: 100%;
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: 900;
+    background-color: #FAFAFA;
+    text-indent: 10px;
+}
+.rank-title,.rank-list {
+    font-size: 0;
+    border: 1px solid  #CFDBD9;
+}
+.rank-title > li {
+    display: inline-block;
+    width: 16%;
+    font-size: 15px;
+    line-height: 50px;
+    text-indent: 20px;
+}
+.rank-list li {
+    display: inline-block;
+    width: 100%;
+    font-size: 0;
+    line-height: 50px;
+    border-bottom: 1px solid #CFDBD9; 
+}
+.rank-list span {
+    display: inline-block;
+    width: 16%;
+    font-size: 15px;
+    text-indent: 20px;
+}
+.rank-list i {
+    text-indent: 0;
+}

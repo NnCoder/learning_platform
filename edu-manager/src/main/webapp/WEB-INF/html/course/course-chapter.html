@@ -1,0 +1,383 @@
+<div class="easyui-panel" title="Nested Panel" data-options="width:'100%',minHeight:800,noheader:true,border:false" style="padding:10px;">
+	
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north'">
+			<div style="padding: 5px;">
+				<img src="${courseDetail.course.courseImgsrc}" style="float: left;" width="100px" height="100px"/>
+			
+				<h3 style="margin-left: 5px;">${courseDetail.course.courseName} 负责人: ${courseDetail.course.tchAccount} <button class="easyui-linkbutton" onclick="openStuCoursesWindow${courseDetail.course.courseId}()">查看参与课程统计学生</button> </h3>
+				<p style="margin-left: 5px;">创建时间: ${courseDetail.course.createTime?datetime}</p>
+				<p style="margin-left: 5px;">观看次数: ${courseDetail.course.visitTime} 次</p>
+				
+			</div>
+			
+			<div class="easyui-tabs" style="height: 160px;">
+				<div title="学习流程" style="padding:20px;">
+					${courseDetail.course.courseProcess}
+				</div>
+				<div title="绪论" style="padding:20px";>
+					${courseDetail.course.courseIntro}
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'west',split:false" style="width:250px;padding:5px">
+			<ul id="chapterTree${courseDetail.course.courseId}" class="easyui-tree">
+				<li data-options="id:${courseDetail.course.courseId},parentId:-2,state:'open'">
+					<span>${courseDetail.course.courseName}</span>
+					<ul>
+						<#list courseDetail.chapters as chapter>
+						<li data-options="id:${chapter.chapterId},parentId:${courseDetail.course.courseId}">${chapter.chapterName}</li>
+						</#list>
+					</ul>
+				</li>
+			</ul>
+			<!--<ul id="chapterTree${courseDetail.course.courseId}" class="easyui-tree" data-options="url:'/rest/content/category',animate: true,method : 'GET'">
+            </ul>-->
+		</div>
+		<div data-options="region:'center'" style="padding:5px;">
+			<table class="easyui-datagrid" id="contentList${courseDetail.course.courseId}" data-options="toolbar:contentList${courseDetail.course.courseId}Toolbar,singleSelect:false,collapsible:true,pagination:true,method:'get',pageSize:20,url:'manager/kp/list',queryParams:{chapterId:-1}">
+				<thead>
+					<tr>
+						<th data-options="field:'kpId',width:30">ID</th>
+						<th data-options="field:'kpName',width:120">知识点名</th>
+						<th data-options="field:'kpDetail',width:220,formatter:formatContent">知识点精讲</th>
+						<th data-options="field:'kpAdvice',width:220,formatter:formatContent">学习建议</th>
+						<th data-options="field:'kpRead',width:220,formatter:formatContent">阅读资料</th>
+						<th data-options="field:'chapterId',width:120,align:'center'">所属章节ID</th>
+						
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div id="chapterMenu${courseDetail.course.courseId}" class="easyui-menu" style="width:120px;" data-options="onClick:chapterMenu${courseDetail.course.courseId}Handler${courseDetail.course.courseId}">
+			<div data-options="iconCls:'icon-add',name:'add'">添加章节</div>
+			<div data-options="iconCls:'icon-tip',name:'edit'">编辑章节资源</div>
+			<div data-options="iconCls:'icon-save',name:'rename'">重命名</div>
+			<div class="menu-sep"></div>
+			<div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	
+	function formatContent(val,row){
+		var p = "<div class='content-show'>"+val+"</div>";
+		return p;
+	}
+	
+	function openStuCoursesWindow${courseDetail.course.courseId}(){
+		TT.createWindow({
+			url: "page/course-stus/"+${courseDetail.course.courseId},
+			width:770,
+			height:578,
+		});
+	}
+	
+	//菜单监听器
+	function chapterMenu${courseDetail.course.courseId}Handler${courseDetail.course.courseId}(item) {
+		
+		var tree = $("#chapterTree${courseDetail.course.courseId}");
+		var node = tree.tree('find', ${courseDetail.course.courseId});
+		
+		if(item.name === "add") {
+			tree.tree('append', { //在当前的节点下添加子节点
+				parent: (node ? node.target : null),
+				data: [{
+					text: '新建章节',
+					id: 0,
+					parentId: ${courseDetail.course.courseId}
+				}]
+			});
+			var _node = tree.tree('find', 0); //查找到新添加的节点
+			//选中该节点并且开始编辑
+			tree.tree("select", _node.target).tree('beginEdit', _node.target);
+		}
+		var _node = tree.tree("getSelected");
+		if (_node.parentId==-2){
+			return;
+		}
+		if(item.name==="edit"){
+			TT.createWindow({
+				url: "page/chapter-edit/"+_node.id,
+				width:867,
+				height:541,
+			});
+		}
+		if(item.name === "rename") {
+			tree.tree('beginEdit', _node.target);
+		} else if(item.name === "delete") {
+			$.messager.confirm('确认', '确定删除名为 ' + _node.text + ' 的章节吗？', function(r) {
+				if(r) {
+					$.ajax({
+						type: "POST",
+						url: "manager/chapter",
+						data: {
+							id: _node.id,
+							"_method": "DELETE"
+						},
+						success: function(msg) {
+							tree.tree("remove", _node.target);
+						},
+						error: function() {
+							$.messager.alert('提示', '删除失败!');
+						}
+					});
+				}
+			});
+		}
+	}
+	$(function() {
+
+		var tree = $("#chapterTree${courseDetail.course.courseId}");
+		var datagrid = $("#contentList${courseDetail.course.courseId}");
+		tree.tree({
+			onContextMenu: function(e, node) {
+				e.preventDefault(); //阻止默认事件的执行
+				$(this).tree('select', node.target); //选中当前的节点
+				$('#chapterMenu${courseDetail.course.courseId}').menu('show', { //显示菜单，并且指定显示位置
+					left: e.pageX,
+					top: e.pageY
+				});
+			},
+			onClick: function(node) {
+				if(tree.tree("isLeaf", node.target)) {
+					datagrid.datagrid('reload', {
+						chapterId: node.id
+					});
+				}
+			},onAfterEdit: function(node) {
+				var _tree = $(this);
+				if(node.id == 0) {
+					var _node = _tree.tree("find", node.id);
+					
+					// 新增节点
+					$.post("manager/chapter", {
+						courseId: node.parentId,
+						chapterName: node.text
+					}, function(data) {
+						_tree.tree("update", {
+							target: node.target,
+							id: data.chapterId //将临时的id修改为正式的id值
+						});
+					});
+				} else {
+					//重命名
+					$.ajax({
+						type: "POST",
+						url: "manager/chapter",
+						data: {
+							id: node.id,
+							name: node.text,
+							'_method': 'PUT'
+						},
+						success: function(msg) {
+						},
+						error: function() {
+							$.messager.alert('提示', '重命名失败!');
+						}
+					});
+				}
+			}
+			
+		});
+	});
+	var contentList${courseDetail.course.courseId}Toolbar = [{
+		text: '新增知识点',
+		iconCls: 'icon-add',
+		handler: function() {
+			var node = $("#chapterTree${courseDetail.course.courseId}").tree("getSelected");
+			if(!node || !$("#chapterTree${courseDetail.course.courseId}").tree("isLeaf", node.target)) {
+				$.messager.alert('提示', '新增知识点必须选择一个章节!');
+				return;
+			}
+			if(node.parentId == -2){
+				return;
+			}
+			TT.createWindow({
+				url: "page/kp-add/"+node.id,
+				onLoad: function() {
+					callback = function(){
+						$("#contentList${courseDetail.course.courseId}").datagrid("reload");
+					}
+				}
+			});
+		}
+	},{
+		text: '编辑视频',
+		iconCls: 'icon-add',
+		handler: function() {
+			var list = $("#contentList${courseDetail.course.courseId}");
+	    	var sels = list.datagrid("getSelections");
+	    	var ids = [];
+	    	for(var i in sels){
+	    		ids.push(sels[i].kpId);
+	    	}
+	    	ids = ids.join(",");
+			if(ids.length == 0) {
+				$.messager.alert('提示', '必须选择一个知识点才能编辑!');
+				return;
+			}
+			if(ids.indexOf(',') > 0) {
+				$.messager.alert('提示', '只能选择一个知识点!');
+				return;
+			}
+			/* TT.createWindow({
+				
+				width:867,
+				height:541,
+				url: "page/video-edit/" + ids
+			}); */
+			layer.open({
+			      type: 2,
+			      title: '视频添加',
+			      shadeClose: true,
+			      shade: false,
+			      maxmin: true, //开启最大化最小化按钮
+			      area: ['893px', '600px'],
+			      content: "page/video-edit/" + ids
+			  });
+		}
+	},{
+		text: '编辑资料',
+		iconCls: 'icon-add',
+		handler: function() {
+			var list = $("#contentList${courseDetail.course.courseId}");
+	    	var sels = list.datagrid("getSelections");
+	    	var ids = [];
+	    	for(var i in sels){
+	    		ids.push(sels[i].kpId);
+	    	}
+	    	ids = ids.join(",");
+			if(ids.length == 0) {
+				$.messager.alert('提示', '必须选择一个知识点才能编辑!');
+				return;
+			}
+			if(ids.indexOf(',') > 0) {
+				$.messager.alert('提示', '只能选择一个知识点!');
+				return;
+			}
+			/* TT.createWindow({
+				width:867,
+				height:541,
+				url: "page/data-edit/" + ids+"/1"
+			}); */
+			layer.open({
+			      type: 2,
+			      title: '资料添加',
+			      shadeClose: true,
+			      shade: false,
+			      maxmin: true, //开启最大化最小化按钮
+			      area: ['893px', '600px'],
+			      content: "page/data-edit/" + ids+"/1"
+			 });
+		}
+	},{
+		text: '编辑测试资料',
+		iconCls: 'icon-add',
+		handler: function() {
+			var list = $("#contentList${courseDetail.course.courseId}");
+	    	var sels = list.datagrid("getSelections");
+	    	var ids = [];
+	    	for(var i in sels){
+	    		ids.push(sels[i].kpId);
+	    	}
+	    	ids = ids.join(",");
+			if(ids.length == 0) {
+				$.messager.alert('提示', '必须选择一个知识点才能编辑!');
+				return;
+			}
+			if(ids.indexOf(',') > 0) {
+				$.messager.alert('提示', '只能选择一个知识点!');
+				return;
+			}
+			/* TT.createWindow({
+				width:867,
+				height:541,
+				url:  "page/data-edit/" + ids +"/2"
+			}); */
+			layer.open({
+			      type: 2,
+			      title: '资料添加',
+			      shadeClose: true,
+			      shade: false,
+			      maxmin: true, //开启最大化最小化按钮
+			      area: ['893px', '600px'],
+			      content: "page/data-edit/" + ids+"/2"
+			 });
+		}
+	}, {
+		text: '编辑知识点',
+		iconCls: 'icon-edit',
+		handler: function() {
+			var list = $("#contentList${courseDetail.course.courseId}");
+	    	var sels = list.datagrid("getSelections");
+	    	var ids = [];
+	    	for(var i in sels){
+	    		ids.push(sels[i].kpId);
+	    	}
+	    	ids = ids.join(",");
+			//var ids = TT.getSelectionsIds("#contentList${courseDetail.course.courseId}");
+			if(ids.length == 0) {
+				$.messager.alert('提示', '必须选择一个知识点才能编辑!');
+				return;
+			}
+			if(ids.indexOf(',') > 0) {
+				$.messager.alert('提示', '只能选择一个知识点!');
+				return;
+			}
+			TT.createWindow({
+				url: "page/kp-edit",
+				onLoad: function() {
+					var data = $("#contentList${courseDetail.course.courseId}").datagrid("getSelections")[0];
+					$("#kpEditForm").form("load", data);
+					// 实现内容填充,减小数据库访问量
+					$("#kpEditForm [name=kpId]").val(data.kpId);
+					$("#kpEditForm [name=kpName]").val(data.kpName);
+					if(data.kpDetail) {
+						detailEditor.txt.html(data.kpDetail);
+					}
+					if(data.kpAdvice) {
+						adviceEditor.txt.html(data.kpAdvice);
+					}
+					if(data.kpRead) {
+						readEditor.txt.html(data.kpRead);
+					}
+					callback = function(){
+						$("#contentList${courseDetail.course.courseId}").datagrid("reload");
+					}
+				}
+			});
+		}
+	}, {
+		text: '删除',
+		iconCls: 'icon-cancel',
+		handler: function() {
+			var list = $("#contentList${courseDetail.course.courseId}");
+	    	var sels = list.datagrid("getSelections");
+	    	var ids = [];
+	    	for(var i in sels){
+	    		ids.push(sels[i].kpId);
+	    	}
+	    	ids = ids.join(",");
+			if(ids.length == 0) {
+				$.messager.alert('提示', '未选中知识点!');
+				return;
+			}
+			$.messager.confirm('确认', '确定删除ID为 ' + ids + ' 的知识点吗？', function(r) {
+				if(r) {
+					var params = {
+						"ids": ids,
+						"_method":"DELETE" //restful
+					};
+					$.post("manager/kp", params, function(data) {
+						if(data.status == 200) {
+							$.messager.alert('提示', '删除知识点成功!', undefined, function() {
+								$("#contentList${courseDetail.course.courseId}").datagrid("reload");
+							});
+						}
+					});
+				}
+			});
+		}
+	}];
+</script>

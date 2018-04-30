@@ -1,0 +1,64 @@
+<div style="padding:10px 10px 10px 10px">
+	<form id="stuAddForm" class="itemForm" method="post">
+		<table cellpadding="5">
+			<tr>
+				<td>学号:</td>
+				<td><input class="easyui-textbox" type="text" name="stuAccount" data-options="required:true" style="width: 280px;"/>
+				</td>
+			
+			</tr>
+			<tr>
+				<td>姓名:</td>
+				<td>
+					<input class="easyui-textbox"  type="text" name="stuName" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>专业:</td>
+				<td>
+					<input class="easyui-combobox" data-options="valueField:'id',textField:'text',url:'manager/majors/list'"  type="text" name="majorName" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>班级:</td>
+				<td>
+					<input class="easyui-textbox"  type="number" name="classIndex" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			
+		</table>
+	</form>
+	
+	<div style="padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddStuForm()">提交</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearAddStuForm()">重置</a>
+	</div>
+</div>
+<script type="text/javascript">
+	
+	function submitAddStuForm() {
+		if(!$('#stuAddForm').form('validate')) {
+			alert('表单还未填写完成!');
+			return;
+		}
+
+		$.post("manager/student",$("#stuAddForm").serialize(),function(data){
+			if(data.status == 400){
+				$.messager.alert("提示", data.msg);
+			}
+			else{
+				
+				$.messager.alert("提示","添加成功");
+				$("#stuList").datagrid("reload");
+				clearAddStuForm()
+				//callback();
+			}
+			
+		});
+		
+	}
+
+	function clearAddStuForm() {
+		$('#stuAddForm').form('reset');
+	}
+</script>

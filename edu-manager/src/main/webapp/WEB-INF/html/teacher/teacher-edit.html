@@ -1,0 +1,42 @@
+<div style="padding:10px 10px 10px 10px">
+	<form id="tchEditForm" class="itemForm" method="post">
+		<table cellpadding="5">
+			<tr>
+				<td>账号:</td>
+				<td>
+					<input name="_method" value="PUT" type="hidden"/>
+					<input class="easyui-textbox" value="${teacher.tchAccount}" type="text" readonly="readonly" name="tchAccount" data-options="required:true" style="width: 280px;"/>
+				</td>
+			
+			</tr>
+			<tr>
+				<td>姓名:</td>
+				<td>
+					<input class="easyui-textbox" value="${teacher.tchName}"  type="text" name="tchName" data-options="required:true" style="width: 280px;"/>
+				</td>
+			</tr>
+			
+			
+		</table>
+	</form>
+	
+	<div style="padding:5px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitEditTchForm()">提交</a>
+	</div>
+</div>
+<script type="text/javascript">
+	
+	function submitEditTchForm() {
+		if(!$('#tchEditForm').form('validate')) {
+			alert('表单还未填写完成!');
+			return;
+		}
+		
+		$.post("manager/teacher",$("#tchEditForm").serialize(),function(){
+			$.messager.alert("提示","修改成功");
+			$("#teacherList").datagrid("reload");
+		});
+		
+	}
+
+</script>
