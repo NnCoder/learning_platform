@@ -3,9 +3,11 @@
 
 ## 前端技术/框架: Jquery,Easyui,HTML5,Layer弹出层
 
-## 后端技术/框架: JAVA,Spring,SpringMVC,Mybatis
+## 后端技术/框架: JAVA,Spring,SpringMVC,Mybatis,Quartz
 
 ## 数据库: MySQL5.x
+
+## 缓存: Redis
 
 ## 总体架构: 
 
