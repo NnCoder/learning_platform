@@ -39,3 +39,36 @@ https://blog.csdn.net/bigwhitetao9527/article/details/80148838   如何通过Mav
 
 https://blog.csdn.net/bigwhitetao9527/article/details/79391548    maven自动部署到远程tomcat教程
 
+## SQL
+
+edu.sql文件
+
+数据库名：edu
+
+## 项目中配置说明
+
+db.properties 为数据库配置
+
+resource.properties 为redis配置和一些其他的配置(因为是个人项目就没怎么整理)
+
+url.properties(edu-protal项目中) 为对应restful服务地址
+
+## 导入完成项目后说明
+
+edu-parent 需运行 run as -> maven install 
+
+edu-common 需运行 run as -> maven install
+
+quinFS 文件服务器可一直运行，edu-manager采用flash上传组件时需要上传到quinFS中,文件存放在webapp目录下的file文件夹中(可见有多简陋了哈哈)
+
+edu-manager 需在前两个运行完成后再运行 run as -> maven build , 若运行失败，请检查数据库配置,运行成功后地址 localhost:8080/edu-manager/
+
+edu-rest 需在前两个运行完成后再运行 run as -> maven build
+
+edu-protal 需在edu-rest运行后再运行,运行成功后地址 localhost:81/
+
+## 最后说明
+
+该项目为个人写出来的项目，本人也正在学习，所以里面许多东西比较的乱。
+
+
