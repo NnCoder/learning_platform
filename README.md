@@ -13,7 +13,7 @@
 
 采用MAVEN搭建及部署;
 
-Redis做为缓存(故需要做redis配置,一般在项目resource.properties中)
+Redis做为缓存(故需要做redis配置,一般在项目resource.properties中),因为做了try-catch来保证redis不影响项目,所以也可不配置,不过控制台会一直输出exception就是了
 
 Quartz作业调度来更新统计每门课的点击量(半夜的时候,具体时间忘了,从redis缓存中读取更新)
 
