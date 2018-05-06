@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.edu.common.pojo.Comment;
 import com.edu.common.pojo.HttpResult;
 import com.edu.rest.pojo.CommentVo;
+import com.edu.rest.pojo.PageResult;
 import com.edu.rest.service.CommentService;
 
 @Controller
@@ -23,12 +24,12 @@ public class CommentController {
 	
 	@RequestMapping("/kp/{kpId}/comments")
 	@ResponseBody
-	public List<CommentVo> getCommentsByKpId(
+	public PageResult getCommentsByKpId(
 			@PathVariable Integer kpId, 
 			@RequestParam(defaultValue="1") int page, 
 			@RequestParam(defaultValue="10") int rows){
-		List<CommentVo> list = commentService.getCommentsByKpId(kpId,page,rows);
-		return list;
+		PageResult result = commentService.getCommentsByKpIdForPage(kpId, page, rows);
+		return result;
 	}
 	
 	@RequestMapping(value="/comments", method=RequestMethod.POST)

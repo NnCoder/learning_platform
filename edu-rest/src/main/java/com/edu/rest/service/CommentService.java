@@ -5,6 +5,7 @@ import java.util.List;
 import com.edu.common.pojo.Comment;
 import com.edu.common.pojo.HttpResult;
 import com.edu.rest.pojo.CommentVo;
+import com.edu.rest.pojo.PageResult;
 
 public interface CommentService {
 	
@@ -15,6 +16,8 @@ public interface CommentService {
 	 */
 	List<CommentVo> getCommentsByKpId(int kpId, int page, int rows);
 	
+	
+	PageResult getCommentsByKpIdForPage(int kpId, int page, int rows);
 	/**
 	 * 添加评论
 	 * @param comment

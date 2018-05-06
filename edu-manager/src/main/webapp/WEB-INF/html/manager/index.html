@@ -227,41 +227,33 @@
 					url : "page/course-edit/" + _node.id,
 				});
 			} else if (item.name === "delete") {
-				$.messager.confirm('确认', '确定删除名为 ' + _node.text + ' 的课程吗？',
-						function(r1) {
-							if (r1) {
-								$.messager.confirm('确认', '该操作将删除 ' + _node.text
-										+ ' 课程下所有的章节视频及资料,请再次确认!',
-										function(r2) {
-											if (r2) {
-												layer.msg('正在删除……', {icon: 16});
-												$.ajax({
-													type : "POST",
-													url : "manager/course",
-													data : {
-														id : _node.id,
-														"_method" : "DELETE"
-													},
-													success : function(msg) {
-														//$.messager.alert('提示','新增商品成功!');
-														$.messager.alert('提示',
-																'已删除!');
-														var tabs = $("#tabs");
-														tabs.tabs("close", _node.text);
-														tree.tree("remove",
-																_node.target);
-													},
-													error : function() {
-														$.messager.alert('提示',
-																'删除失败!');
-													}
-												});
-											}
-
-										});
-
+				layer.confirm('确定删除名为 ' + _node.text + ' 的课程吗？', function(){
+					layer.confirm('该操作将删除 ' + _node.text
+							+ ' 课程下所有的章节视频及资料,请再次确认!', function(){
+						layer.msg('正在删除……', {icon: 16});
+						$.ajax({
+							type : "POST",
+							url : "manager/course",
+							data : {
+								id : _node.id,
+								"_method" : "DELETE"
+							},
+							success : function(msg) {
+								//$.messager.alert('提示','新增商品成功!');
+								layer.msg('删除成功', {icon: 1});
+								var tabs = $("#tabs");
+								tabs.tabs("close", _node.text);
+								tree.tree("remove",
+										_node.target);
+							},
+							error : function() {
+								layer.msg('删除失败', {icon: 5});
 							}
 						});
+					});
+				});
+					
+				
 			}
 		}
 		

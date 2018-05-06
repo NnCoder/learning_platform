@@ -14,6 +14,7 @@ import com.edu.common.pojo.KnowledgePoint;
 import com.edu.common.pojo.Video;
 import com.edu.protal.pojo.CommentVo;
 import com.edu.protal.pojo.KpDetail;
+import com.edu.protal.pojo.PageResult;
 import com.edu.protal.service.KpService;
 
 @Controller
@@ -57,12 +58,24 @@ public class KpController {
 	@GetMapping("/kp/{kpId}/comments")
 	public String getKpCommentsById(@PathVariable int kpId,
 			@RequestParam(defaultValue="1")int page,
-			@RequestParam(defaultValue="10")int rows,
+			@RequestParam(defaultValue="1")int rows,
 			Model model) {
-		List<CommentVo> list = kpService.getCommentsByKpId(kpId, page, rows);
-		model.addAttribute("comments", list);
+		PageResult result = kpService.getCommentsByKpId(kpId, page, rows);
+		model.addAttribute("comments", result);
 		model.addAttribute("kpId", kpId);
 		return "kp/kp-comment";
+	}
+	
+	@GetMapping("/kp/{kpId}/comments-{type}")
+	public String getKpCommentsById(@PathVariable int kpId,
+			@RequestParam(defaultValue="1")int page,
+			@RequestParam(defaultValue="10")int rows,
+			@PathVariable String type,
+			Model model) {
+		PageResult result = kpService.getCommentsByKpId(kpId, page, rows);
+		model.addAttribute("comments", result);
+		model.addAttribute("kpId", kpId);
+		return "comment/"+type+"-comment";
 	}
 	
 }

@@ -1,16 +1,17 @@
 <!-- 参与该课程的学生 -->
-<link rel="stylesheet" href="js/uploadify/uploadify.css" />
+<html>
 
-<script type="text/javascript" src="js/uploadify/jquery.uploadify.js"></script>
-
+<#include '../comment/comment-css.html'>
+<link rel="stylesheet" href="${contextPath}/js/uploadify/uploadify.css" />
+<body>
 <div>
 	<div id="uploadify"></div>
 	<div id="fileQueue"></div>
 	<h3>上传示例:</h3>
-	<img src="img/tch_stu_up_example.jpg" />
+	<img src="${contextPath}/img/tch_stu_up_example.jpg" />
 </div>
 <table class="easyui-datagrid" id="stuCourseList" title="所参加学生列表"
-	data-options="singleSelect:false,collapsible:true,pagination:true,url:'manager/course/student?courseId=${courseId}',method:'get',pageSize:10,toolbar:scToolbar">
+	data-options="singleSelect:false,collapsible:true,pagination:true,url:'${contextPath}/manager/course/student?courseId=${courseId}',method:'get',pageSize:10,toolbar:scToolbar">
 	<thead>
 		<tr>
 			<th data-options="field:'ck',checkbox:true"></th>
@@ -20,6 +21,9 @@
 		</tr>
 	</thead>
 </table>
+</body>
+<#include '../comment/comment-js.html'/>
+<script type="text/javascript" src="${contextPath}/js/uploadify/jquery.uploadify.js"></script>
 <script>
 	var scToolbar = [
 		{
@@ -38,7 +42,7 @@
 	        				stuAccounts: ids,
 	        				_method:'DELETE'
 	        			};
-	        			$.post('manager/course/student',params,function(data){
+	        			$.post('${contextPath}/manager/course/student',params,function(data){
 	        				if(data.status==200){
 	        					$.messager.alert('提示','删除成功!');
 	        					$("#stuCourseList").datagrid('reload', {
@@ -61,7 +65,7 @@
         	        			courseId:'${courseId}',
         	        			_method:'DELETE'
         	        		};
-        	        		$.post('manager/course/student/deleteAll',params,function(data){
+        	        		$.post('${contextPath}/manager/course/student/deleteAll',params,function(data){
         	        			if(data.status==200){
         	        				$.messager.alert('提示','删除成功!');
         	        				$("#stuCourseList").datagrid('reload', {
@@ -81,11 +85,9 @@
 		//'buttonClass': 'easyui-linkbutton',
 		'debug' : false, //开启调试 
 		'auto' : true, //是否自动上传 
-		'swf' : 'js/uploadify/uploadify.swf', //引入uploadify.swf 
-		'uploader' : 'manager/course/student/excel', //请求路径 
+		'swf' : '${contextPath}/js/uploadify/uploadify.swf', //引入uploadify.swf 
+		'uploader' : '${contextPath}/manager/course/student/excel', //请求路径 
 		'queueID' : 'fileQueue', //队列id,用来展示上传进度的 
-		//'width': '40', //按钮宽度 
-		//'height': '10', //按钮高度 
 		'queueSizeLimit' : 1, //同时上传文件的个数 
 		'fileTypeDesc' : 'excel文件', //可选择文件类型说明 
 		'fileTypeExts' : '*.xlsx;*.xls', //控制可上传文件的扩展名 
@@ -126,3 +128,4 @@
 	 }
 	 
 </script>
+</html>

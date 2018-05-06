@@ -16,6 +16,7 @@ import com.edu.common.utils.HttpClientUtil;
 import com.edu.common.utils.JsonUtils;
 import com.edu.protal.pojo.CommentVo;
 import com.edu.protal.pojo.KpDetail;
+import com.edu.protal.pojo.PageResult;
 import com.edu.protal.service.KpService;
 @Service
 public class KpServiceImpl implements KpService{
@@ -62,13 +63,13 @@ public class KpServiceImpl implements KpService{
 	}
 
 	@Override
-	public List<CommentVo> getCommentsByKpId(int kpId, int page, int rows) {
+	public PageResult getCommentsByKpId(int kpId, int page, int rows) {
 		Map<String, String> params = new HashMap<>();
 		params.put("page", String.valueOf(page));
 		params.put("rows", String.valueOf(rows));
 		String jsonData = HttpClientUtil.doGet(REST_KP_URL+"/"+kpId+"/comments", params);
-		List<CommentVo> list = JsonUtils.jsonToList(jsonData, CommentVo.class);
-		return list;
+		PageResult result = JsonUtils.jsonToPojo(jsonData, PageResult.class);
+		return result;
 	}
 
 }

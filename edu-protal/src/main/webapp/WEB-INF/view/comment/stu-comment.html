@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<#include '../header/common.html'>
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/knowledgePoint.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/pagination.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_u4qz1594lnixusor.css">
+<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<section class="comment-box">
+		<#if Session.user?exists && Session.user.role=='student'>
+		<section class="question-box">
+			<div class="input-box">
+				<span class="questioner"><i class="fa fa-user-circle-o fa-3x"></i></span>
+				<form class="input-form">
+					<textarea maxlength="300" id="commentContent" name="commentContent"
+						placeholder="提问"></textarea>
+					<input type="hidden" name="kpId" value="${kpId}">
+					<button class="release-btn" onclick="return false;">提交</button>
+				</form>
+				<script type="text/javascript">
+					$(".release-btn")
+							.on(
+									'click',
+									function() {
+										var data = $(".input-form").serialize();
+										$.post(
+														'${contextPath}/comments.do',
+														data,
+														function(res) {
+															var html = '<article class="comment-item">'
+																	+ '<span class="questioner"> <i class="fa fa-user-circle-o fa-3x"></i>'
+																	+ '</span>'
+																	+ '<div class="comment">'
+																	+ '<h3 class="user-name">${Session.user.userAccount} ${Session.user.userName}</h3>'
+																	+ '<p class="coment-text">'
+																	+ $(
+																			"#commentContent")
+																			.val()
+																	+ '</p>'
+																	+ '<div class="comment-time">'
+																	+ '&nbsp&nbsp&nbsp&nbsp时间:'
+																	+ '<time>刚刚</time>'
+																	+ '</div>"';
+															alert("已提交问题");
+															$(".input-form")[0]
+																	.reset();
+															prependComment(html);
+														});
+									});
+				</script>
+			</div>
+		</section>
+		
+		</#if>
+		<section class="comment-wraper" id="commentwrapper">
+			<#list comments.list as comment>
+			<article class="comment-item">
+				<span class="questioner"> <i
+					class="fa fa-user-circle-o fa-3x"></i>
+				</span>
+				<div class="comment">
+					<h3 class="user-name">${comment.userName}</h3>
+					<p class="coment-text">${comment.commentContent}</p>
+					<div class="comment-time">
+						<#if comment.responses?size gt 0> <span
+							class="check-response">查看回答<i class="fa fa-caret-down"></i></span>
+						</#if>
+						&nbsp&nbsp&nbsp&nbsp时间:
+						<time>${comment.commentTime?number_to_datetime}</time>
+					</div>
+					<#if comment.responses??>
+						<#list comment.responses as response>
+						<div class="answer-box">
+							<div class="responser">
+								<i class="teacher-icon fa fa-user fa-2x"></i> <br> <span
+									class="teacher-name">${response.userName!}</span>
+							</div>
+							<div class="response-box">
+								<p>${response.commentContent}</p>
+								<div class="response-time">
+									时间:
+									<time>${response.commentTime?number_to_datetime}</time>
+								</div>
+							</div>
+						</div>
+						</#list>
+						</#if>
+					</div>
+			</article>
+			</#list>
+			
+		</section>
+		
+	</section>
+</body>
+
+<script src="${contextPath}/js/lessionHomePage.js"></script>
+<script src="${contextPath}/js/learning.js"></script>
+
+<script>
+	function prependComment(html) {
+		$("#commentwrapper").prepend(html);
+	}
+	
+	
+</script>
+</html>

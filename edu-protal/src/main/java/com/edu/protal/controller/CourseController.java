@@ -32,7 +32,7 @@ public class CourseController {
 	@Autowired
 	private KpService KpService;
 	
-	@GetMapping("/courses/{courseId}")
+	@GetMapping("/courses-{courseId}")
 	public String getCourse(@PathVariable Integer courseId, HttpServletRequest request,Model model) {
 		Course course = courseService.getCourseDetailById(courseId,request);
 		@SuppressWarnings("unchecked")
@@ -53,7 +53,7 @@ public class CourseController {
 		return "course/courses";
 	}
 	
-	@GetMapping("/courses/{courseId}/chaptersWithKp")
+	@GetMapping("/courses-{courseId}-chaptersWithKp")
 	public String getCourseChaptersById(@PathVariable Integer courseId, Model model) {
 		List<ChapterWithKp> list = courseService.getCourseChaptersById(courseId);
 		if (!list.isEmpty()) {

@@ -1,7 +1,7 @@
 <#include '../header/common.html'/>
 <div class="my-tab-item">
-
-	<section class="comment-box">
+	<iframe id="stuComment" style="width: 100%;" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="yes"></iframe>
+	<!-- <section class="comment-box">
 		<#if Session.user?exists && Session.user.role=='student'>
 		<section class="question-box">
 			<div class="input-box">
@@ -45,10 +45,10 @@
 				</script>
 			</div>
 		</section>
-
+		
 		</#if>
 		<section class="comment-wraper" id="commentwrapper">
-			<#list comments as comment>
+			<#list comments.list as comment>
 			<article class="comment-item">
 				<span class="questioner"> <i
 					class="fa fa-user-circle-o fa-3x"></i>
@@ -61,7 +61,7 @@
 							class="check-response">查看回答<i class="fa fa-caret-down"></i></span>
 						</#if>
 						&nbsp&nbsp&nbsp&nbsp时间:
-						<time>${comment.commentTime?string('yyyy-MM-dd HH:mm:ss')}</time>
+						<time>${comment.commentTime?number_to_datetime}</time>
 					</div>
 					<#if comment.responses??>
 						<#list comment.responses as response>
@@ -74,7 +74,7 @@
 								<p>${response.commentContent}</p>
 								<div class="response-time">
 									时间:
-									<time>${response.commentTime?string('yyyy-MM-dd')}</time>
+									<time>${response.commentTime?number_to_datetime}</time>
 								</div>
 							</div>
 						</div>
@@ -83,14 +83,18 @@
 					</div>
 			</article>
 			</#list>
+			
 		</section>
-
-	</section>
+		
+	</section> -->
+    <div id="stuCommentPage"></div>
 </div>
 <#if Session.user?exists && Session.user.role=='teacher'>
+
 <div class="my-tab-item">
-	<section class="comment-wraper" id="comment_wraper">
-		<#list comments as comment>
+	<iframe id="tchComment" style="width: 100%;" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="yes"></iframe>
+	<!-- <section class="comment-wraper" id="comment_wraper">
+		<#list comments.list as comment>
 		<article class="comment-item">
 			<span class="questioner"> <i class="fa fa-user-circle-o fa-3x"></i>
 			</span>
@@ -99,7 +103,7 @@
 				<p class="coment-text">${comment.commentContent}</p>
 				<div class="comment-time">
 					时间:
-					<time>${comment.commentTime?string('yyyy-MM-dd')}</time>
+					<time>${comment.commentTime?number_to_datetime}</time>
 					&nbsp&nbsp&nbsp&nbsp<span class="check-response">回复<i
 						class="fa fa-caret-down"></i></span>
 				</div>
@@ -113,7 +117,7 @@
 						<p>${response.commentContent}</p>
 						<p class="edit-time">
 							时间：
-							<time>${response.commentTime?string('yyyy-MM-dd')}</time>
+							<time>${response.commentTime?number_to_datetime}</time>
 						</p>
 					</div>
 				</div>
@@ -131,14 +135,59 @@
 			</div>
 		</article>
 		</#list>
+		
 	</section>
-	<!-- 以下是学生评论代码****************************************** -->
+	以下是学生评论代码****************************************** -->
+	<div id="tchCommentPage"></div>
 </div>
+
 </#if>
+
 <script src="${contextPath}/js/lessionHomePage.js"></script>
 <script src="${contextPath}/js/learning.js"></script>
+
 <script>
 	function prependComment(html) {
 		$("#commentwrapper").prepend(html);
 	}
+	
+	layui.use('laypage', function(){
+		  var laypage = layui.laypage;
+		  var $ = layui.jquery;
+		  var ifmStu= document.getElementById("stuComment");
+		  ifmStu.height=document.documentElement.clientHeight;
+		  
+		  var ifmTch= document.getElementById("tchComment");
+		  if(ifmTch){
+			  ifmTch.height=document.documentElement.clientHeight;
+		  }
+		  
+		  
+		  laypage.render({
+			  
+			    elem: 'stuCommentPage' 
+			    ,count: ${comments.total} //数据总数，从服务端得到
+		  		,theme: '#1E9FFF'
+		  		,layout: ['count', 'prev', 'page', 'next', 'skip']
+		  	    ,jump: function(obj){
+		  	      console.log(obj.curr);
+		  	      $("#stuComment").attr("src","kp/${kpId}/comments-stu.html?page="+obj.curr); 
+		  	    }
+	      });
+		  
+		  laypage.render({
+			  
+			    elem: 'tchCommentPage' 
+			    ,count: ${comments.total} //数据总数，从服务端得到
+		  		,theme: '#1E9FFF'
+		  		,layout: ['count', 'prev', 'page', 'next', 'skip']
+		  	    ,jump: function(obj){
+		  	      console.log(obj.curr);
+		  	    $("#tchComment").attr("src","kp/${kpId}/comments-tch.html?page="+obj.curr); 
+		  	    }
+	      });
+	});
+	
+	
+	
 </script>

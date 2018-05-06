@@ -44,4 +44,6 @@ public class CommentController {
 	public String ok() {
 		return "ok";
 	}
+	
+	
 }

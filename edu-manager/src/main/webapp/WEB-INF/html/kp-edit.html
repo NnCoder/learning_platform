@@ -68,8 +68,9 @@
 
 	function kpSubmitForm() {
 		if(!$('#kpEditForm').form('validate')) {
-			alert('表单还未填写完成!');
-			return;
+			layer.msg('表单未填写完整!',{
+				 icon:5 
+			});
 		}
 
 		//将编辑器中的内容同步到隐藏多行文本中
@@ -78,7 +79,9 @@
 		$("#kpRead").val(readEditor.txt.text());
 		$.post("manager/kp",$("#kpEditForm").serialize(), function(data){
 			if(data.status == 200){
-				$.messager.alert('提示','修改知识点信息成功!');
+				layer.msg('修改知识点信息成功!',{
+					 icon:6 
+				});
 				callback();
 			}
 		});

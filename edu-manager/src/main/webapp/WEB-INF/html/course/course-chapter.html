@@ -23,7 +23,7 @@
 		<div data-options="region:'west',split:false" style="width:250px;padding:5px">
 			<ul id="chapterTree${courseDetail.course.courseId}" class="easyui-tree">
 				<li data-options="id:${courseDetail.course.courseId},parentId:-2,state:'open'">
-					<span>${courseDetail.course.courseName}</span>
+					<span>章节列表</span>
 					<ul>
 						<#list courseDetail.chapters as chapter>
 						<li data-options="id:${chapter.chapterId},parentId:${courseDetail.course.courseId}">${chapter.chapterName}</li>
@@ -66,11 +66,16 @@
 	}
 	
 	function openStuCoursesWindow${courseDetail.course.courseId}(){
-		TT.createWindow({
-			url: "page/course-stus/"+${courseDetail.course.courseId},
-			width:770,
-			height:578,
-		});
+		layer.open({
+		      type: 2,
+		      title: '参与课程统计的学生',
+		      shadeClose: true,
+		      shade: false,
+		      maxmin: true, //开启最大化最小化按钮
+		      area: ['770px', '578px'],
+		      content: "page/course-stus/"+${courseDetail.course.courseId},
+		  });
+		
 	}
 	
 	//菜单监听器

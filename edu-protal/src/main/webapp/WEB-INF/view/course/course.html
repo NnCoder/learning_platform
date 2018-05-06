@@ -24,7 +24,7 @@
 		<section class="common-width">
 			<nav class="lession-nav">
 				<li ><a href="#" class="active">课程首页</a></li>
-				<li><a href="${contextPath}/courses/${course.courseId}/chaptersWithKp.html">知识点学习</a></li>
+				<li><a href="${contextPath}/courses-${course.courseId}-chaptersWithKp.html">知识点学习</a></li>
 				<#if Session.user?exists && Session.user.role == 'teacher'>
 				<li><a href="http://localhost:8080/edu-manager/token?token=${Session.user.token}&redirectUrl=/manager/course/${course.courseId}/token" target="_blank">课程教案</a></li>
 				</#if>

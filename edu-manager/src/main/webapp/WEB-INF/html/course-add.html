@@ -70,7 +70,9 @@
 	
 	function submitForm(){
 		if(!$('#courseAddForm').form('validate')){
-			alert('表单还未填写完成!');
+			layer.msg('表单未填写完整!',{
+				 icon:5 
+			});
 			return ;
 		}
 		
@@ -87,7 +89,9 @@
 		   
 		   statusCode :{
 			   200 : function(data){
-				   alert('新增课程成功!');
+				   layer.msg('添加课程成功!',{
+					  icon:1 
+				   });
 				   clearForm();
 				   var tree = $("#menu");
 				   var node = tree.tree('find', -1);

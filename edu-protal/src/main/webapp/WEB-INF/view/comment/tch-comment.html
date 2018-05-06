@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<#include '../header/common.html'>
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/knowledgePoint.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/pagination.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_u4qz1594lnixusor.css">
+<script type="text/javascript" src="${contextPath}/script/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<#if Session.user?exists && Session.user.role=='teacher'>
+
+
+	<section class="comment-wraper" id="comment_wraper">
+		<#list comments.list as comment>
+		<article class="comment-item">
+			<span class="questioner"> <i class="fa fa-user-circle-o fa-3x"></i>
+			</span>
+			<div class="comment">
+				<h3 class="user-name">${comment.userName}</h3>
+				<p class="coment-text">${comment.commentContent}</p>
+				<div class="comment-time">
+					时间:
+					<time>${comment.commentTime?number_to_datetime}</time>
+					&nbsp&nbsp&nbsp&nbsp<span class="check-response">回复<i
+						class="fa fa-caret-down"></i></span>
+				</div>
+				<#if comment.responses??>
+						<#list comment.responses as response>
+				<div class="reply-content">
+					<div class="replyer-img-box">
+						<i class="fa fa-user"></i> ${response.userName!}
+					</div>
+					<div class="reply-text">
+						<p>${response.commentContent}</p>
+						<p class="edit-time">
+							时间：
+							<time>${response.commentTime?number_to_datetime}</time>
+						</p>
+					</div>
+				</div>
+				</#list>
+				</#if>
+				<div class="answer-box reply-wraper">
+					<form class="reply-form">
+						<span class="replyer-name">${Session.user.userName}</span>
+						<input name="kpId" value="${kpId}" type="hidden"/>
+						<input name="parentId" value="${comment.commentId}" type="hidden"/>
+						<textarea name="commentContent"></textarea>
+					</form>
+					<button class="reply-btn fr">回复</button>
+				</div>
+			</div>
+		</article>
+		</#list>
+		
+	</section>
+	<!-- 以下是学生评论代码****************************************** -->
+	
+
+</#if>
+</body>
+
+<script src="${contextPath}/js/lessionHomePage.js"></script>
+<script src="${contextPath}/js/learning.js"></script>
+
+<script>
+	function prependComment(html) {
+		$("#commentwrapper").prepend(html);
+	}
+</script>
+</html>

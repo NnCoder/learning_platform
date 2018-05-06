@@ -1,7 +1,6 @@
 package com.edu.protal.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +10,7 @@ import com.edu.common.pojo.Comment;
 import com.edu.common.pojo.HttpResult;
 import com.edu.common.utils.HttpClientUtil;
 import com.edu.common.utils.JsonUtils;
-import com.edu.protal.pojo.CommentVo;
+import com.edu.protal.pojo.PageResult;
 import com.edu.protal.service.CommentService;
 
 @Service
@@ -23,10 +22,10 @@ public class CommentServiceImpl implements CommentService{
 	private String REST_COMMENT_URL;
 	
 	@Override
-	public List<CommentVo> getCommentsByKpId(int kpId) {
+	public PageResult getCommentsByKpId(int kpId) {
 		String jsonData = HttpClientUtil.doGet(REST_KP_URL+"/"+kpId+"/comments");
-		List<CommentVo> list = JsonUtils.jsonToList(jsonData, CommentVo.class);
-		return list;
+		PageResult result = JsonUtils.jsonToPojo(jsonData, PageResult.class);
+		return result;
 	}
 
 	@Override

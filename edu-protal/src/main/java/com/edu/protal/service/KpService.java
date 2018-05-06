@@ -7,6 +7,7 @@ import com.edu.common.pojo.KnowledgePoint;
 import com.edu.common.pojo.Video;
 import com.edu.protal.pojo.CommentVo;
 import com.edu.protal.pojo.KpDetail;
+import com.edu.protal.pojo.PageResult;
 
 public interface KpService {
 	
@@ -14,7 +15,7 @@ public interface KpService {
 	
 	public KnowledgePoint getKpById(int kpId);
 	
-	List<CommentVo> getCommentsByKpId(int kpId, int page, int rows);
+	PageResult getCommentsByKpId(int kpId, int page, int rows);
 	/**
 	 * 通过知识点id和类型来获取资料
 	 * @param kpId

@@ -1,7 +1,9 @@
 package com.edu.test.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.edu.common.pojo.Comment;
 import com.edu.common.pojo.HttpResult;
 import com.edu.protal.pojo.CommentVo;
+import com.edu.protal.pojo.PageResult;
 import com.edu.protal.service.CommentService;
 
 public class CommentServiceTest {
@@ -25,12 +28,13 @@ public class CommentServiceTest {
 	
 	@Test
 	public void testGetCommentsByKpId() {
-		List<CommentVo> commentsByKpId = commentService.getCommentsByKpId(12);
-		int size = commentsByKpId.size();
-		for(CommentVo commentVo : commentsByKpId) {
-			System.out.println(commentVo.getUserName() + ":" + commentVo.getCommentContent());
+		PageResult pageResult = commentService.getCommentsByKpId(20);
+		System.out.println(pageResult.getPages());
+		LinkedHashMap map = (LinkedHashMap) pageResult.getList().get(0);
+		Set set = map.keySet();
+		for(Object object : set) {
+			System.out.println(object + "：" + map.get(object));
 		}
-		System.out.println(size);
 	}
 	
 	@Test
