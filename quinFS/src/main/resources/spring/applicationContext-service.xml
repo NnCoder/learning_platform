@@ -10,4 +10,19 @@
 	
 	<context:property-placeholder location="classpath:properties/*.properties"/>
 	<context:component-scan base-package="com.quinFS.service"></context:component-scan>
+	
+	<bean id="jedicConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="1000"></property>
+	</bean>
+	
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg name="poolConfig" ref="jedicConfig"></constructor-arg>
+		<constructor-arg name="host" value="${REDIS_HOST}"></constructor-arg>
+		<constructor-arg name="port" value="${REDIS_PORT}"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="jedisClient" class="com.quinFS.utils.impl.JedisClientSingle">
+		<property name="auth" value="${REDIS_AUTH}"></property>
+	</bean>
 </beans>

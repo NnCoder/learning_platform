@@ -36,6 +36,8 @@ public class CourseController {
 		return result;
 	}
 	
+	
+	
 	@RequestMapping(value="/manager/course/{courseId}/token")
 	public String getCourseManager(@PathVariable Integer courseId, Model model) {
 		//通过token验证进入课程教案界面

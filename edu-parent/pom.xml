@@ -23,7 +23,8 @@
   	<httpmime.version>4.5.3</httpmime.version>
   	<jstl.version>1.2</jstl.version>
   	<servlet-api.version>2.5</servlet-api.version>
-  	<shiro.version>1.4.0</shiro.version>
+  	<shiro-spring.version>1.4.0</shiro-spring.version>
+    <shiro-ehcache.version>1.4.0</shiro-ehcache.version>
   	<jsp-api.version>2.0</jsp-api.version>
   	<joda-time.version>2.5</joda-time.version>
   	<commons-codec.version>1.6</commons-codec.version>
@@ -37,10 +38,18 @@
   	<solrj.version>7.1.0</solrj.version>
   	<freemarker.version>2.3.23</freemarker.version>
   	<quartz.version>2.2.2</quartz.version>
+  	<xstream.version>1.4.2</xstream.version>
+  	<ehcache.version>2.6.11</ehcache.version>
   </properties>
   
   <dependencyManagement>
   	<dependencies>
+  		<!-- Xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${xstream.version}</version>
+		</dependency>
   		<!-- 时间操作组件 -->
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -181,11 +190,34 @@
 			    <artifactId>spring-data-redis</artifactId>
 			    <version>${spring-data-redis.version}</version>
 			</dependency>
-			<!-- 权限控制框架 -->
+			<!-- ehcache -->
+	        <dependency>
+	            <groupId>net.sf.ehcache</groupId>
+	            <artifactId>ehcache-core</artifactId>
+	            <version>${ehcache.version}</version>
+	        </dependency>
+			<!-- Shiro权限控制框架 -->
 			<dependency>
 			    <groupId>org.apache.shiro</groupId>
 			    <artifactId>shiro-core</artifactId>
-			    <version>${shiro.version}</version>
+			    <version>${shiro-spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro-spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>slf4j-api</artifactId>
+						<groupId>org.slf4j</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro-ehcache.version}</version>
 			</dependency>
   			<!-- JSP相关 -->
   			<dependency>

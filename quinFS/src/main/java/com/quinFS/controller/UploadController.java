@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.quinFS.pojo.FileUploadResult;
 import com.quinFS.service.UploadService;
 import com.quinFS.utils.CookieUtils;
+import com.quinFS.utils.JedisClient;
 import com.quinFS.utils.NameUtil;
 
 @Controller
@@ -35,6 +36,11 @@ public class UploadController {
 	
 	@Autowired
 	private UploadService uploadService;
+	@Autowired
+	private JedisClient jedisClient;
+	@Value("${REDIS_SESSION_KEY}")
+	private String REDIS_SESSION_KEY;
+	
 	
 	@Value("${SERVER_HOST}")
 	private String SERVER_HOST;
@@ -42,11 +48,8 @@ public class UploadController {
 	@RequestMapping(value="/upload/filechunk",method=RequestMethod.POST)
 	@ResponseBody
 	public FileUploadResult uploadEx(HttpServletRequest request, HttpServletResponse response) {
-		String token = CookieUtils.getCookieValue(request, "EDU_TOKEN");
-		Object object = request.getSession().getAttribute("REDIS_SESSION_KEY"+token);
-		if(object==null) {
-			FileUploadResult.build(1, "", "文件上传失败!session超时,请重新登录!"); 
-		}
+		
+		
 		try { 
 		      boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
 		      if (isMultipart) { 
@@ -133,23 +136,25 @@ public class UploadController {
 	@CrossOrigin //跨域访问
 	@RequestMapping(value="/upload/file", method=RequestMethod.POST)
 	@ResponseBody
-	public FileUploadResult upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
-		String token = CookieUtils.getCookieValue(request, "EDU_TOKEN");
-		Object object = request.getSession().getAttribute("REDIS_SESSION_KEY"+token);
-		if(object==null) {
-			FileUploadResult.build(1, "", "文件上传失败!session超时,请重新登录!"); 
+	public FileUploadResult upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response, String token) {
+		String uRedisKey = REDIS_SESSION_KEY + ":" +token;
+		String pass = jedisClient.get(uRedisKey);
+		if(pass != null || !pass.equals("")) {
+			logger.info("上传文件开始!");
+			try {
+				String savepath = request.getSession().getServletContext().getRealPath("/file/") + "/";
+				FileUploadResult result = uploadService.upload(file, savepath);
+				logger.info("文件上传完成");
+				return result;
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("上传文件错误!");
+				return FileUploadResult.build(1, null, e.getMessage());
+			}
+		}else {
+			return FileUploadResult.build(1, null, "SESSION超时，请重新登录!");
 		}
-		logger.info("上传文件开始!");
-		try {
-			String savepath = request.getSession().getServletContext().getRealPath("/file/") + "/";
-			FileUploadResult result = uploadService.upload(file, savepath);
-			logger.info("文件上传完成");
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("上传文件错误!");
-			return FileUploadResult.build(1, null, e.getMessage());
-		}
+		
 	}
 	
 	
