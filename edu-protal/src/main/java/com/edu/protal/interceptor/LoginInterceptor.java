@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.common.pojo.Student;
+import com.edu.protal.pojo.User;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	@Value("${USER_SESSION_KEY}")
@@ -30,8 +31,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		//查看用户是否登录
-		Student student = (Student) request.getSession().getAttribute("user");
-		if (student != null) {
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
 			//request.getSession().setMaxInactiveInterval(7200);
 			return true;
 		}

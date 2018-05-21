@@ -10,6 +10,7 @@ import com.edu.common.pojo.Course;
 import com.edu.common.pojo.CourseDesc;
 import com.edu.protal.pojo.ChapterWithKp;
 import com.edu.protal.pojo.PageResult;
+import com.edu.protal.pojo.User;
 
 public interface CourseService {
 	
@@ -31,5 +32,7 @@ public interface CourseService {
 	public PageResult getStuCourseVoByCourseId(int courseId, String key, int page, int rows);
 	
 	public PageResult getStuCourseVoByCourseId(int courseId, int page, int rows);
+	
+	public void improveStudentScore(User user, int courseId, int score);
 }
 

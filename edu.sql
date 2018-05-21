@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2018-04-30 12:23:28
+Date: 2018-05-21 12:14:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,17 +30,20 @@ CREATE TABLE `chapter` (
   KEY `Chapter_id` (`Chapter_id`),
   KEY `chapter_ibfk_1` (`Course_id`),
   CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`Course_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of chapter
 -- ----------------------------
-INSERT INTO `chapter` VALUES ('10', '新建章节', '5', '2018-02-08 22:04:09', '2018-02-08 22:04:09', '1');
-INSERT INTO `chapter` VALUES ('14', '新建章节2', '5', '2018-04-02 21:04:06', '2018-04-02 21:04:06', '1');
-INSERT INTO `chapter` VALUES ('15', '新建章节3', '5', '2018-04-02 21:04:07', '2018-04-02 21:04:07', '1');
 INSERT INTO `chapter` VALUES ('16', '新建章节4', '5', '2018-04-02 21:04:09', '2018-04-02 21:04:09', '1');
 INSERT INTO `chapter` VALUES ('17', '新建章节5', '5', '2018-04-02 21:04:11', '2018-04-02 21:04:11', '1');
 INSERT INTO `chapter` VALUES ('18', '新建章节6', '5', '2018-04-02 21:04:12', '2018-04-02 21:04:12', '1');
+INSERT INTO `chapter` VALUES ('21', '章节1.1', '5', '2018-05-01 14:19:12', '2018-05-01 14:19:12', '1');
+INSERT INTO `chapter` VALUES ('22', '新建章节', '6', '2018-05-06 23:14:12', '2018-05-06 23:14:12', '1');
+INSERT INTO `chapter` VALUES ('23', '新建章节', '6', '2018-05-06 23:14:14', '2018-05-06 23:14:14', '1');
+INSERT INTO `chapter` VALUES ('24', '新建章节', '7', '2018-05-08 11:28:17', '2018-05-08 11:28:17', '1');
+INSERT INTO `chapter` VALUES ('25', '新建章节', '7', '2018-05-08 11:28:23', '2018-05-08 11:28:23', '1');
+INSERT INTO `chapter` VALUES ('26', '新建章节', '9', '2018-05-20 16:12:08', '2018-05-20 16:12:08', '1');
 
 -- ----------------------------
 -- Table structure for chapter_data
@@ -55,13 +58,11 @@ CREATE TABLE `chapter_data` (
   PRIMARY KEY (`id`),
   KEY `chapter_data_ibfk_1` (`chapter_id`),
   CONSTRAINT `chapter_data_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `chapter` (`Chapter_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of chapter_data
 -- ----------------------------
-INSERT INTO `chapter_data` VALUES ('1', '10', 'DatatablesDemo-master.zip', 'http://localhost:8080/quinFS/file/601ea96dc56a41358cdfebf5c0e81a77.zip', 'admin');
-INSERT INTO `chapter_data` VALUES ('2', '10', 'layui-v2.2.5.zip', 'http://localhost:8080/quinFS/file/bb1ee7d7621c4ec5bf8b8dc42aa16b97.zip', 'admin');
 
 -- ----------------------------
 -- Table structure for comment
@@ -79,53 +80,17 @@ CREATE TABLE `comment` (
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`kp_id`) REFERENCES `knowledge_point` (`kp_id`) ON DELETE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `comment` (`comment_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('12', '1', '04151307 陈晓涛', 'hello world', '2018-04-18 12:17:40', null);
-INSERT INTO `comment` VALUES ('12', '2', '04151307 ???', 'hello world', '2018-04-18 14:16:28', null);
-INSERT INTO `comment` VALUES ('12', '3', '04151307 ???', 'hello world', '2018-04-18 14:18:11', null);
-INSERT INTO `comment` VALUES ('12', '4', '04151307chenxiaotao', '评论', '2018-04-18 14:19:50', null);
-INSERT INTO `comment` VALUES ('12', '5', '04151307chenxiaotao', '评论', '2018-04-18 14:22:39', null);
-INSERT INTO `comment` VALUES ('12', '6', '04151307 ???', 'hello world', '2018-04-18 14:27:54', null);
-INSERT INTO `comment` VALUES ('12', '7', '04151307chenxiaotao', '评论', '2018-04-18 14:28:43', null);
-INSERT INTO `comment` VALUES ('12', '8', '04151307 ???', 'hello world', '2018-04-18 14:32:10', null);
-INSERT INTO `comment` VALUES ('12', '9', '04151307 ???', 'hello world', '2018-04-18 14:34:00', null);
-INSERT INTO `comment` VALUES ('12', '10', '04151307 ???', 'hello world', '2018-04-18 14:36:10', null);
-INSERT INTO `comment` VALUES ('12', '11', '04151307chenxiaotao', '评     论', '2018-04-18 14:39:13', null);
-INSERT INTO `comment` VALUES ('12', '12', '04151307 ???', 'hello world', '2018-04-18 14:41:23', null);
-INSERT INTO `comment` VALUES ('12', '13', '04151307 ???', 'hello world', '2018-04-18 14:42:33', null);
-INSERT INTO `comment` VALUES ('12', '14', '04151307 ???', 'hello world', '2018-04-18 14:45:10', null);
-INSERT INTO `comment` VALUES ('12', '15', '04151307 ???', 'hello world', '2018-04-18 14:52:06', null);
-INSERT INTO `comment` VALUES ('12', '16', '04151307 ???', 'hello world', '2018-04-18 14:53:24', null);
-INSERT INTO `comment` VALUES ('12', '17', '04151307 ???', 'hello world', '2018-04-18 14:53:59', null);
-INSERT INTO `comment` VALUES ('12', '18', '04151307 ???', 'hello world', '2018-04-18 14:54:23', null);
-INSERT INTO `comment` VALUES ('12', '19', '04151307 ???', 'hello world', '2018-04-18 14:55:07', null);
-INSERT INTO `comment` VALUES ('12', '20', '04151307 ???', 'hello world', '2018-04-18 14:56:55', null);
-INSERT INTO `comment` VALUES ('12', '21', '04151306 陈晓涛', '刚才', '2018-04-20 16:30:44', null);
-INSERT INTO `comment` VALUES ('12', '22', '04151306 陈晓涛', '刚才', '2018-04-20 16:30:51', null);
-INSERT INTO `comment` VALUES ('12', '23', '04151306 陈晓涛', '个', '2018-04-20 16:32:01', null);
-INSERT INTO `comment` VALUES ('12', '24', '04151306 陈晓涛', '的是', '2018-04-20 16:32:36', null);
-INSERT INTO `comment` VALUES ('12', '25', '04151306 陈晓涛', '提问', '2018-04-20 16:35:04', null);
-INSERT INTO `comment` VALUES ('12', '26', '04151306 陈晓涛', '提问。。。', '2018-04-20 16:35:14', null);
-INSERT INTO `comment` VALUES ('12', '27', '04151306 陈晓涛', '提问啊啊啊', '2018-04-20 16:36:13', null);
-INSERT INTO `comment` VALUES ('12', '28', '04151306 陈晓涛', '提问：Spring', '2018-04-20 16:38:03', null);
-INSERT INTO `comment` VALUES ('12', '29', '04151306 陈晓涛', '提问：my', '2018-04-20 16:38:30', null);
-INSERT INTO `comment` VALUES ('12', '30', '04151306 陈晓涛', '提问', '2018-04-20 16:39:05', null);
-INSERT INTO `comment` VALUES ('12', '31', '04151306 陈晓涛', '提问', '2018-04-20 16:39:26', null);
-INSERT INTO `comment` VALUES ('12', '32', '04151306 陈晓涛', '提问啦啦啦', '2018-04-20 16:40:15', null);
-INSERT INTO `comment` VALUES ('12', '33', '04151306 陈晓涛', '我的提问', '2018-04-20 16:40:59', null);
-INSERT INTO `comment` VALUES ('12', '34', '04151306 陈晓涛', '我的提问222222', '2018-04-20 16:43:17', null);
-INSERT INTO `comment` VALUES ('12', '35', '04151306 陈晓涛', '我的提问', '2018-04-20 16:44:38', null);
-INSERT INTO `comment` VALUES ('12', '36', '04151306 陈晓涛', '更多的评论', '2018-04-20 16:45:31', null);
-INSERT INTO `comment` VALUES ('12', '37', '04151306 陈晓涛', '更多的评论', '2018-04-20 16:45:57', null);
-INSERT INTO `comment` VALUES ('12', '38', '04151306 陈晓涛', '我的提问', '2018-04-20 16:46:40', null);
-INSERT INTO `comment` VALUES ('12', '39', '04151306 陈晓涛', '我的提问问你问你问额外呢', '2018-04-20 16:47:10', null);
-INSERT INTO `comment` VALUES ('12', '41', '陈志冲', '好的我知道了', '2018-04-20 22:13:14', '39');
-INSERT INTO `comment` VALUES ('12', '42', '陈志冲', '嗯嗯嗯嗯', '2018-04-20 22:13:33', '39');
-INSERT INTO `comment` VALUES ('12', '43', '陈志冲', '提问得好', '2018-04-26 13:10:32', '38');
+INSERT INTO `comment` VALUES ('20', '1', '04151807 韩金龙', '问的好', '2018-05-01 14:57:21', null);
+INSERT INTO `comment` VALUES ('20', '2', '04151807 韩金龙', '好的', '2018-05-01 14:57:26', null);
+INSERT INTO `comment` VALUES ('20', '3', '04150309 姓名1', '好的', '2018-05-04 22:52:30', null);
+INSERT INTO `comment` VALUES ('20', '4', '陈志冲', '问的好', '2018-05-04 22:56:49', '3');
+INSERT INTO `comment` VALUES ('20', '5', '陈志chong', 'haode like chuli', '2018-05-15 17:36:45', '2');
+INSERT INTO `comment` VALUES ('20', '6', '04151306 陈晓涛', '我有新的问题', '2018-05-19 12:45:22', null);
 
 -- ----------------------------
 -- Table structure for course
@@ -143,15 +108,19 @@ CREATE TABLE `course` (
   `update_time` datetime DEFAULT NULL,
   `state` tinyint(2) DEFAULT '1' COMMENT '是否被删除 1:存在 2:已删除',
   PRIMARY KEY (`Course_id`),
-  KEY `Tch_account` (`Tch_account`),
   KEY `Course_id` (`Course_id`),
-  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`Tch_account`) REFERENCES `teacher` (`tch_account`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  KEY `course_ibfk_1` (`Tch_account`),
+  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`Tch_account`) REFERENCES `teacher` (`tch_account`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('5', '课程2', 'http://localhost:8080/edu-manager/file/b2d2792b59a247e48f19730bbaa00c49.jpg', '&lt;p&gt;&lt;/p&gt;&lt;script&gt;adfasdfasdf&lt;/script&gt;', 'public&nbsp;class&nbsp;HtmlTemplateLoader&nbsp;implements&nbsp;TemplateLoader&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;HTML_ESCAPE_PREFIX=&nbsp;\"&lt;#escape&nbsp;x&nbsp;as&nbsp;x?html&gt;\";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;HTML_ESCAPE_SUFFIX&nbsp;=&nbsp;\"&lt;/#escape&gt;\";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;final&nbsp;TemplateLoader&nbsp;delegate;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;HtmlTemplateLoader(TemplateLoader&nbsp;delegate)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.delegate&nbsp;=&nbsp;delegate;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Object&nbsp;findTemplateSource(String&nbsp;name)&nbsp;throws&nbsp;IOException&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;delegate.findTemplateSource(name);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;long&nbsp;getLastModified(Object&nbsp;templateSource)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;delegate.getLastModified(templateSource);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Reader&nbsp;getReader(Object&nbsp;templateSource,&nbsp;String&nbsp;encoding)&nbsp;throws&nbsp;IOException&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reader&nbsp;reader&nbsp;=&nbsp;delegate.getReader(templateSource,&nbsp;encoding);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;templateText&nbsp;=&nbsp;IOUtils.toString(reader);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;new&nbsp;StringReader(HTML_ESCAPE_PREFIX+templateText&nbsp;+&nbsp;HTML_ESCAPE_SUFFIX);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;closeTemplateSource(Object&nbsp;templateSource)&nbsp;throws&nbsp;IOException&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delegate.closeTemplateSource(templateSource);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;', 'admin', '38', '2018-02-08 21:58:08', '2018-02-08 21:58:52', '1');
+INSERT INTO `course` VALUES ('5', 'C语言', 'http://localhost:8080/edu-manager/file/2d84b9d2f763483d910e22d50f9f86ef.jpg', '本课程是程序设计的入门基础，通过对本课程的学习，即使零基础的人也能实现对计算机讲话，编写自己的专属应用，而不是仅仅只能使用别人做好的应用。在本课程结束之后，学生应该具备编写一些简单程序的能力，包括用计算机去解决一些数学、物理题，一些趣味性的小程序和小游戏，甚至是演奏一段音乐等。&nbsp;&nbsp;', 'C语言是目前世界上最流行、使用最广泛的高级程序设计语言之一,在TIOBE世界编程语言社区排行榜中始终位居前两位，对操作系统和需要对硬件进行编程的场合，用C语言明显优于其他高级语言，许多大型系统软件都是用C语言编写的。同时，C语言简洁、紧凑，使用方便、灵活，运算符和数据类型丰富，使用其编写的程序可移植性好，并具备很强的数据处理能力。&nbsp;&nbsp;&nbsp; C语言是一门优秀的教学语言，其优美的结构，完善的语法，都是对面向过程的结构化编程语言最好的诠释。同时，C语言也是其他很多程序设计语言的基础，是后续学好其他程序设计语言甚至是学好整个计算机技术的一块基石，所以，各高等学校和专科院校校均采用C语言作为计算机编程的入门语言。&nbsp; &nbsp; 本课程面向广大程序设计入门者，既可以作为各高等学校和专科院校计算机专业学习程序设计和深入学习计算机技术的先修课程，也可以作为理工类各专业的一门公共基础课程，更是广大程序设计爱好者及非理工类专业学生都能够学懂学会的课程，是真正打开人机对话之门的一把钥匙。本课程讲解细致入微，范例实用、丰富，浅显易懂，一步步推进，让大家彻底摆脱C语言枯燥乏味的固有印象。每节课课前均由引导题作为内容引出，课后有思考题和练习题作为总结和任务驱动，由浅入深，知识点环环相扣，尤其是针对编程入门的新手易犯的错误，均有特别指出和说明。&nbsp;&nbsp;&nbsp;本课程考虑到大多数的零基础同学，配备全套的教学资料，包括教学ppt、课堂练习、程序示例、题库和课外阅读的参考资料等，也会有助教团队负责大家平时学习过程中的讨论、在线互动和答疑解惑，并且会定期发布公告提醒大家学习的进度和安排。需要说明的是，本课程所有演示均采用VC++6.0编译环境，这是目前学习C语言最易上手的平台之一，目的是除了适用于各高等学校和专科院校的教学现状和机考环境，还可以兼顾计算机等级考试的备考者所需。', 'admin', '55', '2018-02-08 21:58:08', '2018-02-08 21:58:52', '1');
+INSERT INTO `course` VALUES ('6', 'JAVA', 'http://localhost:8080/edu-manager/file/108750a1609043faacde345370b4a5ef.png', '車', '是', 'admin', '3', '2018-05-06 23:13:58', '2018-05-06 23:13:58', '1');
+INSERT INTO `course` VALUES ('7', 'JavaScript', 'http://localhost:8080/edu-manager/file/d2380b3e6bd94b998135e7e11c69cefc.jpg', '的', '的', 'admin', '6', '2018-05-06 23:14:08', '2018-05-06 23:14:08', '1');
+INSERT INTO `course` VALUES ('8', 'JAVA基础', 'http://localhost:8080/edu-manager/file/d71d64d3e3844245be3601e213b6a3fc.png', '零基础教学', '零基础教学', '04150309', '4', '2018-05-16 19:22:01', '2018-05-16 19:22:01', '1');
+INSERT INTO `course` VALUES ('9', 'JAVA8', 'http://localhost:8080/edu-manager/file/df91be85199040639356d3be825246ac.png', '', '', '04151306', '1', '2018-05-17 09:09:13', '2018-05-17 09:09:13', '1');
 
 -- ----------------------------
 -- Table structure for course_desc
@@ -168,7 +137,11 @@ CREATE TABLE `course_desc` (
 -- ----------------------------
 -- Records of course_desc
 -- ----------------------------
-INSERT INTO `course_desc` VALUES ('5', '<h1>\r\n	fasdf&nbsp;\r\n	<p style=\"font-size:16px;color:#2A2A2A;text-align:justify;font-family:&quot;background-color:#FFFFFF;\">\r\n		外键 (FK) 是用于建立和加强两个表数据之间的链接的一列或多列。当创建或修改表时可通过定义 FOREIGN KEY 约束来创建外键。\r\n	</p>\r\n	<p style=\"font-size:16px;color:#2A2A2A;text-align:justify;font-family:&quot;background-color:#FFFFFF;\">\r\n		在外键引用中，当一个表的列被引用作为另一个表的主键值的列时，就在两表之间创建了链接。这个列就成为第二个表的外键。\r\n	</p>\r\n	<p style=\"font-size:16px;color:#2A2A2A;text-align:justify;font-family:&quot;background-color:#FFFFFF;\">\r\n		例如，因为销售订单和销售人员之间存在一种逻辑关系，所以 AdventureWorks 数据库中的&nbsp;<span style=\"font-weight:700;\">Sales.SalesOrderHeader</span>&nbsp;表含有一个指向<span style=\"font-weight:700;\">Sales.SalesPerson</span>&nbsp;表的链接。<span style=\"font-weight:700;\">SalesOrderHeader</span>&nbsp;表中的&nbsp;<span style=\"font-weight:700;\">SalesPersonID</span>&nbsp;列与&nbsp;<span style=\"font-weight:700;\">SalesPerson</span>&nbsp;表中的主键列相对应。<span style=\"font-weight:700;\">SalesOrderHeader</span>&nbsp;表中的<span style=\"font-weight:700;\">SalesPersonID</span>&nbsp;列是指向&nbsp;<span style=\"font-weight:700;\">SalesPerson</span>&nbsp;表的外键。\r\n	</p>\r\n<img id=\"fkart1\" alt=\"SalesOrderHeader.SalesPersonID 为外键。\" src=\"https://i-msdn.sec.s-msft.com/dynimg/IC146434.gif\" title=\"SalesOrderHeader.SalesPersonID 为外键。\" />\r\n	<p style=\"font-size:16px;color:#2A2A2A;text-align:justify;font-family:&quot;background-color:#FFFFFF;\">\r\n		<span style=\"background-color:#33FF33;\">FOREIGN KEY 约束并不仅仅可以与另一表的 PRIMARY KEY 约束相链接，它还可以定义为引用另一表的 UNIQUE 约束</span>。FOREIGN KEY 约束可以包含空值，但是，如果任何组合 FOREIGN KEY 约束的列包含空值，则将跳过组成 FOREIGN KEY 约束的所有值的验证。若要确保验证了组合 FOREIGN KEY 约束的所有值，请将所有参与列指定为 NOT NULL。\r\n	</p>\r\n</h1>');
+INSERT INTO `course_desc` VALUES ('5', '<h1>\r\n	<div class=\"category-title f-f0\" style=\"margin:0px;padding:0px 0px 10px;font-family:&quot;font-size:18px;font-weight:bold;color:#333333;background-color:#FFFFFF;\">\r\n		<span class=\"f-ib f-vam\" style=\"vertical-align:middle;\">课程大纲</span>\r\n	</div>\r\n	<div class=\"category-content j-cover-overflow\" style=\"margin:0px 0px 50px;padding:0px;color:#333333;font-family:&quot;background-color:#FFFFFF;\">\r\n		<div class=\"f-richEditorText\" style=\"margin:0px;padding:0px;border:0px;font-family:&quot;color:#666666;\">\r\n			<p>\r\n				入门篇：\r\n			</p>\r\n			<p>\r\n				<span>1.C &nbsp;Travel </span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;1.1 为什么要学习C语言？</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;1.2 扬帆起航：计算机文化基础</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;1.3 磨刀不误砍柴工：雇佣“翻译”</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>2.初识C语言程序 </span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;2.1 让计算机开口“说话”</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;2.2 让计算机帮我们做算术</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;2.3 让计算机自己做决定</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>3.有多少种“房间” </span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;3.1 初识数据类型</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;3.2 第一种房间：整数类型</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.2.1 整数类型（上）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.2.2 整数类型（下）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.2.3 移形换位心法</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;3.3 第二种房间：实数类型</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.3.1 浮点型（上）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.3.2 浮点型（下）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;3.4 第三种房间：字符类型</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.4.1 字符型（上）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.4.2 字符型（下）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp; &nbsp; 3.4.3 变形计：转义字符</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>4.相亲相爱的一家人 </span>\r\n			</p>\r\n			<p>\r\n				<span><span style=\"font-size:19px;font-family:宋体;\"></span>&nbsp;4.1 在一起：混合运算&nbsp;</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;4.1 做什么：运算符和表达式（上）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;4.3 做什么：运算符和表达式 （下）</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>5.三种结构——顺序</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;5.1 格式化输出</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;5.2 格式化输入</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>6.三种结构——选择</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;6.1 我想做选择</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;6.2 选择与多重选择</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>7. 三种结构——循环</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;7.1 循环结构（上）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;7.2 循环结构（下）</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;7.3 能不能更快一点</span>\r\n			</p>\r\n			<p>\r\n				<span><br />\r\n</span>\r\n			</p>\r\n			<p>\r\n				<span>8.一大波数来了</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;8.1 我想排序</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;8.2 初试锋芒</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;8.3 大显身手</span>\r\n			</p>\r\n			<p>\r\n				<span>&nbsp;8.4 弹奏一首音乐</span>\r\n			</p>\r\n		</div>\r\n	</div>\r\n<br />\r\n</h1>');
+INSERT INTO `course_desc` VALUES ('6', '<p>\r\n	<strong>阿斯蒂芬阿斯蒂芬第三方阿斯蒂芬沙发</strong>\r\n</p>\r\n<p>\r\n	<strong><img src=\"http://localhost:8080/edu-manager/static/js/kindeditor-4.1.10/plugins/emoticons/images/20.gif\" border=\"0\" alt=\"\" /><img src=\"http://localhost:8080/edu-manager/static/js/kindeditor-4.1.10/plugins/emoticons/images/29.gif\" border=\"0\" alt=\"\" /><img src=\"http://localhost:8080/edu-manager/static/js/kindeditor-4.1.10/plugins/emoticons/images/28.gif\" border=\"0\" alt=\"\" /><br />\r\n</strong>\r\n</p>');
+INSERT INTO `course_desc` VALUES ('7', '');
+INSERT INTO `course_desc` VALUES ('8', '');
+INSERT INTO `course_desc` VALUES ('9', '');
 
 -- ----------------------------
 -- Table structure for data
@@ -184,18 +157,16 @@ CREATE TABLE `data` (
   `update_time` datetime DEFAULT NULL,
   `create_account` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`Data_id`),
-  KEY `Kp_id` (`Kp_id`),
-  CONSTRAINT `data_ibfk_1` FOREIGN KEY (`Kp_id`) REFERENCES `knowledge_point` (`kp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+  KEY `data_ibfk_1` (`Kp_id`),
+  CONSTRAINT `data_ibfk_1` FOREIGN KEY (`Kp_id`) REFERENCES `knowledge_point` (`kp_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of data
 -- ----------------------------
-INSERT INTO `data` VALUES ('9', '图片222', 'http://120.79.10.20:8080/quinFS/file/65c51ebd86974d2282fa473e24fc9ad0.jpg', '1', '12', '2018-04-02 21:03:45', '2018-04-29 16:11:47', 'admin');
-INSERT INTO `data` VALUES ('10', '.gitignore', 'http://120.79.10.20:8080/quinFS/file/8cdc3c40c92b4b888c27bf0f9ff3d94f.gitignore', '2', '12', '2018-04-13 21:21:36', '2018-04-13 21:21:36', 'admin');
-INSERT INTO `data` VALUES ('11', 'basic-plus.html', 'http://120.79.10.20:8080/quinFS/file/b8f159fcd4974bab9be7ef5ac901eb06.html', '2', '12', '2018-04-13 21:21:43', '2018-04-13 21:21:43', 'admin');
-INSERT INTO `data` VALUES ('12', 'edu.sql', 'http://120.79.10.20:8080/quinFS/file/7241b4b4924f4820a67ccf44ab3b0a76.sql', '1', '12', '2018-04-13 21:37:38', '2018-04-13 21:37:38', 'admin');
-INSERT INTO `data` VALUES ('14', 'pconline1489049981826.zip', 'http://120.79.10.20:8080/quinFS/file/71207e8a8ff24a0d858f5e3b842e8ad3.zip', '2', '15', '2018-04-14 19:59:17', '2018-04-14 19:59:17', 'admin');
+INSERT INTO `data` VALUES ('13', '02-Spring的Java配置方式.mp4', 'http://localhost:8080/quinFS/file/5e3e2e7bbbe34f55adebb87c49085761.mp4', '1', '23', '2018-05-01 14:19:51', '2018-05-01 14:19:51', 'admin');
+INSERT INTO `data` VALUES ('14', '1.xlsx', 'null', '1', '20', '2018-05-15 16:52:29', '2018-05-15 16:52:29', 'admin');
+INSERT INTO `data` VALUES ('15', '20171223073815853.png', 'null', '1', '20', '2018-05-15 16:52:41', '2018-05-15 16:52:41', 'admin');
 
 -- ----------------------------
 -- Table structure for knowledge_point
@@ -212,16 +183,21 @@ CREATE TABLE `knowledge_point` (
   PRIMARY KEY (`kp_id`),
   KEY `knowledge_point_ibfk_1` (`chapter_id`),
   CONSTRAINT `knowledge_point_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `chapter` (`Chapter_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of knowledge_point
 -- ----------------------------
-INSERT INTO `knowledge_point` VALUES ('12', '知识点1', '&lt;p&gt;&lt;/p&gt;\"\"\"\"\"\"', 'niasdfsadf', '', '10', '1');
-INSERT INTO `knowledge_point` VALUES ('15', '知识点', '', '', '', '14', '1');
-INSERT INTO `knowledge_point` VALUES ('16', '知识点2', '知识点2', '知识点2', '知识点2', '14', '1');
-INSERT INTO `knowledge_point` VALUES ('17', '知识点3', '知识点3', '知识点3', '知识点3', '14', '1');
-INSERT INTO `knowledge_point` VALUES ('18', '知识点4', '知识点4', '知识点4', '知识点4', '14', '1');
+INSERT INTO `knowledge_point` VALUES ('20', '3.3 第二种房间：实数类', '精讲', '111', '111', '16', '1');
+INSERT INTO `knowledge_point` VALUES ('23', '知识点111', '111', '111', '111', '21', '1');
+INSERT INTO `knowledge_point` VALUES ('24', '111', '111', '111', '111', '21', '1');
+INSERT INTO `knowledge_point` VALUES ('28', '知识点知识点知识点', '知识点', '知识点', '知识点', '16', '1');
+INSERT INTO `knowledge_point` VALUES ('30', '知识点111', '11111', '111', '1111', '22', '1');
+INSERT INTO `knowledge_point` VALUES ('31', '知识点3', '知识点3', '知识点3', '知识点3', '16', '0');
+INSERT INTO `knowledge_point` VALUES ('32', '知识点4', '知识点4', '知识点4', '知识点4', '16', '0');
+INSERT INTO `knowledge_point` VALUES ('33', '知识点5', '知识点5', '知识点5', '知识点5', '16', '0');
+INSERT INTO `knowledge_point` VALUES ('34', '知识点3', '知识点3', '知识点3&nbsp;&nbsp;', '', '16', '1');
+INSERT INTO `knowledge_point` VALUES ('35', '知识点4', '知识点4', '知识点4', '', '16', '1');
 
 -- ----------------------------
 -- Table structure for major
@@ -259,6 +235,118 @@ INSERT INTO `notice` VALUES ('1', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 INSERT INTO `notice` VALUES ('2', '<p>文/花汐颜<br>　　<br>　　一片落霞孤鸿的眷恋中，依依送别秋水长天的一程相逢。一篱冬阳，隔开季节分明的两端；冬，就这么悄无声息地来在身边……<br>　　<br>　　光阴不懂人情，竟自流转，然而我们心底终有些撇不清的东西，留在了逝去的时光里。下一个轮回久远的重逢之约，又开启了新一轮的期盼与等待。秋去冬来的日子，生命愈发深邃厚重；凝眸时令清旷的边缘，心持一份前尘的留恋，秋意与冬情交接的时刻，我们含笑见证。<br>　　<br>　　此时，世态的喧嚣已被季候凉透，草木花树不说话，也仿佛习惯了冷暖聚散的变故。秋天，从来有许多故事，不经意，我们都已一一经历。风尘里来去，到底心无怨尤，光阴中驻足，听岁月深处的低低细语。有风的日子，人心似一枚秋叶，徘徊在宿命风崖的枝梢；阳光穿透思绪的薄衫，托起昨夜月光散落的叹息。<br>　　<br>　　如若，一切的凉薄与温暖，都随了季节的必然更迭；所有的得失与因果，都交予时间来定夺，那么自己将以怎样的步伐，去追逐冗长的光年？！又会不会有一种明媚的笑容，去迎接拨云而出的阳光？！世相端然，深谙了一季秋风秋雨的使命，终赋予一段人生本真意义的领悟。<br>　　<br>　　当生命的枝头繁华落尽，请为我唱一支平淡归真的歌谣；当生命的枝头梅红傲雪，请为我折去不堪修剪的枝桠。透过人间草木吐纳的清然香气，那些用心的捡拾，那些无意的阴凉，终被季节默默接纳。悲欢须臾间，一些肝胆相照的人，终是走散了；而一些平实的陪伴，依然为自己深情。<br>　　<br>　　走过人世繁芜，只愿记取眼中最凝神的花朵。越过山川大地，淌过江河溪流，多少人一路风尘仆仆地赶来，又轻盈笑意地拂袖而去。我明白，心灵的驿站，所谓缘深缘浅，不在远处，不在近处，而在一切有常无常的烛光明灭之间。<br>　　<br>　　曾经枯荣岁月，自己越来越在乎一些存在，也越来越看淡一些流落。虽说，对于光鲜的生活也有努力，但从不强求能力之外的获得。虽说，没有放弃过心中的梦想与向往，但也懂得适时有度，不会沉溺偏执。一直懂得，一切都可以是烟云浮花，一切都可以得失坦然，但没有什么能比自己在乎的人平安、日子过得安稳更重要的了！<br>　　<br>　　轮回仿似匆忙，人生征程万里，无论生命怎样光华艳丽，也总需一檐陋室，将一颗心妥贴安放。站在冬的路口，一双凝望的眼神，一瞬明亮的光景，铺陈一条往心的路。阑珊灯火处，隐约听见晚归的熟悉足音，转过起风的街角，踏入自己等候的烟火柴门。命运恩泽，不忘厚待善行人，这许多年人生，守望与回程，都落满温柔情意。<br>　　<br>　　风雨兼程的岁月，心种彩虹的期盼，便会多一米阳光的温度。每一个季节都有花开，人心亦不忘生长。光阴深深，日渐凉薄，然而一些风尘经历却愈发动人。是年，轻藏起一朵秋花的记忆，便有了一个暗香他年的理由。一怀初情若雪，洁白也暖意，足以抵挡人世的落拓清寒。前尘风雪中的遇见，相信，会是春风十里的感动。<br>　　<br>　　站在冬天的路口，轻轻抬首，迎见满目清灿的尘光。岁月温情可掬，且尚有秋的余暖莹然心怀；忽而感恩，与自己一起，走进这个冬天的人……<img src=\"http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/6a/laugh.gif\" alt=\"[哈哈]\" data-w-e=\"1\"></p>', '2018-02-08 20:45:54', '守望，冬天的路口', '1');
 
 -- ----------------------------
+-- Table structure for pratice_history
+-- ----------------------------
+DROP TABLE IF EXISTS `pratice_history`;
+CREATE TABLE `pratice_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kp_id` int(11) DEFAULT NULL,
+  `user_account` varchar(255) DEFAULT NULL,
+  `content` text,
+  `create_time` datetime DEFAULT NULL,
+  `answer_sheet` text,
+  `duration` int(11) DEFAULT NULL,
+  `paper_name` varchar(255) DEFAULT NULL,
+  `point_get` int(11) DEFAULT NULL,
+  `submit_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `kp_id` (`kp_id`),
+  KEY `pratice_history_ibfk_2` (`user_account`),
+  CONSTRAINT `pratice_history_ibfk_1` FOREIGN KEY (`kp_id`) REFERENCES `knowledge_point` (`kp_id`) ON DELETE CASCADE,
+  CONSTRAINT `pratice_history_ibfk_2` FOREIGN KEY (`user_account`) REFERENCES `student` (`Stu_account`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pratice_history
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for question
+-- ----------------------------
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `question_type_id` int(11) NOT NULL COMMENT '题型',
+  `duration` int(11) DEFAULT NULL COMMENT '试题考试时间',
+  `points` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL COMMENT '班组ID',
+  `is_visible` tinyint(1) NOT NULL DEFAULT '0' COMMENT '试题可见性',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `creator` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者',
+  `last_modify` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `answer` mediumtext NOT NULL,
+  `expose_times` int(11) NOT NULL DEFAULT '2',
+  `right_times` int(11) NOT NULL DEFAULT '1',
+  `wrong_times` int(11) NOT NULL DEFAULT '1',
+  `difficulty` int(5) NOT NULL DEFAULT '1',
+  `analysis` mediumtext,
+  `reference` text,
+  `examing_point` text,
+  `keyword` text,
+  PRIMARY KEY (`id`),
+  KEY `question_type_id` (`question_type_id`),
+  KEY `et_question_ibfk_5` (`creator`),
+  CONSTRAINT `et_question_ibfk_1` FOREIGN KEY (`question_type_id`) REFERENCES `question_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COMMENT='试题';
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
+INSERT INTO `question` VALUES ('129', '知识点', '<QuestionContent>\n  <title>知识点</title>\n  <titleImg></titleImg>\n  <choiceList>\n    <entry>\n      <string>A</string>\n      <string>知识点</string>\n    </entry>\n    <entry>\n      <string>B</string>\n      <string>知识点</string>\n    </entry>\n    <entry>\n      <string>C</string>\n      <string>知识点</string>\n    </entry>\n    <entry>\n      <string>D</string>\n      <string>知识点</string>\n    </entry>\n  </choiceList>\n  <choiceImgList/>\n</QuestionContent>', '1', null, '0', null, '0', '2018-05-14 16:41:42', 'admin', '2018-05-14 16:41:41', 'A', '2', '1', '1', '1', '大师傅阿斯蒂芬', '呃呃呃', '呃呃呃', '呃呃呃');
+INSERT INTO `question` VALUES ('130', '鲁迅是哪里人？', '<QuestionContent>\n  <title>鲁迅是哪里人？</title>\n  <titleImg></titleImg>\n  <choiceList>\n    <entry>\n      <string>A</string>\n      <string>浙江</string>\n    </entry>\n    <entry>\n      <string>B</string>\n      <string>周树人</string>\n    </entry>\n  </choiceList>\n  <choiceImgList/>\n</QuestionContent>', '1', null, '0', null, '0', '2018-05-16 14:24:33', 'admin', '2018-05-16 14:24:33', 'A', '2', '1', '1', '1', '无', '公告', '', '');
+INSERT INTO `question` VALUES ('131', 'int i = 0;', '<QuestionContent>\n  <title>int i = 0; i++;</title>\n  <titleImg></titleImg>\n  <choiceList>\n    <entry>\n      <string>A</string>\n      <string>i=1</string>\n    </entry>\n    <entry>\n      <string>B</string>\n      <string>i=0</string>\n    </entry>\n  </choiceList>\n  <choiceImgList/>\n</QuestionContent>', '1', null, '0', null, '0', '2018-05-19 12:40:51', 'admin', '2018-05-19 12:40:50', 'A', '2', '1', '1', '1', 'i自增  i=1', '', '', '');
+INSERT INTO `question` VALUES ('132', 'String 是最基', '<QuestionContent>\n  <title>String 是最基本的数据类型吗？</title>\n  <titleImg></titleImg>\n  <choiceList/>\n  <choiceImgList/>\n</QuestionContent>', '3', null, '0', null, '0', '2018-05-20 15:57:40', 'admin', '2018-05-20 15:57:39', 'F', '2', '1', '1', '1', '不是。Java中的基本数据类型只有8个：byte、short、int、long、float、double、char、boolean；除了基本类型（primitive type）和枚举类型（enumeration type），剩下的都是引用类型（reference type）。', 'http://www.importnew.com/22083.html', 'String', '');
+INSERT INTO `question` VALUES ('133', 'float f=3.', '<QuestionContent>\n  <title>float f=3.4;是否正确？</title>\n  <titleImg></titleImg>\n  <choiceList/>\n  <choiceImgList/>\n</QuestionContent>', '3', null, '0', null, '0', '2018-05-20 15:58:08', 'admin', '2018-05-20 15:58:07', 'F', '2', '1', '1', '1', '答:不正确。3.4是双精度数，将双精度型（double）赋值给浮点型（float）属于下转型（down-casting，也称为窄化）会造成精度损失，因此需要强制类型转换float f =(float)3.4; 或者写成float f =3.4F;。', '', 'float', '');
+
+-- ----------------------------
+-- Table structure for question_point
+-- ----------------------------
+DROP TABLE IF EXISTS `question_point`;
+CREATE TABLE `question_point` (
+  `question_2_point_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) DEFAULT NULL,
+  `point_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`question_2_point_id`),
+  KEY `question_id` (`question_id`),
+  KEY `question_point_ibfk_2` (`point_id`),
+  CONSTRAINT `question_point_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  CONSTRAINT `question_point_ibfk_2` FOREIGN KEY (`point_id`) REFERENCES `knowledge_point` (`kp_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question_point
+-- ----------------------------
+INSERT INTO `question_point` VALUES ('1', '129', '28');
+INSERT INTO `question_point` VALUES ('2', '130', '20');
+INSERT INTO `question_point` VALUES ('3', '131', '20');
+INSERT INTO `question_point` VALUES ('4', '132', '20');
+INSERT INTO `question_point` VALUES ('5', '133', '20');
+
+-- ----------------------------
+-- Table structure for question_type
+-- ----------------------------
+DROP TABLE IF EXISTS `question_type`;
+CREATE TABLE `question_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `subjective` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='试题类型';
+
+-- ----------------------------
+-- Records of question_type
+-- ----------------------------
+INSERT INTO `question_type` VALUES ('1', '单选题', '0');
+INSERT INTO `question_type` VALUES ('2', '多选题', '0');
+INSERT INTO `question_type` VALUES ('3', '判断题', '0');
+INSERT INTO `question_type` VALUES ('4', '填空题', '0');
+INSERT INTO `question_type` VALUES ('5', '简答题', '1');
+INSERT INTO `question_type` VALUES ('6', '论述题', '1');
+INSERT INTO `question_type` VALUES ('7', '分析题', '1');
+
+-- ----------------------------
 -- Table structure for student
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
@@ -278,7 +366,9 @@ CREATE TABLE `student` (
 -- Records of student
 -- ----------------------------
 INSERT INTO `student` VALUES ('04150309', '5844ec23e5faa62977694126c0e04cea', '姓名1', '3', '计算机科学与技术', '1');
-INSERT INTO `student` VALUES ('04151306', '03a33d2efd559627ef3c8b1bb3cb4cd9', '陈晓涛', '13', '软件工程', '1');
+INSERT INTO `student` VALUES ('04151306', '03a33d2efd559627ef3c8b1bb3cb4cd9', '陈晓涛', '14', '软件工程', '1');
+INSERT INTO `student` VALUES ('04151307', '80dbb4518ce059c3b046c26ca0bd9f30', '陈', '13', '计算机科学与技术', '1');
+INSERT INTO `student` VALUES ('04151311', '4314efe8fb97bf798663ed62e514f285', '陈xx', '13', '网络工程', '1');
 INSERT INTO `student` VALUES ('04151611', '6ddb89f5f3542a4a6dd0f5f1d2c7fb27', '李四', '16', '网络工程', '1');
 INSERT INTO `student` VALUES ('04151710', '4c89f2e1d27d923904f61934bcf4c2fe', '姓名2', '17', '网络工程', '1');
 INSERT INTO `student` VALUES ('04151807', 'e1c12da92b25cfb897cd98239e8dcda2', '韩金龙', '18', '网络工程', '1');
@@ -302,11 +392,11 @@ CREATE TABLE `stu_course` (
 -- ----------------------------
 -- Records of stu_course
 -- ----------------------------
-INSERT INTO `stu_course` VALUES ('04150309', '5', '0', '1');
-INSERT INTO `stu_course` VALUES ('04151306', '5', '7', '1');
-INSERT INTO `stu_course` VALUES ('04151611', '5', '0', '1');
+INSERT INTO `stu_course` VALUES ('04150309', '5', '1', '1');
+INSERT INTO `stu_course` VALUES ('04151306', '5', '23', '1');
+INSERT INTO `stu_course` VALUES ('04151611', '5', '3', '1');
 INSERT INTO `stu_course` VALUES ('04151710', '5', '0', '1');
-INSERT INTO `stu_course` VALUES ('04151807', '5', '0', '1');
+INSERT INTO `stu_course` VALUES ('04151807', '5', '1', '1');
 INSERT INTO `stu_course` VALUES ('04151808', '5', '0', '1');
 
 -- ----------------------------
@@ -360,7 +450,13 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('admin', '陈志冲', '928bfd2577490322a6e19b793691467e', 'admin', '1');
+INSERT INTO `teacher` VALUES ('04150309', '姓名1', '5844ec23e5faa62977694126c0e04cea', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('04151306', '陈晓涛', '03a33d2efd559627ef3c8b1bb3cb4cd9', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('04151611', '李四', '6ddb89f5f3542a4a6dd0f5f1d2c7fb27', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('04151710', '姓名2', '4c89f2e1d27d923904f61934bcf4c2fe', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('04151807', '韩金龙', 'e1c12da92b25cfb897cd98239e8dcda2', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('04151808', '李默默', '74fd29d0fe89f7d7d0d77285c47445dc', 'teacher', '1');
+INSERT INTO `teacher` VALUES ('admin', '陈志chong', '928bfd2577490322a6e19b793691467e', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for video
@@ -380,13 +476,11 @@ CREATE TABLE `video` (
   PRIMARY KEY (`Vedio_id`),
   KEY `video_ibfk_1` (`kp_id`),
   CONSTRAINT `video_ibfk_1` FOREIGN KEY (`kp_id`) REFERENCES `knowledge_point` (`kp_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of video
 -- ----------------------------
-INSERT INTO `video` VALUES ('27', '01-Spring的发展.mp4', 'http://localhost:8080/quinFS/file/4390c3ed1b3c4df2a52a8f63d1d482c1.mp4', '2', '0', '12', '2018-04-20 16:03:15', '2018-04-29 16:16:51', '1', 'admin');
-INSERT INTO `video` VALUES ('28', '04-SpringBoot简介.mp4', 'http://localhost:8080/quinFS/file/cc6412b6a64d422abcbfdf844a2ccae2.mp4', '2', '0', '12', '2018-04-20 16:03:17', '2018-04-26 15:33:15', '1', 'admin');
-INSERT INTO `video` VALUES ('29', '01-Spring的发展.mp4', 'http://localhost:8080/quinFS/file/ef72c1d0a77445468d53e08c35f43ac7.mp4', '2', '0', '15', '2018-04-20 22:26:21', '2018-04-20 22:26:21', '1', 'admin');
-INSERT INTO `video` VALUES ('30', '01-Spring的发展.mp4', 'http://localhost:8080/quinFS/file/91a2a7c15713427a931161d6d92dbe9d.mp4', '2', '0', '16', '2018-04-20 22:27:35', '2018-04-20 22:27:35', '1', 'admin');
-INSERT INTO `video` VALUES ('31', '08-starter', 'http://localhost:8080/quinFS/file/5101f4a0069a4e9f8e1f5541e02a9fac.mp4', '2', '0', '16', '2018-04-20 22:27:46', '2018-04-20 22:27:46', '1', 'admin');
+INSERT INTO `video` VALUES ('31', '01-Spring的发展.mp4', 'http://localhost:8080/quinFS/file/b82f4402ff0e45b282ac1acd43ab40d6.mp4', '2', '0', '23', '2018-05-01 14:19:45', '2018-05-01 14:19:45', '1', 'admin');
+INSERT INTO `video` VALUES ('34', '为什么要学习C语言？', 'http://localhost:8080/quinFS/file/405eaf448a7842698b059e6b50b492ca.mp4', '2', '0', '20', '2018-05-15 17:32:58', '2018-05-15 21:14:17', '1', 'admin');
+INSERT INTO `video` VALUES ('35', '03-实战-读取外部的配置文件.mp4', 'http://localhost:8080/quinFS/file/f935d2ac6e4541b4ad360143e68b5719.mp4', '2', '0', '20', '2018-05-18 23:16:41', '2018-05-18 23:16:41', '1', 'admin');

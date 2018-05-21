@@ -40,7 +40,7 @@ $(document).ready(function() {
   });
 
 // 章节资源的nav
-  var chapter_list = $('.chapter-list').find('li');
+  /*var chapter_list = $('.chapter-list').find('li');
   for (var i = 0; i < chapter_list.length; i++) {
     chapter_list.eq(i).click(function(i) {
       return function () {
@@ -48,6 +48,6 @@ $(document).ready(function() {
         chapter_list.eq(i).addClass('active'); 
       }
     }(i));
-  }
+  }*/
 
 });

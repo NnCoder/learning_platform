@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.edu.common.pojo.Data;
 import com.edu.common.pojo.KnowledgePoint;
 import com.edu.common.pojo.Video;
-import com.edu.protal.pojo.CommentVo;
 import com.edu.protal.pojo.KpDetail;
 import com.edu.protal.pojo.PageResult;
 import com.edu.protal.service.KpService;
@@ -22,6 +21,13 @@ public class KpController {
 	
 	@Autowired
 	private KpService kpService;
+	
+	@GetMapping("/kp-practice")
+	public String kpPraticePage(int kpId,int courseId, Model model) {
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("kpId", kpId);
+		return "kp/kp-practice";
+	}
 	
 	@GetMapping("/kp/{kpId}/detail")
 	public String getKpDetailById(@PathVariable int kpId, Model model) {

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.protal.mapper.QuestionMapper">
+    
+   <select id="isUserPraticeHistoryExists" resultType="java.lang.Integer">
+   	select count(*) from pratice_history where user_account=#{userAccount}
+		and
+	kp_id=#{kpId}
+   </select>
+   <select id="getUserPraticeHistoryByUserAccountAndKpId"
+		resultType="com.edu.protal.controller.domain.PraticeHistory">
+		select
+		id,user_account userAccount,kp_id kpId
+		,content,create_time createTime,answer_sheet
+		answerSheet,duration
+		from pratice_history where user_account=#{userAccount}
+		and
+		kp_id=#{kpId}
+	</select>
+    
+    <select id="isPermAnswer" resultType="java.lang.Integer">
+    	select count(*) from stu_course where stu_account=#{userAccount} and course_id=#{courseId}
+    
+    </select>
+    
+    <select id="getQuestionAnalysisListByIdList" resultType="com.edu.common.pojo.QuestionQueryResult">
+		SELECT a.id
+		questionId,a.content,a.answer,a.analysis,a.question_type_id
+		questionTypeId,a.reference
+		referenceName,a.examing_point
+		examingPoint,b.point_id knowledgePointId,GROUP_CONCAT(d.course_name,' &gt; ',f.chapter_name,'&gt; ',c.kp_name,' &gt; ',
+		a.examing_point ,case when a.keyword is null then '' else
+		CONCAT('
+		知识关键点：',a.keyword) end)
+		pointName,GROUP_CONCAT(d.course_name)
+		fieldName
+		from question
+		a,question_point
+		b,knowledge_point
+		c,course d,chapter f
+		<where>
+			a.id=b.question_id and
+			b.point_id=c.kp_id and
+			c.chapter_id=f.chapter_id and
+			f.course_id=d.course_id
+			<if test="kpId != null">
+				and b.point_id=#{kpId}
+			</if>
+			<if test="array != null">
+				and
+				a.id in
+				<foreach collection="array" open="(" close=")" index="index"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="typeIdList != null">
+			    and a.question_type_id in
+			    <foreach collection="typeIdList" open="(" close=")" index="index"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		group by
+		a.id,a.content,a.answer,a.analysis,a.question_type_id,a.reference,
+		a.examing_point,b.point_id
+		order by a.question_type_id,a.id
+	</select>
+    
+    
+    <select id="getQuestionQueryResultListByIdSet" resultType="com.edu.common.pojo.QuestionQueryResult">
+		SELECT a.id
+		questionId,a.content,a.answer,a.analysis,a.question_type_id
+		questionTypeId,a.reference
+		referenceName,a.examing_point
+		examingPoint,b.point_id knowledgePointId,GROUP_CONCAT(d.course_name,' &gt; ',f.chapter_name,'&gt; ',c.kp_name,' &gt; ',
+		a.examing_point ,case when a.keyword is null then '' else
+		CONCAT('
+		知识关键点：',a.keyword) end)
+		pointName,GROUP_CONCAT(d.course_name)
+		fieldName
+		from question
+		a,question_point
+		b,knowledge_point
+		c,course d,chapter f
+		<where>
+			a.id=b.question_id and
+			b.point_id=c.kp_id and
+			c.chapter_id=f.chapter_id and
+			f.course_id=d.course_id
+			<if test="set != null">
+				and
+				a.id in
+				<foreach collection="set" open="(" close=")" index="index"
+					item="item" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		group by
+		a.id,a.content,a.answer,a.analysis,a.question_type_id,a.reference,
+		a.examing_point,b.point_id
+		order by a.question_type_id,a.id
+	</select>
+    
+    <select id="selectQuestionIdList" resultType="java.lang.Integer">
+    	select id from question
+    </select>
+    
+    <insert id="insertPraticeHistory" parameterType="com.edu.protal.controller.domain.PraticeHistory">
+    	insert into pratice_history(
+    		kp_id,user_account,content,create_time,answer_sheet,duration,paper_name,point_get,submit_time
+    	) values(#{kpId},#{userAccount},#{content},#{createTime},#{answerSheet},#{duration},#{paperName},#{pointGet},#{submitTime})
+    </insert>
+</mapper>

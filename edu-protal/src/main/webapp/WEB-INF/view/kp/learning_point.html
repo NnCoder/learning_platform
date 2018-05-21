@@ -9,10 +9,13 @@
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/knowledgePoint.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/pagination.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/font/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_u4qz1594lnixusor.css">
-	<link rel="stylesheet" type="text/css" href="${contextPath}/plugin/video/css/detail_p.css">
-	<link rel="stylesheet" type="text/css" href="${contextPath}/plugin/video/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/css/video-js.css">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/js/layui/css/layui.css"/>
+	<style>
+		.mactive{
+			background-color: #666;
+		}
+	</style>
 </head>
 <body>
 	<#include '../header/header.html'>
@@ -31,7 +34,12 @@
 				<li><a href="http://localhost:8080/edu-manager/token?token=${Session.user.token}&redirectUrl=/manager/course/${courseId}/token" target="_blank">课程教案</a></li>
 				</#if>
 				<li><a href="#">实例教学</a></li>
-				<li><a href="#">测试中心</a></li>
+				<#if kpDetail??>
+				<li><a id="test" target="_blank" href="${contextPath}/kp-practice.html?kpId=${kpDetail.knowledgePoint.kpId}&courseId=${courseId}">测试中心</a></li>
+				<#else>
+				<a id="test" href="#">测试中心</a>
+				</#if>
+				
 				<li><a href="#">高级应用</a></li>
 				
 			</nav>
@@ -44,7 +52,12 @@
 							<ul class="knowledge-point-item">
 								<h3 title="${chapter.chapterName}"><span class="order" title="${chapter.chapterName}">${chapter_index+1}</span>${chapter.chapterName}</h3>
 								<#list chapter.knowledgePoints as kp>
-								<li title="${kp.kpName}" data="${kp.kpId}">${kp.kpName}</li>
+								<#if kpDetail?? && kp.kpId==kpDetail.knowledgePoint.kpId>
+								
+								<li title="${kp.kpName}" class="mactive"><a style="color: white;" href="course-kp.html?courseId=${courseId}&kpId=${kp.kpId}">${kp.kpName}</a></li>
+								<#else>
+								<li title="${kp.kpName}"><a style="color: white;" href="course-kp.html?courseId=${courseId}&kpId=${kp.kpId}">${kp.kpName}</a></li>
+								</#if>
 								</#list>
 							</ul>
 						</#list>
@@ -70,58 +83,13 @@
 					</ul>
 				</section>
 				<section class="video_ls fr">
-	              <video id="vids" src="<#if kpDetail?? && kpDetail.videos??>${kpDetail.videos[0].vedioSrc}<#else>${contextPath}/plugin/video/media/240.mp4</#if>">
-	                	您的浏览器不支持h5标签,请升级或换个浏览器
-	                </video>
-	                <!--标题-->
-	                <div class="title_top">
-	                  视频标题
-	                </div>
-	                <!--暂停-->
-	                <div id="pass">
-	                  <img src="${contextPath}/plugin/video/media/zt.png">
-	                </div>
-	                <!--控制器-->
-	                <div class="controls">
-	                  <!--进度条容器-->
-	                    <div id="pBar">
-	                      <!--进度条底色-->
-	                        <div class="pBar_bj">
-	                          <!--缓冲的进度条-->
-	                            <div id="buff"></div>
-	                          <!--进度条动态-->
-	                          <div id="pBar_move">
-	                              <!--进度条按钮-->
-	                            <div id="pBtn"></div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <!--展厅播放快进快退音量全屏-->
-	                    <div class="trol_list">
-	                      <!--暂停和快进快退-->
-	                        <div class="list_1">
-	                          <i class="iconfont icon-kuaitui-copy" onClick="ktui()"></i>
-	                            <i class="iconfont icon-zanting2" id="ztbf"></i>
-	                            <i class="iconfont icon-kuaijin" onClick="kjin()"></i>
-	                        </div>
-	                        <!--音量-->
-	                        <div class="voice">
-	                          <i class="iconfont icon-yinliang" style="float:left;"></i>
-	                            <div class="voicep">
-	                              <div id="vBar">
-	                                  <div id="vBar_in"></div>
-	                                </div>
-	                                <div id="vBtn"></div>
-	                            </div>
-	                        </div>
-	                        <!--时间-->
-	                        <div class="vtime">
-	                          <font id="nTime">00:00:00</font>/<em id="aTime">00:00:00</em>
-	                        </div>
-	                        <!--全屏-->
-	                        <i id="qp" class="iconfont icon-quanping"></i>
-	                    </div>
-	                </div> 
+	              <h2 align="center" id="videoName"><i class="fa fa-play-circle fa-lg"></i><#if kpDetail?? && kpDetail.videos??>${kpDetail.videos[0].vedioName}<#else>暂无视频</#if></h2>
+	              <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="740" height="530"
+						  poster="m.png" data-setup="{}">
+				        <source id="source" src="<#if kpDetail?? && kpDetail.videos??>${kpDetail.videos[0].vedioSrc}<#else>${contextPath}/plugin/video/media/240.mp4</#if>" type="video/mp4">
+				        <p class="vjs-no-js"></p>
+				   </video>
+	              
 	            </section>
 			</section>
 			</div>
@@ -200,28 +168,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/script/learning.js"></script>
 	<script type="text/javascript" src="${contextPath}/script/lessionHomePage.js"></script>
-	<script type="text/javascript" src="${contextPath}/plugin/video/js/vedio.js"></script>
+	<script type="text/javascript" src="${contextPath}/js/video/video.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/js/layui/layui.js"></script>
 	<script>
 	$(document).ready(function() {
-		$('.knowledge-point-item').find("li").on('click',function(){
-			var data = $(this).attr("data");
-			$.ajax({
-				url:'${contextPath}/kp/'+data+'/videos.html',
-				type:'get',
-				success:function(res){
-					$("#kpVideos").html(res);
-				}
-			});
-			$.ajax({
-				url:'${contextPath}/kp/'+data+'.html',
-				type:'get',
-				success:function(res){
-					$("#kpAnother").html(res);
-				}
-			});
-			
+		var myPlayer = videojs('my-video');
+		videojs("my-video").ready(function(){
+			var myPlayer = this;
 		});
+		$(".one_tr").click(function(){
+			$(this).addClass("active").siblings(".one_tr").removeClass("active");
+			var vid_src=$(this).attr("src");
+			var vid_name = $(this).html();
+			$("#videoName").html(vid_name);
+			myPlayer.pause();
+			myPlayer.src(vid_src);
+		})
 		$.ajax({
 			url:'${contextPath}/kp/${kpDetail.knowledgePoint.kpId}/comments.html',
 			type:'get',

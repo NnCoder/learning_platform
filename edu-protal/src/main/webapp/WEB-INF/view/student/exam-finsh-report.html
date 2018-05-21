@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<#include '../header/common.html'>
+		<base href="${contextPath}">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>测试报告</title>
+		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="keywords" content="">
+		<link rel="stylesheet" type="text/css" href="${contextPath}/css/reset.css">
+		<link rel="shortcut icon" href="${contextPath}/resources/images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="${contextPath}/plugin/layer-v3.1.1/theme/default/layer.css">
+		<link href="${contextPath}/resources/bootstrap/css/bootstrap-huan.css" rel="stylesheet">
+		<link href="${contextPath}/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="${contextPath}/resources/css/style.css" rel="stylesheet">
+		
+		<link href="${contextPath}/resources/css/exam.css" rel="stylesheet">
+		<link href="${contextPath}/resources/chart/morris.css" rel="stylesheet">
+	</head>
+	<body>
+		
+
+		
+		<#include '../header/header.html'>
+		<!-- Navigation bar ends -->
+
+		<!-- Slider starts -->
+
+		<div>
+			<!-- Slider (Flex Slider) -->
+
+			<div class="container" style="min-height:500px;">
+
+				<div class="row">
+					<div class="col-xs-3">
+						<ul class="nav default-sidenav">
+							<li class="active">
+								<a href="#"> <i class="fa fa-file-text"></i> 详细解答 </a>
+							</li>
+						</ul>
+
+					</div>
+					<div class="col-xs-9">
+						<div class="page-header">
+							<h1 style="margin-left: -15px;"><i class="fa fa-file-text"></i> 详细解答 </h1>
+						</div>
+						<div class="page-content row">
+							<div class="def-bk" id="bk-exampaper">
+
+								<div class="expand-bk-content" id="bk-conent-exampaper">
+									<div id="exampaper-header">
+										<div id="exampaper-title">
+											<i class="fa fa-send"></i>
+											<span id="exampaper-title-name"> 强化练习 </span>
+
+										</div>
+										<div id="exampaper-desc" class="exampaper-filter">
+											<!-- <input type="checkbox">
+											<span>只显示错题</span> -->
+										</div>
+									</div>
+									<ul id="exampaper-body" style="padding:0px;">
+										${htmlStr}
+									</ul>
+									<div id="exampaper-footer" style="height: 187px;">
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- Slider Ends -->
+
+		<!-- Javascript files -->
+		<!-- jQuery -->
+		<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-1.9.0.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script type="text/javascript" src="${contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${contextPath}/plugin/layer-v3.1.1/layer/layer.js"></script>
+		<script>
+		
+		layer.alert('您已练习过该知识点。请查看您的答题情况以查漏补缺！', {
+		    skin: 'layui-layer-lan'
+		    ,closeBtn: 0
+		    ,anim: 4 //动画类型
+		 });
+		
+		</script>
+	</body>
+</html>

@@ -53,6 +53,18 @@ public class CourseController {
 		return "course/courses";
 	}
 	
+	@GetMapping("/course-kp")
+	public String courseDetailPage(int courseId, int kpId, Model model) {
+		List<ChapterWithKp> list = courseService.getCourseChaptersById(courseId);
+		KpDetail detail = KpService.getKpDetailById(kpId);
+		
+		model.addAttribute("kpDetail", detail);
+		model.addAttribute("chapters", list);
+		model.addAttribute("kpId", kpId);
+		model.addAttribute("courseId", courseId);
+		return "kp/learning_point";
+	}
+	
 	@GetMapping("/courses-{courseId}-chaptersWithKp")
 	public String getCourseChaptersById(@PathVariable Integer courseId, Model model) {
 		List<ChapterWithKp> list = courseService.getCourseChaptersById(courseId);

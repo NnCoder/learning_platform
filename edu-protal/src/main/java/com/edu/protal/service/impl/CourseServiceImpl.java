@@ -46,18 +46,6 @@ public class CourseServiceImpl implements CourseService{
 	public Course getCourseDetailById(int courseId, HttpServletRequest request) {
 		String jsonData = HttpClientUtil.doGet(REST_COURSE_URL+"/"+courseId);
 		HttpResult result = HttpResult.formatToPojo(jsonData, CourseWithBLOBs.class);
-		try {
-			User user = (User) request.getSession().getAttribute("user");
-			if(user!=null && user.getRole().startsWith("s")) {
-				Map<String, String> params = new HashMap<>();
-				params.put("courseId", String.valueOf(courseId));
-				params.put("stuAccount", user.getUserAccount());
-				params.put("score", "1");
-				HttpClientUtil.doPost(REST_STUDENT_URL+"/course",params);
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
 		CourseWithBLOBs course = (CourseWithBLOBs) result.getData();
 		return course;
 	}
@@ -101,6 +89,22 @@ public class CourseServiceImpl implements CourseService{
 		HttpResult result = HttpResult.formatToList(jsonData, Chapter.class);
 		List<Chapter> chapters = (List<Chapter>) result.getData();
 		return chapters;
+	}
+
+	@Override
+	public void improveStudentScore(User user, int courseId, int score) {
+		try {
+			if(user!=null && user.getRole().startsWith("s")) {
+				Map<String, String> params = new HashMap<>();
+				params.put("courseId", String.valueOf(courseId));
+				params.put("stuAccount", user.getUserAccount());
+				params.put("score", "1");
+				HttpClientUtil.doPost(REST_STUDENT_URL+"/course",params);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
 	}
 	
 }
